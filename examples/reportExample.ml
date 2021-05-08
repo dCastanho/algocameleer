@@ -8,7 +8,7 @@ module type COMPARABLE = sig
 
 end
 
-(* Module G implements:
+(* Module Concrete implements:
    - a persistent graph
    - a directed graph (digraph)
    - an unlabeled graph *)
