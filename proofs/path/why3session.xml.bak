@@ -230,7 +230,7 @@
   <proof prover="0"><result status="valid" time="0.05" steps="117"/></proof>
   </goal>
   <goal name="check_path&#39;vc.26" expl="precondition">
-  <proof prover="0"><result status="timeout" time="5.00"/></proof>
+  <proof prover="0"><result status="timeout" time="6.00"/></proof>
   </goal>
   <goal name="check_path&#39;vc.27" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.03" steps="68"/></proof>
