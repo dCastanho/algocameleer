@@ -40,7 +40,7 @@
                 model suc: V.t -> V.t fset
                 invariant forall v1, v2. Set.mem v1 dom /\ Set.mem v2 (suc v1) -> Set.mem v2 dom*)
       
-             val succ : gt -> V.t -> V.t list
+             val [@logic] succ : gt -> V.t -> V.t list
              (*@ l = succ g v
                   requires Set.mem v g.dom
                   ensures forall v'. List.mem v' l -> Set.mem v' g.dom
@@ -60,8 +60,18 @@
         module HVV = Hashtbl.Make(HTProduct)
 
        (*@ predicate edge (v1 : G.V.t) (v2 : G.V.t) (g : G.gt) = Set.mem v2 (g.G.suc v1)*)
+
+       (*@ lemma emp_cons : forall q : 'a seq.
+            q == q ++ of_list [] *)
+
+        (*@ lemma threewaysplit : forall s1, s2, s3, s4 : 'a seq. 
+            s1 = s2 ++ s4 -> forall e. Seq.mem e s1 -> Seq.mem e (s2 ++ s3 ++ s4)*)
+
       
-        
+      (*@ predicate suffix ( l : G.V.t seq ) ( q : G.V.t seq ) = 
+      Seq.length l <= Seq.length q /\
+        forall i. 0 <= i < Seq.length l -> l[i] = q[Seq.length q - Seq.length l + i] *)      
+
       (*@ predicate is_path (v1 : G.V.t) (l : G.V.t seq) (v2 : G.V.t) (g : G.gt) =
             let len = Seq.length l in
             if len = 0 then v1 = v2 else
@@ -131,21 +141,23 @@
                       | [] -> ()
                       | v' :: r -> Queue.add v' q; iter_succ (prefix @ [v']) r 
                     (*@ iter_succ p l
-                          requires sucs = p @ l
+                          requires of_list sucs = of_list p ++ of_list l
                           requires q.Queue.view == oldQ.Queue.view ++ of_list p
                           requires forall v'. List.mem v' l -> Set.mem v' pc.graph.G.dom
                           requires forall v'. List.mem v' l -> edge v v' pc.graph
                           requires forall v'. Seq.mem v' q.Queue.view -> Set.mem v' pc.graph.G.dom
                           requires forall v'. Set.mem v' visited.HV.dom -> has_path v1 v' pc.graph
-                          requires forall vs. Seq.mem vs q.Queue.view -> has_path v1 vs pc.graph
+                          requires forall v'. Seq.mem v' q.Queue.view -> has_path v1 v' pc.graph
                           variant l 
                           ensures sucs = p @ l
-                          ensures q.Queue.view == oldQ.Queue.view ++ of_list p ++ of_list l
+                          ensures forall v'. List.mem v' l -> Seq.mem v' q.Queue.view
+                          ensures q.Queue.view == oldQ.Queue.view ++ (of_list sucs)
+                          ensures q.Queue.view == oldQ.Queue.view ++ ( of_list p ++ of_list l)
                           ensures forall v'. Seq.mem v' q.Queue.view -> has_path v1 v' pc.graph
                           ensures forall v'. Seq.mem v' q.Queue.view -> Set.mem v' pc.graph.G.dom  
                           ensures has_path v1 v2 pc.graph -> exists w. Seq.mem w q.Queue.view /\ has_path w v2 pc.graph /\ not (Set.mem w visited.HV.dom)
-                          ensures forall v'. Seq.mem v' q.Queue.view /\ not (Seq.mem v' (old q).Queue.view) -> edge v v' pc.graph
-                          ensures forall v'. Set.mem v' visited.HV.dom -> has_path v1 v' pc.graph *)
+                          ensures forall v'. Set.mem v' visited.HV.dom -> has_path v1 v' pc.graph 
+                          *)
                     in
                     iter_succ [] sucs
                   end;
@@ -153,6 +165,8 @@
                 end
               end
             (*@ b = loop () 
+                  requires not (Set.mem v2 visited.HV.dom)
+                  requires forall v. Set.mem v visited.HV.dom -> forall s. edge v s pc.graph -> Seq.mem s q.Queue.view \/ Set.mem s visited.HV.dom
                   requires has_path v1 v2 pc.graph -> exists w. Seq.mem w q.Queue.view /\ has_path w v2 pc.graph /\ not (Set.mem w visited.HV.dom)
                   requires forall v'. Seq.mem v' q.Queue.view -> has_path v1 v' pc.graph           
                   requires forall v. Set.mem v visited.HV.dom -> has_path v1 v pc.graph
@@ -164,6 +178,8 @@
                   ensures forall v. Set.mem v visited.HV.dom -> has_path v1 v pc.graph
                   ensures forall v'. Seq.mem v' q.Queue.view -> Set.mem v' pc.graph.G.dom  
                   ensures b <-> has_path v1 v2 pc.graph  
+                  ensures not (Set.mem v2 visited.HV.dom)
+                  ensures forall v. Set.mem v visited.HV.dom -> forall s. edge v s pc.graph /\ s <> v2 -> Seq.mem s q.Queue.view \/ Set.mem s visited.HV.dom
                   *)  
             in
             Queue.add v1 q;
@@ -171,6 +187,8 @@
             (*@ b = check_path pc v1 v2
                   requires Set.mem v1 pc.graph.G.dom
                   ensures b <-> has_path v1 v2 pc.graph *)
+
+                  (*                          ensures forall v'. Seq.mem v' q.Queue.view /\ not (Seq.mem v' (old q).Queue.view) -> edge v v' pc.graph*)
           end
           
       (*********************************************************************************************************************************
@@ -192,13 +210,9 @@
             of the visited table out of the cardinal of the graph's domain. When a vertex is added to this table, the queue can increase
             (as a result of adding the current vertex's successors to it) or decrease by one (due to removing the current vertex, and then
             not adding any - in the situation where a vertex has no successors).
-
             3.2 On the iterations that we don't add a vertex to the visited table, we don't add any vertices to the queue either. Because
             of this, we know for sure the size of the queue decreases by one, because of the pop we performed to get the current vertex.
-
         4. We were forced to create the seq_cons lemma because before running the functions loop and iter_succ, we had only removed one
         element of the queue, however the SMT solves weren't being able to prove, that all other vertices still belonged to the graph's domain.
         By creating the lemma, we prove to them, that removing the first element of a sequence, leaves all the other elements untouched. 
-
       ******************************************************************************************************************************************)
-      
