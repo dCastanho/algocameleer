@@ -55,12 +55,13 @@ module ConcreteDigraph(Vertex: COMPARABLE) = struct
   (*@ predicate vertex_belongs ( g : S.t HM.t ) ( v1 : Vertex.t ) = Set.mem v1 g.HM.dom *)
 
   (*@ function succ ( g : S.t HM.t ) ( v1 : Vertex.t ) : Vertex.t fset = 
-        match g.HM.view v1 with 
-        | [] -> Set.empty
-        | x :: _ -> x.S.dom *)
+        match g.HM.view v1 with    
+        | [] -> Set.empty          
+        | x :: _ -> x.S.dom *)     
 
    (*@ predicate consistent ( o : S.t HM.t ) ( n : S.t HM.t ) = 
             (forall v. vertex_belongs o v -> vertex_belongs n v) /\ (forall p. edge_belongs o (fst p) (snd p) -> edge_belongs n (fst p) (snd p)) *)
+
 
   let mem_edge g v1 v2 =
     try S.mem v2 (HM.find g v1 )
@@ -84,16 +85,15 @@ module ConcreteDigraph(Vertex: COMPARABLE) = struct
         ensures not ( edge_belongs g v1 v2 ) <-> l = []
         ensures edge_belongs g v1 v2 -> match l with | [] -> false | x :: r -> r = [] /\ fst x = v1 /\ snd x = v2 *)
 
-
-  (* Why do they only work with -> ? *)
   let unsafe_remove_edge g v1 v2 = HM.add g v1 (S.remove v2 (HM.find g v1))
   (*@ unsafe_remove_edge g v1 v2
         requires edge_belongs g v1 v2
         raises Not_found -> not ( vertex_belongs g v1 )
         ensures Set.subset (succ g v1) (succ (old g) v1 )
-        ensures edge_belongs g v1 v2 -> let dif = Set.diff (succ (old g) v1 ) (succ g v1) in
-               Set.cardinal dif = 1 /\ Set.mem v2 dif 
         ensures forall v. vertex_belongs (old g) v -> vertex_belongs g v
+        ensures not ( edge_belongs g v1 v2 )
+        ensures forall vy. vy <> v2 /\ edge_belongs (old g) v1 vy -> edge_belongs g v1 vy
+        ensures forall vx. vx <> v1 /\ edge_belongs (old g) vx v2 -> edge_belongs g vx v2
         ensures forall vx, vy. vx <> v1 /\ vy <> v2 /\ edge_belongs (old g) vx vy -> edge_belongs g vx vy *)
 
   let unsafe_remove_edge_e g (v1, v2) = unsafe_remove_edge g v1 v2
@@ -101,8 +101,9 @@ module ConcreteDigraph(Vertex: COMPARABLE) = struct
         requires edge_belongs g (fst p) (snd p)
         raises Not_found -> not ( vertex_belongs g (fst p) )
         ensures Set.subset (succ g (fst p)) (succ (old g) (fst p) )
-        ensures edge_belongs g (fst p) (snd p) -> let dif = Set.diff (succ (old g) (fst p) ) (succ g (fst p)) in
-               Set.cardinal dif = 1 /\ Set.mem (snd p) dif 
+        ensures not (edge_belongs g (fst p) (snd p))
+        ensures forall vy. vy <> (snd p) /\ edge_belongs (old g) (fst p) vy -> edge_belongs g (fst p) vy
+        ensures forall vx. vx <> (fst p) /\ edge_belongs (old g) vx (snd p) -> edge_belongs g vx (snd p)
         ensures forall v. vertex_belongs (old g) v -> vertex_belongs g v  
         ensures forall p'. (fst p') <> (fst p) /\ (snd p') <> (snd p) /\ edge_belongs (old g) (fst p') (snd p') -> edge_belongs g (fst p') (snd p')*)
                
@@ -168,14 +169,19 @@ module ConcreteDigraph(Vertex: COMPARABLE) = struct
         requires not (vertex_belongs g v)
         ensures vertex_belongs g v
         ensures succ g v = Set.empty
-        ensures forall v'. vertex_belongs (old g) v' -> vertex_belongs g v'
+        ensures forall vx, vy. edge_belongs g vx vy -> edge_belongs (old g) vx vy  
+        ensures forall v'. v' <> v /\ vertex_belongs g v' -> vertex_belongs (old g) v'
         ensures consistent (old g) g *) 
 
   let unsafe_add_edge g v1 v2 = HM.add g v1 (S.add v2 (HM.find g v1))
   (*@ unsafe_add_edge g v1 v2
         requires vertex_belongs g v2
         raises Not_found -> not vertex_belongs g v1 
-        ensures edge_belongs g v1 v2 
+        ensures edge_belongs g v1 v2
+        ensures forall vx, vy. edge_belongs g vx vy /\ vx <> v1 /\ vy <> v2 -> edge_belongs (old g) vx vy  
+        ensures forall vx. edge_belongs g vx v2 /\ vx <> v1 -> edge_belongs (old g) vx v2  
+        ensures forall vy. edge_belongs g v1 vy /\ vy <> v2 -> edge_belongs (old g) v1 vy  
+        ensures forall v'. vertex_belongs g v' -> vertex_belongs (old g) v' 
         ensures vertex_belongs g v1
         ensures consistent (old g) g *)
 
@@ -184,6 +190,8 @@ module ConcreteDigraph(Vertex: COMPARABLE) = struct
   (*@ add_vertex g v  
         ensures vertex_belongs g v
         ensures not vertex_belongs g v -> succ g v = Set.empty 
+        ensures forall vx, vy. edge_belongs g vx vy -> edge_belongs (old g) vx vy  
+        ensures forall v'. v' <> v /\ vertex_belongs g v' -> vertex_belongs (old g) v'
         ensures consistent (old g) g *)
 
   let add_edge g v1 v2 =
@@ -192,11 +200,15 @@ module ConcreteDigraph(Vertex: COMPARABLE) = struct
       add_vertex g v1 ; add_vertex g v2 ;
       unsafe_add_edge g v1 v2
   (*@ add_edge g v1 v2 
+        ensures forall vx, vy. edge_belongs g vx vy /\ vx <> v1 /\ vy <> v2 -> edge_belongs (old g) vx vy  
+        ensures forall vx. edge_belongs g vx v2 /\ vx <> v1 -> edge_belongs (old g) vx v2  
+        ensures forall vy. edge_belongs g v1 vy /\ vy <> v2 -> edge_belongs (old g) v1 vy  
         ensures vertex_belongs g v1
         ensures vertex_belongs g v2
         ensures edge_belongs g v1 v2 
         ensures consistent (old g) g 
-        raises Not_found -> not ( vertex_belongs g v1 ) *)
+        raises Not_found -> not ( vertex_belongs g v1 ) 
+        *)
 
   let add_edge_e g (v1, v2) = add_edge g v1 v2
   (*@ add_edge_e g p 
@@ -300,7 +312,7 @@ end
             2.1 For those that add information, we must guarantee that all other vertices and edges remain consistent, which is
             why the *consistent* predicate was created. It check whether two graphs, an old and a new, are consistent. This means
             that every vertex and edge that existed in the old graph, but still exist in the new one. All methods which add 
-            information must ensure this, as well as make sure what we wanted to add was added.
+            information must ensure this, as well as make sure what we wanted to add, and *only* what we wanted to add, was added.
 
             2.2 For those that remove information, we must guarantee that the only information that was removed was the one we
             wanted to in fact remove. As such, we must guarantee that every vertex and edge that existed in the original graph

@@ -53,60 +53,74 @@
  </transf>
  </goal>
  <goal name="ConcreteDigraph.unsafe_remove_edge&#39;vc" expl="VC for unsafe_remove_edge" proved="true">
+ <proof prover="0"><result status="valid" time="0.20" steps="1794"/></proof>
  <transf name="split_vc" proved="true" >
   <goal name="unsafe_remove_edge&#39;vc.0" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="1.81" steps="15986"/></proof>
   </goal>
   <goal name="unsafe_remove_edge&#39;vc.1" expl="postcondition" proved="true">
-  <transf name="split_vc" proved="true" >
-   <goal name="unsafe_remove_edge&#39;vc.1.0" expl="postcondition" proved="true">
-   <proof prover="0"><result status="valid" time="0.04" steps="217"/></proof>
-   </goal>
-   <goal name="unsafe_remove_edge&#39;vc.1.1" expl="postcondition" proved="true">
-   <proof prover="0"><result status="valid" time="0.05" steps="246"/></proof>
-   </goal>
-  </transf>
+  <proof prover="0"><result status="valid" time="0.04" steps="109"/></proof>
   </goal>
   <goal name="unsafe_remove_edge&#39;vc.2" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.04" steps="135"/></proof>
+  <proof prover="0"><result status="valid" time="0.04" steps="173"/></proof>
   </goal>
   <goal name="unsafe_remove_edge&#39;vc.3" expl="postcondition" proved="true">
   <transf name="split_vc" proved="true" >
    <goal name="unsafe_remove_edge&#39;vc.3.0" expl="postcondition" proved="true">
-   <proof prover="0"><result status="valid" time="0.05" steps="258"/></proof>
+   <proof prover="0"><result status="valid" time="2.40" steps="26294"/></proof>
+   </goal>
+   <goal name="unsafe_remove_edge&#39;vc.1.1" expl="postcondition">
+   <proof prover="0"><undone/></proof>
    </goal>
   </transf>
   </goal>
-  <goal name="unsafe_remove_edge&#39;vc.4" expl="exceptional postcondition" proved="true">
+  <goal name="unsafe_remove_edge&#39;vc.4" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.05" steps="244"/></proof>
+  </goal>
+  <goal name="unsafe_remove_edge&#39;vc.5" expl="postcondition" proved="true">
+  <transf name="split_vc" proved="true" >
+   <goal name="unsafe_remove_edge&#39;vc.5.0" expl="postcondition" proved="true">
+   <proof prover="0"><result status="valid" time="0.05" steps="245"/></proof>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="unsafe_remove_edge&#39;vc.6" expl="exceptional postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.02" steps="14"/></proof>
   </goal>
  </transf>
  </goal>
  <goal name="ConcreteDigraph.unsafe_remove_edge_e&#39;vc" expl="VC for unsafe_remove_edge_e" proved="true">
+ <proof prover="0"><result status="valid" time="0.02" steps="198"/></proof>
  <transf name="split_vc" proved="true" >
   <goal name="unsafe_remove_edge_e&#39;vc.0" expl="precondition" proved="true">
   <proof prover="0"><result status="valid" time="0.01" steps="10"/></proof>
   </goal>
   <goal name="unsafe_remove_edge_e&#39;vc.1" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.03" steps="14"/></proof>
+  <proof prover="0"><result status="valid" time="0.03" steps="16"/></proof>
   </goal>
   <goal name="unsafe_remove_edge_e&#39;vc.2" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.01" steps="16"/></proof>
+  </goal>
+  <goal name="unsafe_remove_edge_e&#39;vc.3" expl="postcondition" proved="true">
   <transf name="split_vc" proved="true" >
-   <goal name="unsafe_remove_edge_e&#39;vc.2.0" expl="postcondition" proved="true">
-   <proof prover="0"><result status="valid" time="0.01" steps="20"/></proof>
+   <goal name="unsafe_remove_edge_e&#39;vc.3.0" expl="postcondition" proved="true">
+   <proof prover="0"><result status="valid" time="0.01" steps="22"/></proof>
    </goal>
-   <goal name="unsafe_remove_edge_e&#39;vc.2.1" expl="postcondition" proved="true">
-   <proof prover="0"><result status="valid" time="0.02" steps="20"/></proof>
+   <goal name="unsafe_remove_edge_e&#39;vc.2.1" expl="postcondition">
+   <proof prover="0"><undone/></proof>
    </goal>
   </transf>
   </goal>
-  <goal name="unsafe_remove_edge_e&#39;vc.3" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.02" steps="19"/></proof>
-  </goal>
   <goal name="unsafe_remove_edge_e&#39;vc.4" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.01" steps="23"/></proof>
+  <proof prover="0"><result status="valid" time="0.02" steps="22"/></proof>
   </goal>
-  <goal name="unsafe_remove_edge_e&#39;vc.5" expl="exceptional postcondition" proved="true">
+  <goal name="unsafe_remove_edge_e&#39;vc.5" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="20"/></proof>
+  </goal>
+  <goal name="unsafe_remove_edge_e&#39;vc.6" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.01" steps="24"/></proof>
+  </goal>
+  <goal name="unsafe_remove_edge_e&#39;vc.7" expl="exceptional postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.01" steps="14"/></proof>
   </goal>
  </transf>
@@ -116,17 +130,18 @@
  </goal>
  <goal name="ConcreteDigraph.remove_edge_e&#39;vc" expl="VC for remove_edge_e" proved="true">
  <proof prover="0"><result status="valid" time="0.03" steps="24"/></proof>
- <transf name="split_vc" >
-  <goal name="remove_edge_e&#39;vc.0" expl="postcondition">
+ <transf name="split_vc" proved="true" >
+  <goal name="remove_edge_e&#39;vc.0" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="14"/></proof>
   </goal>
-  <goal name="remove_edge_e&#39;vc.1" expl="postcondition">
-  <proof prover="0" obsolete="true"><result status="valid" time="0.02" steps="12"/></proof>
+  <goal name="remove_edge_e&#39;vc.1" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="14"/></proof>
   </goal>
-  <goal name="remove_edge_e&#39;vc.2" expl="postcondition">
-  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <goal name="remove_edge_e&#39;vc.2" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="22"/></proof>
   </goal>
-  <goal name="remove_edge_e&#39;vc.3" expl="postcondition">
-  <proof prover="0" obsolete="true"><result status="valid" time="0.02" steps="18"/></proof>
+  <goal name="remove_edge_e&#39;vc.3" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="14"/></proof>
   </goal>
   <goal name="remove_edge_e&#39;vc.4" expl="exceptional postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.01" steps="12"/></proof>
@@ -152,13 +167,13 @@
  <proof prover="0"><result status="valid" time="0.01" steps="8"/></proof>
  </goal>
  <goal name="ConcreteDigraph.unsafe_add_vertex&#39;vc" expl="VC for unsafe_add_vertex" proved="true">
- <proof prover="0"><result status="valid" time="0.03" steps="610"/></proof>
+ <proof prover="0"><result status="valid" time="0.03" steps="876"/></proof>
  </goal>
  <goal name="ConcreteDigraph.unsafe_add_edge&#39;vc" expl="VC for unsafe_add_edge" proved="true">
- <proof prover="0"><result status="valid" time="0.33" steps="1894"/></proof>
+ <proof prover="0"><result status="valid" time="0.33" steps="2876"/></proof>
  </goal>
  <goal name="ConcreteDigraph.add_vertex&#39;vc" expl="VC for add_vertex" proved="true">
- <proof prover="0"><result status="valid" time="0.03" steps="36"/></proof>
+ <proof prover="0" obsolete="true"><result status="valid" time="0.03" steps="36"/></proof>
  <transf name="split_vc" proved="true" >
   <goal name="add_vertex&#39;vc.0" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.02" steps="12"/></proof>
@@ -169,16 +184,28 @@
   <goal name="add_vertex&#39;vc.2" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.02" steps="14"/></proof>
   </goal>
-  <goal name="add_vertex&#39;vc.3" expl="precondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.03" steps="12"/></proof>
+  <goal name="add_vertex&#39;vc.3" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="16"/></proof>
   </goal>
   <goal name="add_vertex&#39;vc.4" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.02" steps="18"/></proof>
+  <proof prover="0"><result status="valid" time="0.02" steps="14"/></proof>
   </goal>
-  <goal name="add_vertex&#39;vc.5" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.02" steps="18"/></proof>
+  <goal name="add_vertex&#39;vc.5" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="12"/></proof>
   </goal>
   <goal name="add_vertex&#39;vc.6" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="18"/></proof>
+  </goal>
+  <goal name="add_vertex&#39;vc.7" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="18"/></proof>
+  </goal>
+  <goal name="add_vertex&#39;vc.8" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="22"/></proof>
+  </goal>
+  <goal name="add_vertex&#39;vc.9" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="24"/></proof>
+  </goal>
+  <goal name="add_vertex&#39;vc.10" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.02" steps="18"/></proof>
   </goal>
  </transf>
@@ -189,42 +216,60 @@
   <proof prover="0"><result status="valid" time="0.01" steps="16"/></proof>
   </goal>
   <goal name="add_edge&#39;vc.1" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.02" steps="24"/></proof>
+  <proof prover="0"><result status="valid" time="0.02" steps="32"/></proof>
   </goal>
   <goal name="add_edge&#39;vc.2" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.03" steps="72"/></proof>
+  <proof prover="0"><result status="valid" time="0.02" steps="30"/></proof>
   </goal>
   <goal name="add_edge&#39;vc.3" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.01" steps="26"/></proof>
+  <proof prover="0"><result status="valid" time="0.02" steps="30"/></proof>
   </goal>
   <goal name="add_edge&#39;vc.4" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.04" steps="146"/></proof>
+  <proof prover="0"><result status="valid" time="0.02" steps="24"/></proof>
   </goal>
-  <goal name="add_edge&#39;vc.5" expl="exceptional postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.02" steps="20"/></proof>
+  <goal name="add_edge&#39;vc.5" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="74"/></proof>
   </goal>
-  <goal name="add_edge&#39;vc.6" expl="precondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.02" steps="22"/></proof>
+  <goal name="add_edge&#39;vc.6" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.01" steps="26"/></proof>
   </goal>
   <goal name="add_edge&#39;vc.7" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.03" steps="30"/></proof>
+  <proof prover="0"><result status="valid" time="0.04" steps="155"/></proof>
   </goal>
-  <goal name="add_edge&#39;vc.8" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.03" steps="83"/></proof>
+  <goal name="add_edge&#39;vc.8" expl="exceptional postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="20"/></proof>
   </goal>
-  <goal name="add_edge&#39;vc.9" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.01" steps="32"/></proof>
+  <goal name="add_edge&#39;vc.9" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="22"/></proof>
   </goal>
   <goal name="add_edge&#39;vc.10" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.04" steps="268"/></proof>
+  <proof prover="0"><result status="valid" time="0.03" steps="100"/></proof>
   </goal>
-  <goal name="add_edge&#39;vc.11" expl="exceptional postcondition" proved="true">
+  <goal name="add_edge&#39;vc.11" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="98"/></proof>
+  </goal>
+  <goal name="add_edge&#39;vc.12" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="96"/></proof>
+  </goal>
+  <goal name="add_edge&#39;vc.13" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="30"/></proof>
+  </goal>
+  <goal name="add_edge&#39;vc.14" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="87"/></proof>
+  </goal>
+  <goal name="add_edge&#39;vc.15" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.01" steps="32"/></proof>
+  </goal>
+  <goal name="add_edge&#39;vc.16" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="311"/></proof>
+  </goal>
+  <goal name="add_edge&#39;vc.17" expl="exceptional postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.02" steps="26"/></proof>
   </goal>
  </transf>
  </goal>
  <goal name="ConcreteDigraph.add_edge_e&#39;vc" expl="VC for add_edge_e" proved="true">
- <proof prover="0"><result status="valid" time="0.01" steps="8"/></proof>
+ <proof prover="0"><result status="valid" time="0.01" steps="18"/></proof>
  </goal>
 </theory>
 </file>
