@@ -10,8 +10,6 @@ module type COMPARABLE = sig
 
   val hash : t -> int
   val equal : t -> t -> bool
-
-  val to_string : t -> string
 end
 
 
@@ -29,8 +27,6 @@ module ConcreteDigraph(Vertex: COMPARABLE) = struct
     let equal = Vertex.equal
     let label v = v
     let create v = v
-
-    let to_string v = Vertex.to_string v
   end
 
   module E = struct
