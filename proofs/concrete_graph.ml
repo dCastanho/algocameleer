@@ -10,6 +10,8 @@ module type COMPARABLE = sig
 
   val hash : t -> int
   val equal : t -> t -> bool
+
+  val to_string : t -> string
 end
 
 
@@ -27,6 +29,8 @@ module ConcreteDigraph(Vertex: COMPARABLE) = struct
     let equal = Vertex.equal
     let label v = v
     let create v = v
+
+    let to_string v = Vertex.to_string v
   end
 
   module E = struct
@@ -210,6 +214,11 @@ module ConcreteDigraph(Vertex: COMPARABLE) = struct
         raises Not_found -> not ( vertex_belongs g v1 ) 
         *)
 
+   let succ g v = S.elements (HM.find g v)
+   (*@ l = succ g v 
+          raises Not_found -> not ( vertex_belongs g v )
+          ensures forall v'. List.mem v' l <-> Set.mem v' (succ g v) *)
+
   let add_edge_e g (v1, v2) = add_edge g v1 v2
   (*@ add_edge_e g p 
         ensures vertex_belongs g (fst p)
@@ -282,11 +291,6 @@ module ConcreteDigraph(Vertex: COMPARABLE) = struct
    *
    * let fold_vertex f = HM.fold (fun v _ -> f v)
    *)
-
-
-
-
-
 end
 
 module T = struct
