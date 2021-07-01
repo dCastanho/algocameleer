@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"http://why3.lri.fr/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="5" steplimit="0" memlimit="1000"/>
+<prover id="1" name="Eprover" version="2.5" timelimit="5" steplimit="0" memlimit="1000"/>
+<prover id="2" name="Z3" version="4.8.7" timelimit="5" steplimit="0" memlimit="1000"/>
+<prover id="3" name="CVC4" version="1.6" timelimit="5" steplimit="0" memlimit="1000"/>
+<file format="ocaml" proved="true">
+<path name=".."/><path name="has_cycle_ocamlgraph.ml"/>
+<theory name="Has_cycle_ocamlgraph" proved="true">
+ <goal name="seq_cons" proved="true">
+ <proof prover="0"><result status="valid" time="0.02" steps="12"/></proof>
+ </goal>
+ <goal name="T.gt&#39;vc" expl="VC for gt" proved="true">
+ <proof prover="0"><result status="timeout" time="5.00"/></proof>
+ <proof prover="1"><result status="valid" time="0.13"/></proof>
+ </goal>
+ <goal name="Cycle.G.gt&#39;vc" expl="VC for gt" proved="true">
+ <proof prover="0"><result status="timeout" time="5.00"/></proof>
+ <proof prover="1"><result status="valid" time="0.13"/></proof>
+ </goal>
+ <goal name="Cycle.has_cycle_directed&#39;vc" expl="VC for has_cycle_directed" proved="true">
+ <proof prover="0"><result status="timeout" time="5.00"/></proof>
+ <transf name="split_vc" proved="true" >
+  <goal name="has_cycle_directed&#39;vc.0" expl="loop invariant init" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="24"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.1" expl="loop invariant init" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="18"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.2" expl="loop variant decrease" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="82"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.3" expl="loop invariant preservation" proved="true">
+  <proof prover="0"><result status="valid" time="0.10" steps="622"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.4" expl="loop invariant preservation" proved="true">
+  <proof prover="0"><result status="valid" time="0.05" steps="297"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.5" expl="exceptional postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="32"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.6" expl="precondition" proved="true">
+  <proof prover="0" timelimit="30" memlimit="4000"><result status="timeout" time="30.00"/></proof>
+  <proof prover="1"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2" timelimit="30" memlimit="4000"><result status="timeout" time="30.00" steps="27641386"/></proof>
+  <proof prover="3" timelimit="30" memlimit="4000"><result status="timeout" time="30.00" steps="3051450"/></proof>
+  <transf name="assert" proved="true" arg1="(mem v (view1 stack))">
+   <goal name="has_cycle_directed&#39;vc.6.0" expl="asserted formula" proved="true">
+   <proof prover="0" memlimit="2000"><result status="timeout" time="5.00"/></proof>
+   <proof prover="2" memlimit="2000"><result status="timeout" time="5.00" steps="7234469"/></proof>
+   <proof prover="3" memlimit="2000"><result status="timeout" time="5.00" steps="667916"/></proof>
+   <transf name="inline_goal" proved="true" >
+    <goal name="has_cycle_directed&#39;vc.6.0.0" expl="asserted formula" proved="true">
+    <transf name="split_all_full" proved="true" >
+     <goal name="has_cycle_directed&#39;vc.6.0.0.0" expl="asserted formula" proved="true">
+     <proof prover="3" timelimit="1"><result status="valid" time="0.49" steps="81415"/></proof>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="has_cycle_directed&#39;vc.6.1" expl="precondition" proved="true">
+   <proof prover="0"><result status="valid" time="0.03" steps="42"/></proof>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.7" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="45"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.8" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="53"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.9" expl="variant decrease" proved="true">
+  <proof prover="0"><result status="valid" time="0.05" steps="205"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.10" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.08" steps="478"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.11" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.05" steps="193"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.12" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="51"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.13" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="43"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.14" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="43"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.15" expl="loop variant decrease" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="105"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.16" expl="loop invariant preservation" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="43"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.17" expl="loop invariant preservation" proved="true">
+  <proof prover="0" memlimit="2000"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2" memlimit="2000"><result status="timeout" time="5.00" steps="9398782"/></proof>
+  <proof prover="3" memlimit="2000"><result status="timeout" time="5.00" steps="948534"/></proof>
+  <transf name="inline_goal" proved="true" >
+   <goal name="has_cycle_directed&#39;vc.17.0" expl="loop invariant preservation" proved="true">
+   <transf name="split_all_full" proved="true" >
+    <goal name="has_cycle_directed&#39;vc.17.0.0" expl="loop invariant preservation" proved="true">
+    <proof prover="0" timelimit="1"><result status="timeout" time="1.00"/></proof>
+    <proof prover="2" timelimit="1"><result status="timeout" time="1.00" steps="2683291"/></proof>
+    <proof prover="3" timelimit="1"><result status="timeout" time="1.00" steps="194334"/></proof>
+    <transf name="split_vc" proved="true" >
+     <goal name="has_cycle_directed&#39;vc.17.0.0.0" expl="loop invariant preservation" proved="true">
+     <proof prover="0" memlimit="2000"><result status="timeout" time="5.00"/></proof>
+     <proof prover="2" memlimit="2000"><result status="timeout" time="5.00" steps="15184676"/></proof>
+     <proof prover="3" timelimit="30" memlimit="4000"><result status="valid" time="11.07" steps="1171605"/></proof>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.18" expl="exceptional postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="24"/></proof>
+  <proof prover="1"><result status="valid" time="0.06"/></proof>
+  <proof prover="3"><result status="valid" time="0.08" steps="28382"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.19" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="24"/></proof>
+  <proof prover="1"><result status="valid" time="0.04"/></proof>
+  <proof prover="3"><result status="valid" time="0.09" steps="29602"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.20" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="31"/></proof>
+  <proof prover="1"><result status="valid" time="0.07"/></proof>
+  <proof prover="3"><result status="valid" time="0.11" steps="32598"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.21" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="284"/></proof>
+  <proof prover="1"><result status="timeout" time="5.00"/></proof>
+  <proof prover="3"><result status="timeout" time="5.00" steps="710697"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.22" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="24"/></proof>
+  <proof prover="1"><result status="valid" time="0.04"/></proof>
+  <proof prover="3"><result status="valid" time="0.08" steps="29697"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.23" expl="variant decrease" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="132"/></proof>
+  <proof prover="1"><result status="valid" time="0.19"/></proof>
+  <proof prover="3"><result status="valid" time="0.19" steps="37845"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.24" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="28"/></proof>
+  <proof prover="1"><result status="valid" time="0.04"/></proof>
+  <proof prover="3"><result status="valid" time="0.06" steps="29747"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.25" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="122"/></proof>
+  <proof prover="1"><result status="valid" time="0.20"/></proof>
+  <proof prover="3"><result status="valid" time="0.17" steps="37692"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.26" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="36"/></proof>
+  <proof prover="1"><result status="valid" time="0.08"/></proof>
+  <proof prover="3"><result status="valid" time="0.15" steps="32806"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.27" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="84"/></proof>
+  <proof prover="1"><result status="valid" time="0.18"/></proof>
+  <proof prover="3"><result status="valid" time="0.16" steps="33085"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.28" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="20"/></proof>
+  <proof prover="1"><result status="valid" time="0.07"/></proof>
+  <proof prover="3"><result status="valid" time="0.13" steps="32379"/></proof>
+  </goal>
+  <goal name="has_cycle_directed&#39;vc.29" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="62"/></proof>
+  <proof prover="1"><result status="timeout" time="5.00"/></proof>
+  <proof prover="3"><result status="timeout" time="5.00" steps="435656"/></proof>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="Cycle.has_cycle_undirected&#39;vc" expl="VC for has_cycle_undirected" proved="true">
+ <proof prover="0"><result status="timeout" time="5.00"/></proof>
+ <transf name="split_vc" proved="true" >
+  <goal name="has_cycle_undirected&#39;vc.0" expl="loop invariant init" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="31"/></proof>
+  <proof prover="1"><result status="valid" time="0.08"/></proof>
+  <proof prover="2"><result status="valid" time="0.05" steps="166462"/></proof>
+  <proof prover="3"><result status="valid" time="0.11" steps="32697"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.1" expl="loop invariant init" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="24"/></proof>
+  <proof prover="1"><result status="valid" time="0.04"/></proof>
+  <proof prover="2"><result status="valid" time="0.02" steps="11833"/></proof>
+  <proof prover="3"><result status="valid" time="0.07" steps="29746"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.2" expl="loop variant decrease" proved="true">
+  <proof prover="0"><result status="valid" time="0.05" steps="101"/></proof>
+  <proof prover="1"><result status="valid" time="0.24"/></proof>
+  <proof prover="2"><result status="valid" time="0.06" steps="238003"/></proof>
+  <proof prover="3"><result status="valid" time="0.27" steps="54214"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.3" expl="loop invariant preservation" proved="true">
+  <proof prover="0"><result status="valid" time="0.20" steps="1448"/></proof>
+  <proof prover="1"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00" steps="8444828"/></proof>
+  <proof prover="3"><result status="timeout" time="5.00" steps="573635"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.4" expl="loop invariant preservation" proved="true">
+  <proof prover="0"><result status="valid" time="0.10" steps="598"/></proof>
+  <proof prover="1"><result status="valid" time="0.21"/></proof>
+  <proof prover="2"><result status="valid" time="0.07" steps="203576"/></proof>
+  <proof prover="3"><result status="valid" time="0.29" steps="45911"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.5" expl="exceptional postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="44"/></proof>
+  <proof prover="1"><result status="valid" time="0.06"/></proof>
+  <proof prover="2"><result status="valid" time="0.04" steps="80026"/></proof>
+  <proof prover="3"><result status="valid" time="0.13" steps="31131"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.6" expl="precondition" proved="true">
+  <proof prover="0" timelimit="30" memlimit="4000"><result status="timeout" time="30.00"/></proof>
+  <proof prover="1"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2" timelimit="30" memlimit="4000"><result status="timeout" time="30.00" steps="33534813"/></proof>
+  <proof prover="3" timelimit="30" memlimit="4000"><result status="timeout" time="30.00" steps="3187932"/></proof>
+  <transf name="assert" proved="true" arg1="(mem v (view1 stack))">
+   <goal name="has_cycle_undirected&#39;vc.6.0" expl="asserted formula" proved="true">
+   <proof prover="0" memlimit="2000"><result status="timeout" time="5.00"/></proof>
+   <proof prover="2" memlimit="2000"><result status="timeout" time="5.00" steps="8697022"/></proof>
+   <proof prover="3" memlimit="2000"><result status="timeout" time="5.00" steps="915267"/></proof>
+   <transf name="inline_goal" proved="true" >
+    <goal name="has_cycle_undirected&#39;vc.6.0.0" expl="asserted formula" proved="true">
+    <transf name="split_all_full" proved="true" >
+     <goal name="has_cycle_undirected&#39;vc.6.0.0.0" expl="asserted formula" proved="true">
+     <proof prover="3" timelimit="1"><result status="valid" time="0.46" steps="87329"/></proof>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="has_cycle_undirected&#39;vc.6.1" expl="precondition" proved="true">
+   <proof prover="0"><result status="valid" time="0.03" steps="54"/></proof>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.7" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="60"/></proof>
+  <proof prover="1"><result status="valid" time="0.08"/></proof>
+  <proof prover="2"><result status="valid" time="0.05" steps="193114"/></proof>
+  <proof prover="3"><result status="valid" time="0.14" steps="33719"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.8" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="69"/></proof>
+  <proof prover="1"><result status="valid" time="0.08"/></proof>
+  <proof prover="2"><result status="valid" time="0.07" steps="200896"/></proof>
+  <proof prover="3"><result status="valid" time="0.12" steps="33965"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.9" expl="variant decrease" proved="true">
+  <proof prover="0"><result status="valid" time="0.07" steps="303"/></proof>
+  <proof prover="1"><result status="valid" time="0.17"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00" steps="4244157"/></proof>
+  <proof prover="3"><result status="valid" time="0.19" steps="41728"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.10" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.10" steps="754"/></proof>
+  <proof prover="1"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00" steps="4645374"/></proof>
+  <proof prover="3"><result status="timeout" time="5.00" steps="814473"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.11" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.05" steps="270"/></proof>
+  <proof prover="1"><result status="valid" time="0.25"/></proof>
+  <proof prover="2"><result status="valid" time="0.11" steps="265286"/></proof>
+  <proof prover="3"><result status="valid" time="0.21" steps="44144"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.12" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="77"/></proof>
+  <proof prover="1"><result status="valid" time="0.10"/></proof>
+  <proof prover="2"><result status="valid" time="0.07" steps="197513"/></proof>
+  <proof prover="3"><result status="valid" time="0.14" steps="34157"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.13" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="55"/></proof>
+  <proof prover="1"><result status="valid" time="0.09"/></proof>
+  <proof prover="2"><result status="valid" time="0.07" steps="172937"/></proof>
+  <proof prover="3"><result status="valid" time="0.11" steps="33514"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.14" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="55"/></proof>
+  <proof prover="1"><result status="valid" time="0.09"/></proof>
+  <proof prover="2"><result status="valid" time="0.05" steps="173615"/></proof>
+  <proof prover="3"><result status="valid" time="0.13" steps="33574"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.15" expl="loop variant decrease" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="121"/></proof>
+  <proof prover="1"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2"><result status="valid" time="0.17" steps="428667"/></proof>
+  <proof prover="3"><result status="valid" time="0.71" steps="114052"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.16" expl="loop invariant preservation" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="55"/></proof>
+  <proof prover="1"><result status="valid" time="0.08"/></proof>
+  <proof prover="2"><result status="valid" time="0.06" steps="173540"/></proof>
+  <proof prover="3"><result status="valid" time="0.11" steps="33581"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.17" expl="loop invariant preservation" proved="true">
+  <proof prover="0" memlimit="2000"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2" memlimit="2000"><result status="timeout" time="5.00" steps="10968664"/></proof>
+  <proof prover="3" memlimit="2000"><result status="timeout" time="5.00" steps="877782"/></proof>
+  <transf name="inline_goal" proved="true" >
+   <goal name="has_cycle_undirected&#39;vc.17.0" expl="loop invariant preservation" proved="true">
+   <transf name="split_all_full" proved="true" >
+    <goal name="has_cycle_undirected&#39;vc.17.0.0" expl="loop invariant preservation" proved="true">
+    <proof prover="0" timelimit="1"><result status="timeout" time="1.00"/></proof>
+    <proof prover="2" timelimit="1"><result status="timeout" time="1.00" steps="1710387"/></proof>
+    <proof prover="3" timelimit="1"><result status="timeout" time="1.00" steps="141310"/></proof>
+    <transf name="split_vc" proved="true" >
+     <goal name="has_cycle_undirected&#39;vc.17.0.0.0" expl="loop invariant preservation" proved="true">
+     <proof prover="0" memlimit="2000"><result status="timeout" time="5.00"/></proof>
+     <proof prover="2" memlimit="2000"><result status="timeout" time="5.00" steps="12965078"/></proof>
+     <proof prover="3" timelimit="30" memlimit="4000"><result status="valid" time="15.68" steps="1712221"/></proof>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.18" expl="exceptional postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="32"/></proof>
+  <proof prover="1"><result status="valid" time="0.07"/></proof>
+  <proof prover="2"><result status="valid" time="0.03" steps="11308"/></proof>
+  <proof prover="3"><result status="valid" time="0.07" steps="28614"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.19" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="32"/></proof>
+  <proof prover="1"><result status="valid" time="0.04"/></proof>
+  <proof prover="2"><result status="valid" time="0.02" steps="11897"/></proof>
+  <proof prover="3"><result status="valid" time="0.07" steps="29834"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.20" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="42"/></proof>
+  <proof prover="1"><result status="valid" time="0.08"/></proof>
+  <proof prover="2"><result status="valid" time="0.07" steps="168090"/></proof>
+  <proof prover="3"><result status="valid" time="0.11" steps="32891"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.21" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.07" steps="302"/></proof>
+  <proof prover="1"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00" steps="7717797"/></proof>
+  <proof prover="3"><result status="timeout" time="5.00" steps="860278"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.22" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="28"/></proof>
+  <proof prover="1"><result status="valid" time="0.03"/></proof>
+  <proof prover="2"><result status="valid" time="0.02" steps="11918"/></proof>
+  <proof prover="3"><result status="valid" time="0.08" steps="29883"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.23" expl="variant decrease" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="146"/></proof>
+  <proof prover="1"><result status="valid" time="0.17"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00" steps="7964900"/></proof>
+  <proof prover="3"><result status="valid" time="0.17" steps="38129"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.24" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="135"/></proof>
+  <proof prover="1"><result status="valid" time="0.22"/></proof>
+  <proof prover="2"><result status="valid" time="0.08" steps="220968"/></proof>
+  <proof prover="3"><result status="valid" time="0.15" steps="38100"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.25" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="40"/></proof>
+  <proof prover="1"><result status="valid" time="0.09"/></proof>
+  <proof prover="2"><result status="valid" time="0.06" steps="187963"/></proof>
+  <proof prover="3"><result status="valid" time="0.12" steps="33019"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.26" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="32"/></proof>
+  <proof prover="1"><result status="valid" time="0.05"/></proof>
+  <proof prover="2"><result status="valid" time="0.02" steps="12018"/></proof>
+  <proof prover="3"><result status="valid" time="0.08" steps="30047"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.27" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="22"/></proof>
+  <proof prover="1"><result status="valid" time="0.07"/></proof>
+  <proof prover="2"><result status="valid" time="0.06" steps="164928"/></proof>
+  <proof prover="3"><result status="valid" time="0.12" steps="32573"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.28" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="62"/></proof>
+  <proof prover="1"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00" steps="10308305"/></proof>
+  <proof prover="3"><result status="timeout" time="5.00" steps="599502"/></proof>
+  </goal>
+  <goal name="has_cycle_undirected&#39;vc.29" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="107"/></proof>
+  <proof prover="1"><result status="valid" time="0.19"/></proof>
+  <proof prover="2"><result status="valid" time="0.05" steps="176379"/></proof>
+  <proof prover="3"><result status="valid" time="0.12" steps="33636"/></proof>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="Cycle.is_empty&#39;vc" expl="VC for is_empty" proved="true">
+ <proof prover="0"><result status="valid" time="0.03" steps="64"/></proof>
+ </goal>
+ <goal name="Cycle.hd&#39;vc" expl="VC for hd" proved="true">
+ <proof prover="0"><result status="valid" time="0.04" steps="127"/></proof>
+ </goal>
+ <goal name="Cycle.is_path_func&#39;vc" expl="VC for is_path_func" proved="true">
+ <proof prover="0"><result status="valid" time="2.84" steps="26189"/></proof>
+ </goal>
+ <goal name="Cycle.is_cycle_func&#39;vc" expl="VC for is_cycle_func" proved="true">
+ <proof prover="0"><result status="valid" time="0.10" steps="838"/></proof>
+ </goal>
+</theory>
+</file>
+</why3session>
