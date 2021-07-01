@@ -63,10 +63,6 @@
 
        (*@ lemma emp_cons : forall q : 'a seq.
             q == q ++ of_list [] *)
-
-        (*@ lemma threewaysplit : forall s1, s2, s3, s4 : 'a seq. 
-            s1 = s2 ++ s4 -> forall e. Seq.mem e s1 -> Seq.mem e (s2 ++ s3 ++ s4)*)
-
       
       (*@ predicate suffix ( l : G.V.t seq ) ( q : G.V.t seq ) = 
       Seq.length l <= Seq.length q /\
@@ -141,6 +137,7 @@
                       | [] -> ()
                       | v' :: r -> Queue.add v' q; iter_succ (prefix @ [v']) r 
                     (*@ iter_succ p l
+                          requires forall v'. Set.mem v' visited.HV.dom /\ v' <> v -> forall s. edge v' s pc.graph -> Seq.mem s q.Queue.view \/ Set.mem s visited.HV.dom
                           requires of_list sucs = of_list p ++ of_list l
                           requires q.Queue.view == oldQ.Queue.view ++ of_list p
                           requires forall v'. List.mem v' l -> Set.mem v' pc.graph.G.dom
@@ -188,7 +185,6 @@
                   requires Set.mem v1 pc.graph.G.dom
                   ensures b <-> has_path v1 v2 pc.graph *)
 
-                  (*                          ensures forall v'. Seq.mem v' q.Queue.view /\ not (Seq.mem v' (old q).Queue.view) -> edge v v' pc.graph*)
           end
           
       (*********************************************************************************************************************************
@@ -210,8 +206,10 @@
             of the visited table out of the cardinal of the graph's domain. When a vertex is added to this table, the queue can increase
             (as a result of adding the current vertex's successors to it) or decrease by one (due to removing the current vertex, and then
             not adding any - in the situation where a vertex has no successors).
+
             3.2 On the iterations that we don't add a vertex to the visited table, we don't add any vertices to the queue either. Because
             of this, we know for sure the size of the queue decreases by one, because of the pop we performed to get the current vertex.
+            
         4. We were forced to create the seq_cons lemma because before running the functions loop and iter_succ, we had only removed one
         element of the queue, however the SMT solves weren't being able to prove, that all other vertices still belonged to the graph's domain.
         By creating the lemma, we prove to them, that removing the first element of a sequence, leaves all the other elements untouched. 
