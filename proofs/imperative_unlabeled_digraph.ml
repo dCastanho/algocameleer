@@ -49,6 +49,8 @@ module ImperativeUnlabeledDigraph(Vertex: COMPARABLE) = struct
         | [] -> Set.empty          
         | x :: _ -> x.S.dom *)     
 
+   let [@ghost] [@logic] emptyHm () : S.t HM.t = HM.create 0 
+
    type t = { mutable self: S.t HM.t }
    (*@ invariant forall v1. Set.mem v1 self.HM.dom -> forall v2. Set.mem v2 (succ_hm self v1) -> Set.mem v2 self.HM.dom *)
 
@@ -56,7 +58,6 @@ module ImperativeUnlabeledDigraph(Vertex: COMPARABLE) = struct
         match g.self.HM.view v1 with    
         | [] -> Set.empty          
         | x :: _ -> x.S.dom *)     
-
 
   (*@ predicate edge_belongs ( g : t ) ( v1 : Vertex.t ) ( v2 : Vertex.t ) = 
       match g.self.HM.view v1 with 

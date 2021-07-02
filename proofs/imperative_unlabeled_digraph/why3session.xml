@@ -6,20 +6,20 @@
 <prover id="1" name="Eprover" version="2.5" timelimit="5" steplimit="0" memlimit="1000"/>
 <prover id="2" name="Z3" version="4.8.7" timelimit="5" steplimit="0" memlimit="1000"/>
 <prover id="3" name="CVC4" version="1.6" timelimit="5" steplimit="0" memlimit="1000"/>
-<file format="ocaml">
+<file format="ocaml" proved="true">
 <path name=".."/><path name="imperative_unlabeled_digraph.ml"/>
-<theory name="Imperative_unlabeled_digraph">
+<theory name="Imperative_unlabeled_digraph" proved="true">
  <goal name="ImperativeUnlabeledDigraph.S.Ord.compare_pre_order" proved="true">
  <proof prover="0"><result status="valid" time="0.00" steps="6"/></proof>
  </goal>
- <goal name="ImperativeUnlabeledDigraph.t&#39;vc" expl="VC for t">
+ <goal name="ImperativeUnlabeledDigraph.t&#39;vc" expl="VC for t" proved="true">
  <proof prover="0"><result status="highfailure" time="2.30"/></proof>
- <proof prover="1"><result status="timeout" time="5.00"/></proof>
- <proof prover="2"><result status="timeout" time="5.00" steps="8649545"/></proof>
- <proof prover="3"><result status="timeout" time="5.00" steps="1583889"/></proof>
+ <proof prover="1"><result status="valid" time="0.13"/></proof>
+ <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="8649545"/></proof>
+ <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="1583889"/></proof>
  </goal>
  <goal name="ImperativeUnlabeledDigraph.mem_edge&#39;vc" expl="VC for mem_edge" proved="true">
- <proof prover="0"><result status="valid" time="0.04" steps="253"/></proof>
+ <proof prover="0"><result status="valid" time="0.04" steps="254"/></proof>
  </goal>
  <goal name="ImperativeUnlabeledDigraph.mem_edge_e&#39;vc" expl="VC for mem_edge_e" proved="true">
  <proof prover="0"><result status="valid" time="0.01" steps="12"/></proof>
@@ -35,39 +35,39 @@
  <transf name="split_vc" proved="true" >
   <goal name="remove_edge&#39;vc.0" expl="type invariant" proved="true">
   <proof prover="0"><result status="valid" time="0.02" steps="10"/></proof>
-  <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.01" steps="5671"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.10" steps="27839"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4385767"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="1019876"/></proof>
   </goal>
   <goal name="remove_edge&#39;vc.1" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.03" steps="10"/></proof>
-  <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="5057"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.08" steps="25168"/></proof>
+  <proof prover="0"><result status="valid" time="0.01" steps="10"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="5678252"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="1065693"/></proof>
   </goal>
   <goal name="remove_edge&#39;vc.2" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.01" steps="10"/></proof>
-  <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="5263"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.09" steps="26032"/></proof>
+  <proof prover="0"><result status="valid" time="0.02" steps="10"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4010385"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="1092907"/></proof>
   </goal>
   <goal name="remove_edge&#39;vc.3" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.01" steps="10"/></proof>
-  <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="5062"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.09" steps="25268"/></proof>
+  <proof prover="0"><result status="valid" time="0.05" steps="10"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="3919459"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="690727"/></proof>
   </goal>
   <goal name="remove_edge&#39;vc.4" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.01" steps="10"/></proof>
-  <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.01" steps="5861"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.10" steps="28765"/></proof>
+  <proof prover="1" obsolete="true"><result status="valid" time="0.04"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="11611"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.05" steps="28758"/></proof>
   </goal>
   <goal name="remove_edge&#39;vc.5" expl="exceptional postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.01" steps="10"/></proof>
-  <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.01" steps="5051"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.07" steps="24889"/></proof>
+  <proof prover="1" obsolete="true"><result status="valid" time="0.06"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.04" steps="148154"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.07" steps="26113"/></proof>
   </goal>
   <goal name="remove_edge&#39;vc.6" expl="exceptional postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.02" steps="12"/></proof>
@@ -76,101 +76,101 @@
   <proof prover="3" obsolete="true"><result status="valid" time="0.09" steps="26094"/></proof>
   </goal>
   <goal name="remove_edge&#39;vc.7" expl="type invariant" proved="true">
-  <proof prover="0"><result status="valid" time="4.45" steps="40244"/></proof>
+  <proof prover="0"><result status="valid" time="4.67" steps="40248"/></proof>
   <proof prover="1"><result status="timeout" time="5.00"/></proof>
-  <proof prover="2"><result status="timeout" time="5.00" steps="4385767"/></proof>
-  <proof prover="3"><result status="timeout" time="5.00" steps="1019876"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00" steps="4415536"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.10" steps="27839"/></proof>
   </goal>
   <goal name="remove_edge&#39;vc.8" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.01" steps="200"/></proof>
-  <proof prover="1"><result status="timeout" time="5.00"/></proof>
-  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="5678252"/></proof>
-  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="1065693"/></proof>
+  <proof prover="0"><result status="valid" time="0.03" steps="200"/></proof>
+  <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="5057"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.08" steps="25168"/></proof>
   </goal>
   <goal name="remove_edge&#39;vc.9" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="3.77" steps="34716"/></proof>
+  <proof prover="0"><result status="valid" time="3.79" steps="34726"/></proof>
   <proof prover="1"><result status="timeout" time="5.00"/></proof>
-  <proof prover="2"><result status="timeout" time="5.00" steps="4010385"/></proof>
-  <proof prover="3"><result status="timeout" time="5.00" steps="1092907"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00" steps="4029864"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.09" steps="26032"/></proof>
   </goal>
   <goal name="remove_edge&#39;vc.10" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.05" steps="349"/></proof>
+  <proof prover="0"><result status="valid" time="0.01" steps="349"/></proof>
   <proof prover="1"><result status="timeout" time="5.00"/></proof>
-  <proof prover="2"><result status="timeout" time="5.00" steps="3919459"/></proof>
-  <proof prover="3"><result status="timeout" time="5.00" steps="690727"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00" steps="3965681"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.09" steps="25268"/></proof>
   </goal>
   <goal name="remove_edge&#39;vc.11" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.01" steps="26"/></proof>
-  <proof prover="1"><result status="valid" time="0.04"/></proof>
-  <proof prover="2"><result status="valid" time="0.02" steps="11611"/></proof>
-  <proof prover="3"><result status="valid" time="0.05" steps="28758"/></proof>
+  <proof prover="1"><result status="valid" time="0.03"/></proof>
+  <proof prover="2"><result status="valid" time="0.01" steps="11652"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.10" steps="28765"/></proof>
   </goal>
   <goal name="remove_edge&#39;vc.12" expl="exceptional postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.01" steps="14"/></proof>
-  <proof prover="1"><result status="valid" time="0.06"/></proof>
-  <proof prover="2"><result status="valid" time="0.04" steps="148154"/></proof>
-  <proof prover="3"><result status="valid" time="0.07" steps="26113"/></proof>
+  <proof prover="1"><result status="valid" time="0.03"/></proof>
+  <proof prover="2"><result status="valid" time="0.01" steps="148753"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.07" steps="24889"/></proof>
   </goal>
  </transf>
  </goal>
  <goal name="ImperativeUnlabeledDigraph.remove_edge_e&#39;vc" expl="VC for remove_edge_e" proved="true">
  <proof prover="0"><result status="valid" time="0.02" steps="28"/></proof>
  <proof prover="1"><result status="valid" time="0.05"/></proof>
- <proof prover="2"><result status="valid" time="0.09" steps="183278"/></proof>
- <proof prover="3"><result status="valid" time="0.08" steps="31555"/></proof>
+ <proof prover="2"><result status="valid" time="0.09" steps="183877"/></proof>
+ <proof prover="3" obsolete="true"><result status="valid" time="0.08" steps="31555"/></proof>
  </goal>
  <goal name="ImperativeUnlabeledDigraph.create&#39;vc" expl="VC for create" proved="true">
  <proof prover="0"><result status="valid" time="0.01" steps="67"/></proof>
  <proof prover="1"><result status="valid" time="0.14"/></proof>
- <proof prover="2"><result status="valid" time="1.66" steps="4621652"/></proof>
- <proof prover="3"><result status="valid" time="0.12" steps="29773"/></proof>
+ <proof prover="2"><result status="valid" time="1.66" steps="4622140"/></proof>
+ <proof prover="3" obsolete="true"><result status="valid" time="0.12" steps="29773"/></proof>
  </goal>
  <goal name="ImperativeUnlabeledDigraph.is_empty&#39;vc" expl="VC for is_empty" proved="true">
  <proof prover="0"><result status="valid" time="0.02" steps="34"/></proof>
  <proof prover="1"><result status="valid" time="0.11"/></proof>
- <proof prover="2"><result status="valid" time="1.92" steps="5249245"/></proof>
- <proof prover="3"><result status="valid" time="0.09" steps="28156"/></proof>
+ <proof prover="2"><result status="valid" time="1.92" steps="5249833"/></proof>
+ <proof prover="3" obsolete="true"><result status="valid" time="0.09" steps="28156"/></proof>
  </goal>
  <goal name="ImperativeUnlabeledDigraph.nb_vertex&#39;vc" expl="VC for nb_vertex" proved="true">
  <proof prover="0"><result status="valid" time="0.01" steps="12"/></proof>
  <proof prover="1"><result status="valid" time="0.25"/></proof>
- <proof prover="2"><result status="valid" time="0.02" steps="147718"/></proof>
- <proof prover="3"><result status="valid" time="0.07" steps="27351"/></proof>
+ <proof prover="2"><result status="valid" time="0.02" steps="148317"/></proof>
+ <proof prover="3" obsolete="true"><result status="valid" time="0.07" steps="27351"/></proof>
  </goal>
  <goal name="ImperativeUnlabeledDigraph.clear&#39;vc" expl="VC for clear" proved="true">
  <proof prover="0"><result status="valid" time="0.01" steps="67"/></proof>
  <proof prover="1"><result status="valid" time="0.13"/></proof>
- <proof prover="2"><result status="valid" time="2.26" steps="5594837"/></proof>
- <proof prover="3"><result status="valid" time="0.14" steps="31959"/></proof>
+ <proof prover="2"><result status="valid" time="2.26" steps="5595107"/></proof>
+ <proof prover="3" obsolete="true"><result status="valid" time="0.14" steps="31959"/></proof>
  </goal>
  <goal name="ImperativeUnlabeledDigraph.out_degree&#39;vc" expl="VC for out_degree" proved="true">
- <proof prover="0"><result status="valid" time="0.03" steps="141"/></proof>
+ <proof prover="0"><result status="valid" time="0.03" steps="142"/></proof>
  <proof prover="1"><result status="valid" time="0.41"/></proof>
- <proof prover="2"><result status="valid" time="2.55" steps="6242979"/></proof>
- <proof prover="3"><result status="valid" time="0.12" steps="34770"/></proof>
+ <proof prover="2"><result status="valid" time="2.55" steps="6243805"/></proof>
+ <proof prover="3" obsolete="true"><result status="valid" time="0.12" steps="34770"/></proof>
  </goal>
  <goal name="ImperativeUnlabeledDigraph.mem_vertex&#39;vc" expl="VC for mem_vertex" proved="true">
  <proof prover="0"><result status="valid" time="0.01" steps="11"/></proof>
  <proof prover="1"><result status="valid" time="0.32"/></proof>
- <proof prover="2"><result status="valid" time="2.66" steps="6701451"/></proof>
- <proof prover="3"><result status="valid" time="0.09" steps="30330"/></proof>
+ <proof prover="2"><result status="valid" time="2.66" steps="6701904"/></proof>
+ <proof prover="3" obsolete="true"><result status="valid" time="0.09" steps="30330"/></proof>
  </goal>
  <goal name="ImperativeUnlabeledDigraph.unsafe_add_vertex&#39;vc" expl="VC for unsafe_add_vertex" proved="true">
- <proof prover="0"><result status="valid" time="0.19" steps="1579"/></proof>
+ <proof prover="0"><result status="valid" time="0.19" steps="1584"/></proof>
  <proof prover="1"><result status="timeout" time="5.00"/></proof>
- <proof prover="2"><result status="timeout" time="5.00" steps="5902284"/></proof>
- <proof prover="3"><result status="timeout" time="5.00" steps="817656"/></proof>
+ <proof prover="2"><result status="timeout" time="5.00" steps="5384940"/></proof>
+ <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="817656"/></proof>
  </goal>
- <goal name="ImperativeUnlabeledDigraph.unsafe_add_edge&#39;vc" expl="VC for unsafe_add_edge">
+ <goal name="ImperativeUnlabeledDigraph.unsafe_add_edge&#39;vc" expl="VC for unsafe_add_edge" proved="true">
  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
- <transf name="split_vc" >
+ <transf name="split_vc" proved="true" >
   <goal name="unsafe_add_edge&#39;vc.0" expl="type invariant" proved="true">
   <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
   <transf name="split_vc" proved="true" >
    <goal name="unsafe_add_edge&#39;vc.0.0" expl="type invariant" proved="true">
-   <proof prover="0"><result status="valid" time="0.40" steps="3563"/></proof>
-   <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
-   <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4333521"/></proof>
+   <proof prover="0"><result status="valid" time="0.40" steps="3564"/></proof>
+   <proof prover="1"><result status="timeout" time="5.00"/></proof>
+   <proof prover="2"><result status="timeout" time="5.00" steps="4406785"/></proof>
    <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="1221678"/></proof>
    </goal>
   </transf>
@@ -179,46 +179,75 @@
   <transf name="split_vc" proved="true" >
    <goal name="unsafe_add_edge&#39;vc.1.0" expl="postcondition" proved="true">
    <proof prover="0"><result status="valid" time="0.07" steps="296"/></proof>
-   <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
-   <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="3751638"/></proof>
+   <proof prover="1"><result status="timeout" time="5.00"/></proof>
+   <proof prover="2"><result status="timeout" time="5.00" steps="3751896"/></proof>
    <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="3232886"/></proof>
    </goal>
   </transf>
   </goal>
   <goal name="unsafe_add_edge&#39;vc.2" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.04" steps="156"/></proof>
-  <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
-  <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="2934164"/></proof>
+  <proof prover="0"><result status="valid" time="0.04" steps="157"/></proof>
+  <proof prover="1"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00" steps="3913504"/></proof>
   <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="234268"/></proof>
   </goal>
   <goal name="unsafe_add_edge&#39;vc.3" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.04" steps="155"/></proof>
-  <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
-  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="3894748"/></proof>
+  <proof prover="1"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00" steps="3896260"/></proof>
   <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="3722512"/></proof>
   </goal>
   <goal name="unsafe_add_edge&#39;vc.4" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.04" steps="181"/></proof>
-  <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
-  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="3787727"/></proof>
+  <proof prover="1"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00" steps="3783181"/></proof>
   <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="3262065"/></proof>
   </goal>
   <goal name="unsafe_add_edge&#39;vc.5" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.03" steps="27"/></proof>
-  <proof prover="1" obsolete="true"><result status="valid" time="0.12"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.05" steps="174693"/></proof>
+  <proof prover="1"><result status="valid" time="0.12"/></proof>
+  <proof prover="2"><result status="valid" time="0.05" steps="175323"/></proof>
   <proof prover="3" obsolete="true"><result status="valid" time="0.10" steps="30469"/></proof>
   </goal>
-  <goal name="unsafe_add_edge&#39;vc.6" expl="postcondition">
+  <goal name="unsafe_add_edge&#39;vc.6" expl="postcondition" proved="true">
   <proof prover="0"><result status="timeout" time="5.00"/></proof>
-  <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
-  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="3813881"/></proof>
-  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="990352"/></proof>
+  <proof prover="1"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00" steps="3833683"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="1358938"/></proof>
+  <transf name="unfold" proved="true" arg1="consistent">
+   <goal name="unsafe_add_edge&#39;vc.6.0" expl="VC for unsafe_add_edge" proved="true">
+   <proof prover="0" timelimit="1"><result status="timeout" time="1.00"/></proof>
+   <proof prover="2" timelimit="1"><result status="timeout" time="1.00" steps="2826190"/></proof>
+   <proof prover="3" timelimit="1"><result status="timeout" time="1.00" steps="254778"/></proof>
+   <transf name="split_vc" proved="true" >
+    <goal name="unsafe_add_edge&#39;vc.6.0.0" expl="VC for unsafe_add_edge" proved="true">
+    <proof prover="3" timelimit="1"><result status="valid" time="0.13" steps="34115"/></proof>
+    </goal>
+    <goal name="unsafe_add_edge&#39;vc.6.0.1" expl="VC for unsafe_add_edge" proved="true">
+    <proof prover="0" memlimit="2000"><result status="timeout" time="5.00"/></proof>
+    <proof prover="2" memlimit="2000"><result status="timeout" time="5.00" steps="5955186"/></proof>
+    <proof prover="3" memlimit="2000"><result status="timeout" time="5.00" steps="3725023"/></proof>
+    <transf name="inline_goal" proved="true" >
+     <goal name="unsafe_add_edge&#39;vc.6.0.1.0" expl="VC for unsafe_add_edge" proved="true">
+     <transf name="split_all_full" proved="true" >
+      <goal name="unsafe_add_edge&#39;vc.6.0.1.0.0" expl="VC for unsafe_add_edge" proved="true">
+      <proof prover="3" timelimit="1"><result status="valid" time="0.13" steps="34279"/></proof>
+      </goal>
+      <goal name="unsafe_add_edge&#39;vc.6.0.1.0.1" expl="VC for unsafe_add_edge" proved="true">
+      <proof prover="3" timelimit="1"><result status="valid" time="0.21" steps="49455"/></proof>
+      </goal>
+     </transf>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
   </goal>
   <goal name="unsafe_add_edge&#39;vc.7" expl="exceptional postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.03" steps="14"/></proof>
-  <proof prover="1" obsolete="true"><result status="valid" time="0.05"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.04" steps="147989"/></proof>
+  <proof prover="1"><result status="valid" time="0.05"/></proof>
+  <proof prover="2"><result status="valid" time="0.04" steps="148588"/></proof>
   <proof prover="3" obsolete="true"><result status="valid" time="0.08" steps="26106"/></proof>
   </goal>
  </transf>
@@ -226,136 +255,136 @@
  <goal name="ImperativeUnlabeledDigraph.add_vertex&#39;vc" expl="VC for add_vertex" proved="true">
  <proof prover="0"><result status="valid" time="0.05" steps="211"/></proof>
  <proof prover="1"><result status="timeout" time="5.00"/></proof>
- <proof prover="2"><result status="valid" time="4.28" steps="9134412"/></proof>
- <proof prover="3"><result status="valid" time="0.09" steps="32505"/></proof>
+ <proof prover="2"><result status="valid" time="4.28" steps="9133325"/></proof>
+ <proof prover="3" obsolete="true"><result status="valid" time="0.09" steps="32505"/></proof>
  </goal>
  <goal name="ImperativeUnlabeledDigraph.add_edge&#39;vc" expl="VC for add_edge" proved="true">
- <proof prover="0"><result status="valid" time="0.22" steps="1681"/></proof>
+ <proof prover="0" obsolete="true"><result status="valid" time="0.22" steps="1681"/></proof>
  <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="12872604"/></proof>
  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="830478"/></proof>
- <transf name="split_vc" >
+ <transf name="split_vc" proved="true" >
   <goal name="add_edge&#39;vc.0" expl="precondition" proved="true">
   <proof prover="0"><result status="valid" time="0.02" steps="18"/></proof>
   <proof prover="1"><result status="valid" time="0.03"/></proof>
-  <proof prover="2"><result status="valid" time="0.01" steps="9857"/></proof>
-  <proof prover="3"><result status="valid" time="0.06" steps="25062"/></proof>
+  <proof prover="2"><result status="valid" time="0.01" steps="9898"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.06" steps="25062"/></proof>
   </goal>
-  <goal name="add_edge&#39;vc.1" expl="postcondition">
-  <proof prover="0" obsolete="true"><result status="valid" time="0.02" steps="36"/></proof>
-  <proof prover="1" obsolete="true"><result status="valid" time="0.14"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.06" steps="161933"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.12" steps="28984"/></proof>
+  <goal name="add_edge&#39;vc.1" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="34"/></proof>
+  <proof prover="1"><result status="valid" time="0.14"/></proof>
+  <proof prover="2"><result status="valid" time="0.05" steps="162572"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.11" steps="29664"/></proof>
   </goal>
-  <goal name="add_edge&#39;vc.2" expl="postcondition">
-  <proof prover="0" obsolete="true"><result status="valid" time="0.03" steps="34"/></proof>
-  <proof prover="1" obsolete="true"><result status="valid" time="0.14"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.06" steps="162366"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.11" steps="29064"/></proof>
+  <goal name="add_edge&#39;vc.2" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="32"/></proof>
+  <proof prover="1"><result status="valid" time="0.16"/></proof>
+  <proof prover="2"><result status="valid" time="0.05" steps="163005"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.15" steps="29745"/></proof>
   </goal>
-  <goal name="add_edge&#39;vc.3" expl="postcondition">
-  <proof prover="0" obsolete="true"><result status="valid" time="0.03" steps="34"/></proof>
-  <proof prover="1" obsolete="true"><result status="valid" time="0.12"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.04" steps="162821"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.09" steps="29121"/></proof>
+  <goal name="add_edge&#39;vc.3" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="32"/></proof>
+  <proof prover="1"><result status="valid" time="0.15"/></proof>
+  <proof prover="2"><result status="valid" time="0.05" steps="163460"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.14" steps="29803"/></proof>
   </goal>
-  <goal name="add_edge&#39;vc.4" expl="postcondition">
-  <proof prover="0" obsolete="true"><result status="valid" time="0.02" steps="28"/></proof>
-  <proof prover="1" obsolete="true"><result status="valid" time="0.04"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="10108"/></proof>
+  <goal name="add_edge&#39;vc.4" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="26"/></proof>
+  <proof prover="1"><result status="valid" time="0.04"/></proof>
+  <proof prover="2"><result status="valid" time="0.02" steps="10149"/></proof>
   <proof prover="3" obsolete="true"><result status="valid" time="0.07" steps="25645"/></proof>
   </goal>
-  <goal name="add_edge&#39;vc.5" expl="postcondition">
-  <proof prover="0" obsolete="true"><result status="valid" time="0.04" steps="77"/></proof>
-  <proof prover="1" obsolete="true"><result status="valid" time="0.16"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.06" steps="167156"/></proof>
+  <goal name="add_edge&#39;vc.5" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="74"/></proof>
+  <proof prover="1"><result status="valid" time="0.16"/></proof>
+  <proof prover="2"><result status="valid" time="0.06" steps="167795"/></proof>
   <proof prover="3" obsolete="true"><result status="valid" time="0.11" steps="27080"/></proof>
   </goal>
-  <goal name="add_edge&#39;vc.6" expl="postcondition">
-  <proof prover="0" obsolete="true"><result status="valid" time="0.02" steps="30"/></proof>
-  <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="10118"/></proof>
+  <goal name="add_edge&#39;vc.6" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="28"/></proof>
+  <proof prover="1"><result status="valid" time="0.03"/></proof>
+  <proof prover="2"><result status="valid" time="0.02" steps="10159"/></proof>
   <proof prover="3" obsolete="true"><result status="valid" time="0.07" steps="25659"/></proof>
   </goal>
-  <goal name="add_edge&#39;vc.7" expl="postcondition">
-  <proof prover="0" obsolete="true"><result status="valid" time="0.04" steps="80"/></proof>
-  <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
-  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="12022410"/></proof>
+  <goal name="add_edge&#39;vc.7" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="182"/></proof>
+  <proof prover="1"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00" steps="12476221"/></proof>
   <proof prover="3" obsolete="true"><result status="valid" time="0.18" steps="36408"/></proof>
   </goal>
   <goal name="add_edge&#39;vc.8" expl="exceptional postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.02" steps="22"/></proof>
   <proof prover="1"><result status="valid" time="0.02"/></proof>
-  <proof prover="2"><result status="valid" time="0.02" steps="9906"/></proof>
-  <proof prover="3"><result status="valid" time="0.07" steps="25110"/></proof>
+  <proof prover="2"><result status="valid" time="0.02" steps="9947"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.07" steps="25110"/></proof>
   </goal>
   <goal name="add_edge&#39;vc.9" expl="precondition" proved="true">
   <proof prover="0"><result status="valid" time="0.03" steps="24"/></proof>
   <proof prover="1"><result status="valid" time="0.04"/></proof>
-  <proof prover="2"><result status="valid" time="0.03" steps="9972"/></proof>
-  <proof prover="3"><result status="valid" time="0.07" steps="25274"/></proof>
+  <proof prover="2"><result status="valid" time="0.03" steps="10013"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.07" steps="25274"/></proof>
   </goal>
-  <goal name="add_edge&#39;vc.10" expl="postcondition">
-  <proof prover="0" obsolete="true"><result status="valid" time="0.04" steps="103"/></proof>
-  <proof prover="1" obsolete="true"><result status="valid" time="0.14"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.05" steps="169588"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.11" steps="29664"/></proof>
+  <goal name="add_edge&#39;vc.10" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="100"/></proof>
+  <proof prover="1"><result status="valid" time="0.14"/></proof>
+  <proof prover="2"><result status="valid" time="0.06" steps="170227"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.12" steps="28984"/></proof>
   </goal>
-  <goal name="add_edge&#39;vc.11" expl="postcondition">
-  <proof prover="0" obsolete="true"><result status="valid" time="0.04" steps="101"/></proof>
-  <proof prover="1" obsolete="true"><result status="valid" time="0.16"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.05" steps="170022"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.15" steps="29745"/></proof>
+  <goal name="add_edge&#39;vc.11" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="98"/></proof>
+  <proof prover="1"><result status="valid" time="0.14"/></proof>
+  <proof prover="2"><result status="valid" time="0.06" steps="170661"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.11" steps="29064"/></proof>
   </goal>
-  <goal name="add_edge&#39;vc.12" expl="postcondition">
-  <proof prover="0" obsolete="true"><result status="valid" time="0.04" steps="99"/></proof>
-  <proof prover="1" obsolete="true"><result status="valid" time="0.15"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.05" steps="169954"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.14" steps="29803"/></proof>
+  <goal name="add_edge&#39;vc.12" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="96"/></proof>
+  <proof prover="1"><result status="valid" time="0.12"/></proof>
+  <proof prover="2"><result status="valid" time="0.04" steps="170593"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.09" steps="29121"/></proof>
   </goal>
-  <goal name="add_edge&#39;vc.13" expl="postcondition">
-  <proof prover="0" obsolete="true"><result status="valid" time="0.03" steps="34"/></proof>
-  <proof prover="1" obsolete="true"><result status="valid" time="0.03"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="10223"/></proof>
+  <goal name="add_edge&#39;vc.13" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="32"/></proof>
+  <proof prover="1"><result status="valid" time="0.03"/></proof>
+  <proof prover="2"><result status="valid" time="0.02" steps="10264"/></proof>
   <proof prover="3" obsolete="true"><result status="valid" time="0.09" steps="25857"/></proof>
   </goal>
-  <goal name="add_edge&#39;vc.14" expl="postcondition">
-  <proof prover="0" obsolete="true"><result status="valid" time="0.04" steps="90"/></proof>
-  <proof prover="1" obsolete="true"><result status="valid" time="0.12"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.06" steps="169575"/></proof>
+  <goal name="add_edge&#39;vc.14" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="87"/></proof>
+  <proof prover="1"><result status="valid" time="0.12"/></proof>
+  <proof prover="2"><result status="valid" time="0.06" steps="170214"/></proof>
   <proof prover="3" obsolete="true"><result status="valid" time="0.08" steps="27335"/></proof>
   </goal>
-  <goal name="add_edge&#39;vc.15" expl="postcondition">
-  <proof prover="0" obsolete="true"><result status="valid" time="0.02" steps="36"/></proof>
-  <proof prover="1" obsolete="true"><result status="valid" time="0.04"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="10233"/></proof>
+  <goal name="add_edge&#39;vc.15" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="34"/></proof>
+  <proof prover="1"><result status="valid" time="0.04"/></proof>
+  <proof prover="2"><result status="valid" time="0.02" steps="10274"/></proof>
   <proof prover="3" obsolete="true"><result status="valid" time="0.06" steps="25871"/></proof>
   </goal>
-  <goal name="add_edge&#39;vc.16" expl="postcondition">
-  <proof prover="0" obsolete="true"><result status="valid" time="0.07" steps="355"/></proof>
-  <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
-  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="10990194"/></proof>
+  <goal name="add_edge&#39;vc.16" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.07" steps="336"/></proof>
+  <proof prover="1"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00" steps="13141764"/></proof>
   <proof prover="3" obsolete="true"><result status="valid" time="0.25" steps="39321"/></proof>
   </goal>
   <goal name="add_edge&#39;vc.17" expl="exceptional postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.02" steps="28"/></proof>
   <proof prover="1"><result status="valid" time="0.04"/></proof>
-  <proof prover="2"><result status="valid" time="0.02" steps="10021"/></proof>
-  <proof prover="3"><result status="valid" time="0.06" steps="25322"/></proof>
+  <proof prover="2"><result status="valid" time="0.02" steps="10062"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.06" steps="25322"/></proof>
   </goal>
  </transf>
  </goal>
  <goal name="ImperativeUnlabeledDigraph.succ&#39;vc" expl="VC for succ" proved="true">
  <proof prover="0"><result status="valid" time="0.05" steps="221"/></proof>
  <proof prover="1"><result status="valid" time="0.36"/></proof>
- <proof prover="2"><result status="timeout" time="5.00" steps="9089379"/></proof>
- <proof prover="3"><result status="valid" time="0.13" steps="36728"/></proof>
+ <proof prover="2"><result status="timeout" time="5.00" steps="9067258"/></proof>
+ <proof prover="3" obsolete="true"><result status="valid" time="0.13" steps="36728"/></proof>
  </goal>
  <goal name="ImperativeUnlabeledDigraph.add_edge_e&#39;vc" expl="VC for add_edge_e" proved="true">
  <proof prover="0"><result status="valid" time="0.03" steps="22"/></proof>
  <proof prover="1"><result status="valid" time="0.10"/></proof>
- <proof prover="2"><result status="valid" time="0.04" steps="149198"/></proof>
- <proof prover="3"><result status="valid" time="0.07" steps="27168"/></proof>
+ <proof prover="2"><result status="valid" time="0.04" steps="149795"/></proof>
+ <proof prover="3" obsolete="true"><result status="valid" time="0.07" steps="27168"/></proof>
  </goal>
 </theory>
 </file>
