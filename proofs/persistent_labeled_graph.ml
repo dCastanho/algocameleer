@@ -74,7 +74,8 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
 
     type t = { self : S.t HM.t }
     (*@ invariant forall v1. Set.mem v1 self.HM.dom -> forall e. Set.mem e (self.HM.view v1).S.dom -> 
-            Set.mem (fst e) self.HM.dom /\ Set.mem (v1, (snd e)) (self.HM.view (fst e)).S.dom *)
+            let (v2, l) = e in 
+              Set.mem v2 self.HM.dom /\ Set.mem (v1, l) (self.HM.view v2).S.dom *)
 
     (*@ predicate edge_belongs ( g : t ) ( v1 : V.t ) ( v2 : V.t ) = 
         let s = g.self.HM.view v1 in 
@@ -93,8 +94,7 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
 
     (*@ predicate consistent ( o : t ) ( n : t) = 
               (forall v. vertex_belongs o v -> vertex_belongs n v) /\
-              (forall e. edge_belongs_e o e -> edge_belongs_e n e) *)
-
+              (forall e. edge_belongs_label o (E.src e) (E.dst e) (E.label e) -> edge_belongs_label n (E.src e) (E.dst e) (E.label e)) *)
 
   
 
@@ -114,6 +114,42 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
         ensures b <-> vertex_belongs g (E.src e) /\ edge_belongs_label g (E.src e) (E.dst e) (E.label e)*)
 
   exception Found of edge
+
+  let find_edge g v1 v2 =
+    try
+      let es = S.elements (HM.find v1 g.self) in 
+      let rec iter_es = function 
+      | [] -> ()
+      | (v2', l) :: r -> if V.equal v2 v2' then raise (Found (v1, l, v2')) else iter_es r
+      (*@ iter_es es 
+            variant es 
+            raises Found e -> List.mem ((E.dst e), (E.label e)) es  /\ (E.dst e) = v2 /\ (E.src e) = v1
+            ensures forall p. List.mem p es -> fst p <> v2
+            *)
+      in
+      iter_es es ; raise Not_found
+    with Found e ->
+      e
+  (*@ e = find_edge g v1 v2 
+        raises Not_found -> not (vertex_belongs g v1 ) \/ not (edge_belongs g v1 v2)
+        ensures (E.src e) = v1 /\ (E.dst e) = v2 /\ edge_belongs_label g (E.src e) (E.dst e) (E.label e) *)
+
+  let find_all_edges g v1 v2 =
+    try
+      let es = S.elements (HM.find v1 g.self) in 
+      let rec iter_es l = function 
+      | [] -> l 
+      | (v2', lab) :: r ->  iter_es (if V.equal v2 v2' then (v1, lab, v2') ::l else l) r
+      (*@ edge_l = iter_es acc es 
+            requires forall e. List.mem e acc -> List.mem (E.dst e, E.label e) es /\ E.src e = v1 /\ E.dst e = v2 
+            variant es 
+            ensures forall e. List.mem e edge_l -> List.mem (E.dst e, E.label e) es /\ E.src e = v1 /\ E.dst e = v2 
+            ensures forall p. List.mem p es /\ fst p = v2 -> List.mem (v1, snd p, fst p) edge_l *)
+    in 
+    iter_es [] es 
+    with Not_found ->
+      []
+  
   (*let find_edge g v1 v2 =
     try
       S.iter
@@ -224,37 +260,38 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
   let succ gr v = 
     let g = gr.self in 
     let sucs_e_set = S.elements (HM.find v g) in 
-    let ss = ref [] in
-    let rec iter_s = function 
-    | [] -> ()  
-    | (v', c):: l -> ss := v'::!ss ; iter_s l 
-    (*@ iter_s l1 
-        requires forall v'. List.mem v' !ss -> exists la. List.mem (v', la) l1
-        variant l1
-        ensures forall p. List.mem p l1 <-> List.mem (fst p) !ss *)
-    in  
-    iter_s sucs_e_set ; !ss
+    List.map (fun (v, _) -> v) sucs_e_set  
+    (*let rec iter_s l = function 
+    | [] -> l  
+    | (v', c):: r -> iter_s (v'::l) r 
+    @ fst_l = iter_s l pair_l 
+          requires forall v. List.mem v l -> exists snd. List.mem (v, snd) sucs_e_set
+          variant pair_l
+          ensures forall p. List.mem p pair_l -> List.mem (fst p) fst_l
+          ensures l = [] -> forall v. List.mem v fst_l -> exists s. List.mem (v, s) pair_l *)
+
   (*@  l = succ g v 
-        raises Not_found -> not ( vertex_belongs g v )
-        ensures forall p. Set.mem p (g.self.HM.view v).S.dom -> List.mem (fst p) l
-        ensures forall v'. List.mem v' l <-> edge_belongs g v v' *)
+        raises Not_found -> not ( vertex_belongs g v ) 
+        ensures forall v'. edge_belongs g v v' -> List.mem v' l
+        *)
 
   let succ_e gr v =     
     let g = gr.self in 
     let sucs_e_set = S.elements (HM.find v g) in 
-    let ss = ref [] in
-    let rec iter_s = function 
-    | [] -> ()  
-    | (v', c):: l -> ss := (v, c, v')::!ss ; iter_s l
-    (*@ iter_s l1 
-          variant l1 
-          requires forall e. List.mem e !ss -> List.mem ((E.dst e), (E.label e)) l1 
-          ensures forall e. List.mem e !ss <-> List.mem ((E.dst e), (E.label e)) l1 *)
+    let rec iter_s l = function 
+    | [] -> l  
+    | (v', c):: r -> iter_s ( (v, c, v') :: l ) r
+    (*@ edge_l = iter_s l pair_l  
+          variant pair_l
+          requires forall e. List.mem e l -> List.mem ((E.dst e), (E.label e)) pair_l /\ E.src e = v
+          ensures forall p. List.mem p pair_l -> List.mem (v, snd p, fst p) edge_l 
+          ensures l = [] -> forall e. List.mem e edge_l -> List.mem ((E.dst e), (E.label e)) pair_l /\ E.src e = v  *)
     in  
-    iter_s sucs_e_set ; !ss
+    iter_s [] sucs_e_set ; 
   (*@  l = succ_e g v 
-       raises Not_found 
-       ensures forall e. List.mem e l <-> edge_belongs_label g (E.src e) (E.dst e) (E.label e)*)
+       raises Not_found -> not ( vertex_belongs g v )
+       ensures forall e. List.mem e l -> edge_belongs_label g v (E.dst e) (E.label e)  
+        *)
 
   (*let map_vertex f g =
     let module MV = Util.Memo(V) in
@@ -337,7 +374,8 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
   (*@ g2 = mem_vertex g1 v 
       requires not (vertex_belongs g1 v)
       ensures vertex_belongs g2 v 
-      ensures consistent g1 g2 
+      ensures forall v. vertex_belongs g1 v -> vertex_belongs g2 v
+      ensures forall vx, vy, l. edge_belongs_label g1 vx vy l -> edge_belongs_label g2 vx vy l 
       ensures (g2.self.HM.view v).S.dom = Set.empty *)
 
   (*let unsafe_add_edge gr v1 v2 = let g = gr.self in { self = HM.add v1 (S.add v2 (HM.find v1 g)) g }
@@ -410,8 +448,8 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
     else
       let g = add_vertex g v1 in
       let g = add_vertex g v2 in
-      let g =  { self = HM.add v1 (S.add (v2, l) (HM.find v1 g.self)) g.self } in
-      { self = HM.add v2 (S.add (v1, l) (HM.find v2 g.self)) g.self }
+      let gr =  HM.add v1 (S.add (v2, l) (HM.find v1 g.self)) g.self in
+      { self = HM.add v2 (S.add (v1, l) (HM.find v2 gr)) gr }
   (*@ g2 = add_edge_e g1 e 
         raises Not_found -> false
         ensures vertex_belongs g2 (E.src e) 
@@ -433,12 +471,15 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
     unsafe_remove_edge g v2 v1*)
 
   let remove_edge g v1 v2 =
+    let not_equal v (v', _) = not (V.equal v v') 
+    (*@ b = not_equal v p 
+          ensures b <-> v <> fst p *)
+    in
     if not (HM.mem v2 g.self) then invalid_arg "[ocamlgraph] remove_edge" else 
-    let g = 
-    { self = HM.add v1 (S.filter (fun (v2', _) -> not (V.equal v2 v2')) 
-                (HM.find v1 g.self)) g.self } in
-    { self = HM.add v2 (S.filter (fun (v1', _) -> not (V.equal v1 v1')) 
-                (HM.find v2 g.self)) g.self } 
+    let gr = 
+    HM.add v1 (S.filter (not_equal v2) (HM.find v1 g.self)) g.self in
+    { self = HM.add v2 (S.filter (not_equal v1) 
+                (HM.find v2 gr)) gr } 
   (*@ g2 = remove_edge g1 v1 v2 
         raises Not_found -> not (vertex_belongs g1 v1) 
         raises Invalid_argument _ -> not (vertex_belongs g1 v2) 
@@ -459,17 +500,17 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
   let remove_edge_e g e =
     let (v1, l, v2) = e in 
     if not (HM.mem v2 g.self) then invalid_arg "[ocamlgraph] remove_edge_e" else 
-    let g = 
-      { self = HM.add v2 (S.remove (v1, l) (HM.find v2 g.self)) g.self } in 
-    { self = HM.add v1 (S.remove (v2, l) (HM.find v1 g.self)) g.self }
+    let gr = 
+      HM.add v2 (S.remove (v1, l) (HM.find v2 g.self)) g.self in 
+    { self = HM.add v1 (S.remove (v2, l) (HM.find v1 gr)) gr }
   (*@ g2 = remove_edge_e g1 e
         raises Not_found -> not (vertex_belongs g1 (E.src e))
         raises Invalid_argument _ -> not (vertex_belongs g1 (E.dst e))   
         ensures not (edge_belongs_label g2 (E.src e) (E.dst e) (E.label e))
         ensures not (edge_belongs_label g2 (E.dst e) (E.src e) (E.label e))
         ensures forall v. vertex_belongs g1 v -> vertex_belongs g2 v
-        ensures forall e'. e <> e' /\ edge_belongs_label g1 (E.src e') (E.dst e') (E.label e') 
-              -> edge_belongs_label g2 (E.src e') (E.dst e') (E.label e') *)
+        ensures forall vx, vy, l. vx <> (E.src e) /\ vy <> (E.dst e) /\ l <> (E.label e) /\ edge_belongs_label g1 vx vy l -> 
+              edge_belongs_label g2 vx vy l *)
 
 end
 
