@@ -1,7 +1,7 @@
 (*@ open Set *)
 (*@ open Seq *)
 (*@ open SeqOfList *)
-
+(*include Imperative_unlabeled_digraph_copy*)
 module type COMPARABLE = sig
   type t
   val [@logic] compare : t -> t -> int
@@ -60,22 +60,23 @@ module H = Hashtbl.Make(G.V)
       let len = Seq.length l in 
       len <> 0 /\ is_path l[len - 1] l l[len - 1] g*)
 
-exception Exit of (G.V.t*G.V.t) 
+exception Exit of G.V.t
 
-let build_path v1 v2 via = 
-  let l = ref [v2] in 
-  let curr = ref v1 in 
-  while not ( G.V.equal !curr v2) do 
-     l := !curr::!l  ; curr := H.find via !curr ; 
-  done ; !l 
-(*@ l = build_path v1 v2 via 
-      raises Not_found *)
+let clean_up l v =
+  let rec keep_until acc = function 
+  | [] -> acc
+  | x :: [] -> if G.V.equal x v then x::acc else v::x::acc
+  | x :: xs -> if G.V.equal x v then x::acc else keep_until (x::acc) xs
+  (*@ res = keep_unil acc l 
+        variant l *)
+  in
+  keep_until [] l
 
 (**Result == Exists at least one path from A to A*)
 let has_cycle_directed g =
-  let via = H.create 97 in
   let h = H.create 97 in
   let stack = Stack.create () in
+  let cy = ref [] in
   let loop () =
     while not (Stack.is_empty stack) do
       (*@ variant Set.cardinal g.G.dom - Set.cardinal h.H.dom, Seq.length stack.Stack.view 
@@ -84,15 +85,16 @@ let has_cycle_directed g =
       let v = Stack.top stack in
       if H.mem h v then begin
         H.replace h v false;
-        H.clear via ;
+        cy := [] ;
         ignore (Stack.pop stack)
       end else begin
         H.add h v true;
+        cy := v::!cy ;
         let scs = G.succ g v in 
         let rec iter_succ = function 
         | [] -> () 
-        | w :: l -> try if H.find h w then raise (Exit (w, v))
-             with Not_found -> Stack.push w stack ; H.add via w v ; iter_succ l  
+        | w :: l -> try if H.find h w then raise (Exit (w))
+             with Not_found -> Stack.push w stack ; iter_succ l  
         (*@ iter_succ l 
               requires forall v'. Seq.mem v' stack.Stack.view -> Set.mem v' g.G.dom 
               requires forall v'. List.mem v' l -> Set.mem v' g.G.dom 
@@ -114,7 +116,7 @@ let has_cycle_directed g =
   try
     let rec iter_vertex = function
     | [] -> ()
-    | v :: l -> if not (H.mem h v) then begin Stack.push v stack; loop () ; iter_vertex l end 
+    | v :: l -> if not (H.mem h v) then begin Stack.push v stack; loop () end ; iter_vertex l
     (*@ iter_vertex l
           requires Set.subset h.H.dom g.G.dom 
           requires forall v. List.mem v l -> Set.mem v g.G.dom
@@ -124,14 +126,13 @@ let has_cycle_directed g =
     in 
     iter_vertex (G.all g) ;
     []
-  with Exit (w, v)  ->
-    build_path v w via
-    (*@ l = has_cycle_directed g
-          raises Not_found *)
+  with Exit (w)  ->
+    clean_up !cy w
+    (*@ l = has_cycle_directed g *)
 
   let has_cycle_undirected g =
     let h = H.create 97 in
-    let via = H.create 97 in
+    let cy = ref [] in
     let father = H.create 97 in
     let is_father u v = (* u is the father of v in the DFS descent *)
       try G.V.equal (H.find father v) u with Not_found -> false
@@ -145,7 +146,7 @@ let has_cycle_directed g =
         let v = Stack.top stack in
         if H.mem h v then begin
           H.remove father v;
-          H.clear via ;
+          cy := [] ;
           H.replace h v false;
           ignore (Stack.pop stack)
         end else begin
@@ -153,8 +154,8 @@ let has_cycle_directed g =
           let sucs = G.succ g v in 
           let rec iter_succ = function
           | [] -> () 
-          | w :: l -> try if H.find h w && not (is_father w v) then raise (Exit (w, v))
-               with Not_found -> H.add father w v; Stack.push w stack ; H.add via w v ; iter_succ l
+          | w :: l -> try if H.find h w && not (is_father w v) then raise (Exit (w))
+               with Not_found -> H.add father w v; Stack.push w stack ; iter_succ l
           (*@ iter_succ l 
               requires forall v'. Seq.mem v' stack.Stack.view -> Set.mem v' g.G.dom 
               requires forall v'. List.mem v' l -> Set.mem v' g.G.dom 
@@ -187,16 +188,14 @@ let has_cycle_directed g =
       in 
       iter_vertex (G.all g) ;
       []
-    with Exit (w, v) ->
-      build_path v w via
-    (*@ l = has_cycle_undirected g
-          raises Not_found *)
+    with Exit (w) ->
+      clean_up !cy w
+    (*@ l = has_cycle_undirected g *)
 
       
      let has_cycle g =
         if G.is_directed then has_cycle_directed g else has_cycle_undirected g
-    (*@ l = has_cycle g 
-          raises Not_found *)
+    (*@ l = has_cycle g  *)
 
 
     let is_empty = function | [] -> true | _ -> false
@@ -262,3 +261,68 @@ let has_cycle_directed g =
 
 end
 
+
+(*  TESTING PURPOSES
+
+
+module T = struct
+   type t = int 
+   let compare v1 v2 = v1 - v2 
+
+   let hash t = t 
+
+   let equal = (=)
+end
+
+module GTR = Imperative_unlabeled_digraph_copy.ImperativeUnlabeledDigraph(T)
+
+module CYC = Cycle(GTR) 
+
+let rec print_list = function
+  | [] -> ()
+  | x :: xs -> print_int x ; print_string " " ; print_list xs
+
+let () =
+  let g = GTR.create 10 in 
+  GTR.add_vertex g 1 ; 
+  GTR.add_vertex g 2 ; 
+  GTR.add_vertex g 3 ; 
+  GTR.add_vertex g 4 ; 
+  GTR.add_vertex g 5 ; 
+  GTR.add_vertex g 6 ;
+  GTR.add_vertex g 7 ;
+  GTR.add_vertex g 8 ;
+  GTR.add_vertex g 9 ;
+  GTR.add_vertex g 10 ;
+  GTR.add_vertex g 11 ;
+  GTR.add_vertex g 12 ;
+  GTR.add_vertex g 13 ;
+  GTR.add_vertex g 14 ;
+  GTR.add_vertex g 15 ;
+  GTR.add_vertex g 16 ;
+  GTR.add_vertex g 17 ;
+  GTR.add_vertex g 18 ;
+  GTR.add_edge g 1 3 ; 
+  GTR.add_edge g 3 2 ; 
+  GTR.add_edge g 3 4 ; 
+  GTR.add_edge g 5 3 ; 
+  GTR.add_edge g 4 6 ; 
+  GTR.add_edge g 6 7 ;
+  GTR.add_edge g 8 7 ; 
+  GTR.add_edge g 7 9 ; 
+  GTR.add_edge g 7 4 ; 
+  GTR.add_edge g 9 18 ; 
+  GTR.add_edge g 18 5 ; 
+  (*GTR.add_edge g 6 10 ; 
+  GTR.add_edge g 16 18 ; *)
+  GTR.add_edge g 11 10 ; 
+  GTR.add_edge g 16 11 ; 
+  GTR.add_edge g 17 16 ; 
+  GTR.add_edge g 13 16 ; 
+  GTR.add_edge g 10 12 ; 
+  GTR.add_edge g 12 13 ; 
+  GTR.add_edge g 14 13 ; 
+  GTR.add_edge g 15 13 ; 
+  print_list (CYC.has_cycle_directed g)
+
+*)
