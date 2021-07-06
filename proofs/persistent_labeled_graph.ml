@@ -71,21 +71,24 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
     module S = Set.Make(VE)
 
     type edge = E.t
+    
+    type vertex = HM.key
 
     type t = { self : S.t HM.t }
     (*@ invariant forall v1. Set.mem v1 self.HM.dom -> forall e. Set.mem e (self.HM.view v1).S.dom -> 
             let (v2, l) = e in 
-              Set.mem v2 self.HM.dom /\ Set.mem (v1, l) (self.HM.view v2).S.dom *)
+              Set.mem v2 self.HM.dom /\ Set.mem (v1, l) (self.HM.view v2).S.dom  *)
 
-    (*@ predicate edge_belongs ( g : t ) ( v1 : V.t ) ( v2 : V.t ) = 
-        let s = g.self.HM.view v1 in 
-          exists l. Set.mem (v2, l) s.S.dom *)
+    (*@ predicate vertex_belongs ( g : t ) ( v1 : Vertex.t ) = Set.mem v1 g.self.HM.dom *)
 
     (*@ predicate edge_belongs_label ( g : t ) ( v1 : V.t ) ( v2 : V.t ) ( l : E.label ) = 
-        let s = g.self.HM.view v1 in 
-          Set.mem (v2, l) s.S.dom *)
-    
-    (*@ predicate vertex_belongs ( g : t ) ( v1 : Vertex.t ) = Set.mem v1 g.self.HM.dom *)
+          let s = g.self.HM.view v1 in 
+            vertex_belongs g v1 /\ vertex_belongs g v2 /\ Set.mem (v2, l) s.S.dom *)
+
+   
+    (*@ predicate edge_belongs ( g : t ) ( v1 : V.t ) ( v2 : V.t ) = 
+          exists l. edge_belongs_label g v1 v2 l *)
+  
 
     (*@ predicate edge_belongs_e ( g : t ) (e : E.t ) = 
           let s1 = g.self.HM.view (E.src e) in 
@@ -95,7 +98,6 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
     (*@ predicate consistent ( o : t ) ( n : t) = 
               (forall v. vertex_belongs o v -> vertex_belongs n v) /\
               (forall e. edge_belongs_label o (E.src e) (E.dst e) (E.label e) -> edge_belongs_label n (E.src e) (E.dst e) (E.label e)) *)
-
   
 
   let mem_edge g v1 v2 =
@@ -137,227 +139,84 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
   let find_all_edges g v1 v2 =
     try
       let es = S.elements (HM.find v1 g.self) in 
-      let rec iter_es l = function 
+      let rec iter_es l (succL : (Vertex.t * Edge.t) list) =
+        match succL with 
       | [] -> l 
-      | (v2', lab) :: r ->  iter_es (if V.equal v2 v2' then (v1, lab, v2') ::l else l) r
-      (*@ edge_l = iter_es acc es 
+      | (v2', lab) :: r ->  iter_es (if V.equal v2 v2' then (v1, lab, v2) ::l else l) r
+      (*@ edge_l = iter_es acc esL 
+            requires forall e. List.mem e esL -> List.mem e es
             requires forall e. List.mem e acc -> List.mem (E.dst e, E.label e) es /\ E.src e = v1 /\ E.dst e = v2 
-            variant es 
-            ensures forall e. List.mem e edge_l -> List.mem (E.dst e, E.label e) es /\ E.src e = v1 /\ E.dst e = v2 
-            ensures forall p. List.mem p es /\ fst p = v2 -> List.mem (v1, snd p, fst p) edge_l *)
+            variant esL
+            ensures forall e. List.mem e edge_l -> List.mem (E.dst e, E.label e) es /\ E.src e = v1 /\ E.dst e = v2
+            ensures forall p. List.mem p acc -> List.mem p edge_l 
+            ensures forall p. fst p = v2 /\ List.mem p esL -> List.mem (v1, snd p, v2) edge_l  *)
     in 
     iter_es [] es 
     with Not_found ->
       []
-  
-  (*let find_edge g v1 v2 =
-    try
-      S.iter
-        (fun (v2', l) -> if V.equal v2 v2' then raise (Found (v1, l, v2')))
-        (HM.find v1 g);
-      raise Not_found
-    with Found e ->
-      e
+    (*@ l = find_all_edges g v1 v2 
+          ensures forall la. List.mem (v1, la, v2) l <-> edge_belongs_label g v1 v2 la   *)
 
-  let find_all_edges g v1 v2 =
-    try
-      S.fold
-        (fun (v2', l) acc ->
-           if V.equal v2 v2' then (v1, l, v2') :: acc else acc)
-        (HM.find v1 g)
-        []
-    with Not_found ->
-      []*)
-
-  (*let unsafe_remove_edge g v1 v2 =
-    let noEq  (v2', _) = not (V.equal v2 v2')
-    (*@ b = noEq p
-          ensures b <-> v2 <> fst p *)
-    in 
-    { self = HM.add
-      v1
-      (S.filter noEq (HM.find v1 g.self))
-      g.self }
-  @ g2 = unsafe_remove_edge g1 v1 v2
-        requires vertex_belongs g1 v2  
-        requires edge_belongs g1 v1 v2 
-        raises Not_found -> not (vertex_belongs g1 v1)
-        ensures not(edge_belongs g2 v1 v2) 
-        ensures forall v. vertex_belongs g1 v -> vertex_belongs g2 v 
-        ensures forall vy, vx. vx <> v1 /\ vy <> v2 /\ edge_belongs g1 vx vy -> edge_belongs g2 vx vy
-        ensures forall vy. edge_belongs g1 v1 vy /\ vy <> v2 -> edge_belongs g2 v1 vy
-        ensures forall vx. edge_belongs g1 vx v2 /\ vx <> v1 -> edge_belongs g2 vx v2 *)
-
-  (*let unsafe_remove_edge_e gr (v1, l, v2) =
-    let g = gr.self in 
-    { self = HM.add v1 (S.remove (v2, l) (HM.find v1 g)) g }
-  @  g2 = unsafe_remove_edge_e g1 e 
-        raises Not_found -> not (vertex_belongs g1 (E.src e)) 
-        ensures not(edge_belongs_label g2 (E.src e) (E.dst e) (E.label e))
-        ensures forall v. vertex_belongs g1 v -> vertex_belongs g2 v 
-        ensures forall vy, vx. vx <> E.src e /\ vy <> E.dst e /\ edge_belongs g1 vx vy -> edge_belongs g2 vx vy
-        ensures forall vy. edge_belongs g1 (E.src e) vy /\ vy <> (E.dst e) -> edge_belongs g2 (E.src e) vy
-        ensures forall vx. edge_belongs g1 vx (E.dst e) /\ vx <> (E.src e) -> edge_belongs g2 vx (E.dst e) *)
-
-  (*let remove_edge_support gr v1 v2 =
-    let g = gr.self in 
-    if not (HM.mem v2 g) then invalid_arg "[ocamlgraph] remove_edge";
-    { self = HM.add
-      v1
-      (S.filter
-         (fun (v2', _) -> not (V.equal v2 v2'))
-         (HM.find v1 g))
-      g }
-  @ g2 = remove_edge_support g1 v1 v2
-        requires edge_belongs g1 v1 v2
-        raises Not_found -> not (vertex_belongs g1 v1) 
-        raises Invalid_argument _  -> not ( vertex_belongs g1 v2 )
-        ensures not(edge_belongs g2 v1 v2)        
-        ensures forall v. vertex_belongs g1 v -> vertex_belongs g2 v 
-        ensures forall vy, vx. vx <> v1 /\ vy <> v2 /\ edge_belongs g1 vx vy -> edge_belongs g2 vx vy
-        ensures forall vy. edge_belongs g1 v1 vy /\ vy <> v2 -> edge_belongs g2 v1 vy
-        ensures forall vx. edge_belongs g1 vx v2 /\ vx <> v1 -> edge_belongs g2 vx v2  *)
-
-    (*{ self = HM.add
-      v1
-      (S.filter
-         (fun (v2', _) -> not (V.equal v2 v2'))
-         (HM.find v1 g))
-      g } original, refactoring *)  
-
-
-  (*let remove_edge_e_support gr (v1, l, v2) =
-    let g = gr.self in 
-    if not (HM.mem v2 g) then invalid_arg "[ocamlgraph] remove_edge_e";
-    { self = HM.add
-      v1
-      (S.remove (v2, l) (HM.find v1 g))
-      g }
-    g2 = remove_edge_e_support g1 e 
-        raises Not_found -> not ( vertex_belongs g1 (E.src e) )
-        raises Invalid_argument _ -> not ( vertex_belongs g1 (E.dst e) )  
-        ensures not(edge_belongs_label g2 (E.src e) (E.dst e) (E.label e))        
-        ensures forall v. vertex_belongs g1 v -> vertex_belongs g2 v 
-        ensures forall vy, vx. vx <> (E.src e) /\ vy <> (E.dst e) /\ edge_belongs g1 vx vy -> edge_belongs g2 vx vy
-        ensures forall vy. edge_belongs g1 (E.src e) vy /\ vy <> (E.dst e) -> edge_belongs g2 (E.src e) vy
-        ensures forall vx. edge_belongs g1 vx (E.dst e) /\ vx <> (E.src e) -> edge_belongs g2 vx (E.dst e)  *)
-
-  (*let iter_succ f g v =
-    S.iter (fun (w, _) -> f w) (HM.find v g)
-  let fold_succ f g v =
-    S.fold (fun (w, _) -> f w) (HM.find v g)
-
-  let iter_succ_e f g v =
-    S.iter
-      (fun (w, l) -> f (v, l, w))
-      (HM.find v g)
-
-  let fold_succ_e f g v =
-    S.fold
-      (fun (w, l) -> f (v, l, w))
-      (HM.find v g)*)
 
   let succ gr v = 
     let g = gr.self in 
     let sucs_e_set = S.elements (HM.find v g) in 
-    List.map (fun (v, _) -> v) sucs_e_set  
-    (*let rec iter_s l = function 
-    | [] -> l  
-    | (v', c):: r -> iter_s (v'::l) r 
-    @ fst_l = iter_s l pair_l 
-          requires forall v. List.mem v l -> exists snd. List.mem (v, snd) sucs_e_set
-          variant pair_l
-          ensures forall p. List.mem p pair_l -> List.mem (fst p) fst_l
-          ensures l = [] -> forall v. List.mem v fst_l -> exists s. List.mem (v, s) pair_l *)
-
+    let rec convert (acc) ( l : (vertex*Edge.t) list) = 
+      match l with
+      | [] -> acc 
+      | (v, _ ):: xs -> convert ( v::acc) xs  
+    (*@ l_p = convert acc l 
+          requires forall e. List.mem e l -> List.mem e sucs_e_set
+          requires forall e. List.mem e acc -> exists la. List.mem (e, la) sucs_e_set
+          variant l
+          ensures forall e. List.mem e acc -> List.mem e l_p
+          ensures forall e. List.mem e l_p -> exists la. List.mem (e, la) sucs_e_set
+          ensures forall e. List.mem e l -> List.mem (fst e) l_p *)
+    in convert [] sucs_e_set
+    (*List.map (fun (v, _) -> v) sucs_e_set  *)
   (*@  l = succ g v 
         raises Not_found -> not ( vertex_belongs g v ) 
-        ensures forall v'. edge_belongs g v v' -> List.mem v' l
-        *)
+        ensures forall v'. edge_belongs g v v' <-> List.mem v' l
+  *)
 
   let succ_e gr v =     
     let g = gr.self in 
     let sucs_e_set = S.elements (HM.find v g) in 
-    let rec iter_s l = function 
-    | [] -> l  
-    | (v', c):: r -> iter_s ( (v, c, v') :: l ) r
-    (*@ edge_l = iter_s l pair_l  
-          variant pair_l
-          requires forall e. List.mem e l -> List.mem ((E.dst e), (E.label e)) pair_l /\ E.src e = v
-          ensures forall p. List.mem p pair_l -> List.mem (v, snd p, fst p) edge_l 
-          ensures l = [] -> forall e. List.mem e edge_l -> List.mem ((E.dst e), (E.label e)) pair_l /\ E.src e = v  *)
-    in  
-    iter_s [] sucs_e_set ; 
-  (*@  l = succ_e g v 
-       raises Not_found -> not ( vertex_belongs g v )
-       ensures forall e. List.mem e l -> edge_belongs_label g v (E.dst e) (E.label e)  
-        *)
-
-  (*let map_vertex f g =
-    let module MV = Util.Memo(V) in
-    let f = MV.memo f in
-    HM.map
-      (fun v s -> f v, S.fold (fun (v, l) s -> S.add (f v, l) s) s S.empty) g*)
-
-  
-    (*let iter_succ f g v =
-      S.iter (fun (w, _) -> f w) (HM.find v g)
-    let fold_succ f g v =
-      S.fold (fun (w, _) -> f w) (HM.find v g )
-  
-    let iter_succ_e f g v =
-      S.iter
-        (fun (w, l) -> f (v, l, w))
-        (HM.find v g)
-  
-    let fold_succ_e f g v =
-      S.fold
-        (fun (w, l) -> f (v, l, w))
-        (HM.find v g)
-
-    let map_vertex f g =
-      let module MV = Util.Memo(V) in
-      let f = MV.memo f in
-      HM.map
-        (fun v s -> f v, S.fold (fun (v, l) s -> S.add (f v, l) s) s S.empty) g
-  
-
-      let iter_edges f = HM.iter (fun v -> S.iter (fun (w, _) -> f v w))
-      let fold_edges f = HM.fold (fun v -> S.fold (fun (w, _) -> f v w))
-      let iter_edges_e f =
-        HM.iter (fun v -> S.iter (fun (w, l) -> f (v, l, w)))
-      let fold_edges_e f =
-        HM.fold (fun v -> S.fold (fun (w, l) -> f (v, l, w)))
-
-  
-    let iter_pred f g v =
-      if not (mem_vertex v g) then invalid_arg "[ocamlgraph] iter_pred";
-      iter_edges (fun v1 v2 -> if V.equal v v2 then f v1) g
-  
-    let fold_pred f g v =
-      if not (mem_vertex v g) then invalid_arg "[ocamlgraph] fold_pred";
-      fold_edges (fun v1 v2 a -> if V.equal v v2 then f v1 a else a) g*)
-  
-    (*let iter_pred_e f g v =
-      if not (mem_vertex v g) then invalid_arg "[ocamlgraph] iter_pred_e";
-      iter_edges_e (fun e -> if V.equal v (E.dst e) then f e) g
-  
-    let fold_pred_e f g v =
-      if not (mem_vertex v g) then invalid_arg "[ocamlgraph] fold_pred_e";
-      fold_edges_e (fun e a -> if V.equal v (E.dst e) then f e a else a) g*)
-
-
+    let rec convert (acc) ( l : (vertex*Edge.t) list) = 
+      match l with
+      | [] -> acc 
+      | (v', c ):: xs -> convert ( (v, c, v' )::acc) xs  
+    (*@ l_p = convert acc l 
+          requires forall e. List.mem e l -> List.mem e sucs_e_set
+          requires forall e. List.mem e acc -> List.mem (E.dst e, E.label e) sucs_e_set /\ E.src e = v
+          variant l
+          ensures forall e. List.mem e acc -> List.mem e l_p
+          ensures forall e. List.mem e l_p -> List.mem (E.dst e, E.label e) sucs_e_set /\ E.src e = v
+          ensures forall e. List.mem e l -> List.mem (v, snd e, fst e) l_p *) 
+    in convert [] sucs_e_set 
+    (*@  l = succ_e g v 
+        raises Not_found -> not ( vertex_belongs g v )
+        ensures forall e. List.mem e l <-> edge_belongs_label g v (E.dst e) (E.label e)  
+    *)
     
-  type vertex = HM.key
-
   let empty = { self = HM.empty }
   (*@ g = empty 
         ensures g.self.HM.dom = Set.empty *)
-  let is_empty g = HM.is_empty g.self
-  let copy g = g
 
-  (*let nb_vertex g = HM.fold (fun _ _ -> succ) g 0*)
-  (*let nb_edges g = HM.fold (fun _ s n -> n + S.cardinal s) g 0*)
+  let is_empty g = HM.is_empty g.self
+  (*@ b = is_empty g
+        ensures b <-> g.self.HM.dom = Set.empty *)
+
+  let copy g = g
+  (*@ g2 = copy g1
+        ensures g1 = g2 *)
+
+  let nb_vertex g = HM.cardinal g.self
+  (*@ n_v = nb_vertex g 
+        ensures n_v = Set.cardinal g.self.HM.dom *)
+  
+   (*let nb_edges g = List.length (HM.bindings g.self)
+ @ n_e = nb_edges g *)
   
   let out_degree g v =
     S.cardinal
@@ -375,33 +234,16 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
       requires not (vertex_belongs g1 v)
       ensures vertex_belongs g2 v 
       ensures forall v. vertex_belongs g1 v -> vertex_belongs g2 v
-      ensures forall vx, vy, l. edge_belongs_label g1 vx vy l -> edge_belongs_label g2 vx vy l 
+      ensures forall vx, vy, l. vertex_belongs g1 vx /\ vertex_belongs g1 vy /\  edge_belongs_label g1 vx vy l -> edge_belongs_label g2 vx vy l 
       ensures (g2.self.HM.view v).S.dom = Set.empty *)
-
-  (*let unsafe_add_edge gr v1 v2 = let g = gr.self in { self = HM.add v1 (S.add v2 (HM.find v1 g)) g }
-  @ g2 = unsafe_add_edge g1 v1 v2 
-        raises Not_found *)
 
   let add_vertex g v = if HM.mem v g.self then g else unsafe_add_vertex g v
   (*@ g2 = add_vertex g1 v 
       ensures vertex_belongs g2 v 
-      ensures consistent g1 g2 
+      ensures consistent g1 g2
       ensures if not (vertex_belongs g1 v) then
          (g2.self.HM.view v).S.dom = Set.empty else (g2.self.HM.view v).S.dom = (g1.self.HM.view v).S.dom*)
 
-    (*let add_edge_e_support g e =
-      let (v1, l, v2) = e in
-      if mem_edge_e g e then g
-      else
-        let g = add_vertex g v1 in
-        let g = add_vertex g v2 in
-        unsafe_add_edge g v1 (v2, l)
-    @ g2 = add_edge_e_support g1 e 
-          raises Not_found -> false *)
-
-    (*let add_edge_support g v1 v2 = add_edge_e_support g (v1, Edge.default, v2)
-    @ g2 = add_edge_support g1 v1 v2 
-        raises Not_found -> false *)
 
     (*let remove_vertex g v =
       if HM.mem v g then
@@ -416,11 +258,6 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
 
   (* Redefine iterators and [nb_edges]. *)
 
-  (*let nb_edges g = fold_edges_e (fun _ -> (+) 1) g 0*)
-
-  (* Redefine operations on predecessors:
-     predecessors are successors in an undirected graph. *)
-
   let pred g v = succ g v
   (*@ l = pred g v 
         raises Not_found *)
@@ -432,15 +269,6 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
   let pred_e g v = succ_e g v
   (*@ l = pred_e g v 
         raises Not_found *)  
-
-  (* Redefine the [add_edge] and [remove_edge] operations *)
-
-  (*  let add_edge_e g e =
-    let (v1, l, v2) = e in 
-    let g = add_edge_e_support g e in
-    assert (HM.mem v1 g.self );
-    unsafe_add_edge g v2 (v1, l)*)
-
 
   let add_edge_e g e =
     let (v1, l, v2) = e in 
@@ -456,7 +284,7 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
         ensures vertex_belongs g2 (E.dst e)
         ensures edge_belongs_label g2 (E.src e) (E.dst e) (E.label e)
         ensures edge_belongs_label g2 (E.dst e) (E.src e) (E.label e)
-        *)
+    *)
         
 
   let add_edge g v1 v2 = add_edge_e g (v1, Edge.default, v2)
@@ -466,51 +294,44 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
         ensures edge_belongs_label g2 v1 v2 Edge.default
         ensures edge_belongs_label g2 v2 v1 Edge.default *)
 
-(*  let remove_edge g v1 v2 =
-    let g = remove_edge_support g v1 v2 in
-    unsafe_remove_edge g v2 v1*)
-
   let remove_edge g v1 v2 =
     let not_equal v (v', _) = not (V.equal v v') 
     (*@ b = not_equal v p 
           ensures b <-> v <> fst p *)
     in
-    if not (HM.mem v2 g.self) then invalid_arg "[ocamlgraph] remove_edge" else 
-    let gr = 
-    HM.add v1 (S.filter (not_equal v2) (HM.find v1 g.self)) g.self in
-    { self = HM.add v2 (S.filter (not_equal v1) 
-                (HM.find v2 gr)) gr } 
+    if not (HM.mem v2 g.self) then invalid_arg "[ocamlgraph] remove_edge" else begin
+    let gr = HM.add v1 (S.filter (not_equal v2) (HM.find v1 g.self)) g.self in
+    let gr = HM.add v2 (S.filter (not_equal v1) (HM.find v2 gr)) gr in { self = gr } end
   (*@ g2 = remove_edge g1 v1 v2 
         raises Not_found -> not (vertex_belongs g1 v1) 
         raises Invalid_argument _ -> not (vertex_belongs g1 v2) 
         ensures not (edge_belongs g2 v1 v2)
         ensures not (edge_belongs g2 v2 v1)
+        ensures vertex_belongs g2 v1
+        ensures vertex_belongs g2 v2
         ensures forall v. vertex_belongs g1 v -> vertex_belongs g2 v
-        ensures forall vy, vx. vx <> v1 /\ vy <> v2 /\ edge_belongs g1 vx vy -> edge_belongs g2 vx vy
-        ensures forall vy. edge_belongs g1 v1 vy /\ vy <> v2 -> edge_belongs g2 v1 vy
-        ensures forall vx. edge_belongs g1 vx v2 /\ vx <> v1 -> edge_belongs g2 vx v2
-        *)
-  
-(*  let remove_edge_e g e =
-    let (v1, l, v2) = e in 
-    let g = remove_edge_e_support g e in
-    unsafe_remove_edge_e g (v2, l, v1)*)
-  
+        ensures forall vy, vx, l. vx <> v1 /\ vx <> v2 /\ edge_belongs_label g1 vx vy l -> edge_belongs_label g2 vx vy l
+        ensures forall vy, l. edge_belongs_label g1 v1 vy l /\ vy <> v2 -> edge_belongs_label g2 v1 vy l
+        ensures forall vx, l. edge_belongs_label g1 vx v2 l /\ vx <> v1 -> edge_belongs_label g2 vx v2 l
+        *)  
 
   let remove_edge_e g e =
     let (v1, l, v2) = e in 
-    if not (HM.mem v2 g.self) then invalid_arg "[ocamlgraph] remove_edge_e" else 
+    if not (HM.mem v2 g.self) then invalid_arg "[ocamlgraph] remove_edge_e" else begin
     let gr = 
       HM.add v2 (S.remove (v1, l) (HM.find v2 g.self)) g.self in 
-    { self = HM.add v1 (S.remove (v2, l) (HM.find v1 gr)) gr }
+    { self = HM.add v1 (S.remove (v2, l) (HM.find v1 gr)) gr } end
   (*@ g2 = remove_edge_e g1 e
         raises Not_found -> not (vertex_belongs g1 (E.src e))
         raises Invalid_argument _ -> not (vertex_belongs g1 (E.dst e))   
         ensures not (edge_belongs_label g2 (E.src e) (E.dst e) (E.label e))
         ensures not (edge_belongs_label g2 (E.dst e) (E.src e) (E.label e))
         ensures forall v. vertex_belongs g1 v -> vertex_belongs g2 v
-        ensures forall vx, vy, l. vx <> (E.src e) /\ vy <> (E.dst e) /\ l <> (E.label e) /\ edge_belongs_label g1 vx vy l -> 
-              edge_belongs_label g2 vx vy l *)
+        ensures forall vy, l. edge_belongs_label g1 (E.src e) vy l /\ vy <> (E.dst e) -> edge_belongs_label g2 (E.src e) vy l
+        ensures forall vx, l. edge_belongs_label g1 vx (E.dst e) l /\ vx <> (E.src e) -> edge_belongs_label g2 vx (E.dst e) l
+        ensures forall l.  edge_belongs_label g1 (E.src e) (E.dst e) l /\ l <> (E.label e) -> edge_belongs_label g2 (E.src e) (E.dst e) l 
+        ensures forall vx, vy, l. edge_belongs_label g1 vx vy l /\ vx <> (E.src e) /\ vx <> (E.dst e) -> edge_belongs_label g2 vx vy l
+    *)
 
 end
 
