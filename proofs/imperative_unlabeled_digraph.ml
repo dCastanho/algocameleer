@@ -100,32 +100,6 @@ module ImperativeUnlabeledDigraph(Vertex: COMPARABLE) = struct
         ensures consistent (old g) g 
         ensures consistent g (old g)  *)
 
-  (*let unsafe_remove_edge gr v1 v2 = let g = gr.self in HM.add g v1 (S.remove v2 (HM.find g v1))
-  @ unsafe_remove_edge g v1 v2
-        requires vertex_belongs g v1 -> edge_belongs g v1 v2
-        requires vertex_belongs g v1 -> vertex_belongs g v2
-        raises Not_found -> not ( vertex_belongs g v1 )
-        ensures Set.subset (succ g v1) (succ (old g) v1 )
-        ensures forall v. vertex_belongs (old g) v -> vertex_belongs g v
-        ensures not ( edge_belongs g v1 v2 )
-        ensures forall vy. vy <> v2 /\ edge_belongs (old g) v1 vy -> edge_belongs g v1 vy
-        ensures forall vx. vx <> v1 /\ edge_belongs (old g) vx v2 -> edge_belongs g vx v2
-        ensures forall vx, vy. vx <> v1 /\ vy <> v2 /\ edge_belongs (old g) vx vy -> edge_belongs g vx vy *)
-
-  (*let unsafe_remove_edge_e g (v1, v2) = unsafe_remove_edge g v1 v2
-  @ unsafe_remove_edge_e g p 
-        requires edge_belongs g (fst p) (snd p)
-        requires vertex_belongs g (snd p)
-        requires vertex_belongs g (fst p) 
-        raises Not_found -> not ( vertex_belongs g (fst p) )
-        ensures Set.subset (succ g (fst p)) (succ (old g) (fst p) )
-        ensures not (edge_belongs g (fst p) (snd p))
-        ensures forall vy. vy <> (snd p) /\ edge_belongs (old g) (fst p) vy -> edge_belongs g (fst p) vy
-        ensures forall vx. vx <> (fst p) /\ edge_belongs (old g) vx (snd p) -> edge_belongs g vx (snd p)
-        ensures forall v. vertex_belongs (old g) v -> vertex_belongs g v  
-        ensures forall p'. (fst p') <> (fst p) /\ (snd p') <> (snd p) /\ edge_belongs (old g) (fst p') (snd p') -> edge_belongs g (fst p') (snd p')*)
-               
-
   let remove_edge gr v1 v2 =
     let g = gr.self in
     if not (HM.mem g v2 ) then invalid_arg "[ocamlgraph] remove_edge";
@@ -136,8 +110,9 @@ module ImperativeUnlabeledDigraph(Vertex: COMPARABLE) = struct
         ensures not (edge_belongs g v1 v2)
         ensures Set.subset (succ g v1) (succ (old g) v1 )
         ensures forall vx, vy. vx <> v1 /\ vy <> v2 /\ edge_belongs (old g) vx vy -> edge_belongs g vx vy
-        ensures edge_belongs g v1 v2 -> let dif = Set.diff (succ (old g) v1 ) (succ g v1) in
-               Set.cardinal dif = 1 /\ Set.mem v2 dif *)
+        ensures forall vx. vx <> v1  /\ edge_belongs (old g) vx v2 -> edge_belongs g vx v2
+        ensures forall vy. vy <> v2 /\ edge_belongs (old g) v1 vy -> edge_belongs g v1 vy 
+  *)
 
   let remove_edge_e g (v1, v2) = remove_edge g v1 v2
   (*@ remove_edge_e g p 
@@ -146,8 +121,9 @@ module ImperativeUnlabeledDigraph(Vertex: COMPARABLE) = struct
         ensures not (edge_belongs g (fst p) (snd p))
         ensures Set.subset (succ g (fst p)) (succ (old g) (fst p) )
         ensures forall p'. (fst p') <> (fst p) /\ (snd p') <> (snd p) /\ edge_belongs (old g) (fst p') (snd p') -> edge_belongs g (fst p') (snd p')
-        ensures edge_belongs g (fst p) (snd p) -> let dif = Set.diff (succ (old g) (fst p) ) (succ g (fst p) ) in
-               Set.cardinal dif = 1 /\ Set.mem (snd p) dif *) 
+        ensures forall vx, vy. vx <> fst p /\ vy <> snd p /\ edge_belongs (old g) vx vy -> edge_belongs g vx vy
+        ensures forall vx. vx <> fst p  /\ edge_belongs (old g) vx (snd p) -> edge_belongs g vx (snd p)
+        ensures forall vy. vy <> snd p /\ edge_belongs (old g) (fst p) vy -> edge_belongs g (fst p) vy  *) 
 
   let is_directed = true
   let empty = ()
@@ -165,22 +141,19 @@ module ImperativeUnlabeledDigraph(Vertex: COMPARABLE) = struct
         ensures consistent (old g) g 
         ensures consistent g (old g) *)
 
-  (*let copy = HM.copy
+  (*let copy g = { self = HM.copy g.self }
   @ g2 = copy g1 
-         ensures g2.HM.dom <> g1.HM.dom 
-         ensures g2 != g1 *)
+         ensures g1 = g2 *)
          
    let clear g = HM.clear g.self
    (*@ clear g
       ensures g.self.HM.dom = Set.empty *)
 
-  (* let nb_edges g = HM.fold (fun _ s n -> n + S.cardinal s) g 0 *)
-
   let out_degree g v =
     S.cardinal
       (try HM.find g.self v with Not_found -> invalid_arg "[ocamlgraph] out_degree")
   (*@ d = out_degree g v
-        ensures vertex_belongs g v -> d = Set.cardinal (succ g v)
+        ensures d = Set.cardinal (succ g v)
         raises  Invalid_argument _ -> not vertex_belongs g v
         ensures consistent (old g) g 
         ensures consistent g (old g)  *)
@@ -203,7 +176,8 @@ module ImperativeUnlabeledDigraph(Vertex: COMPARABLE) = struct
   let unsafe_add_edge g v1 v2 = HM.add g.self v1 (S.add v2 (HM.find g.self v1))
   (*@ unsafe_add_edge g v1 v2
         requires vertex_belongs g v2
-        raises Not_found -> not vertex_belongs g v1 
+        requires vertex_belongs g v1
+        raises Not_found -> false
         ensures edge_belongs g v1 v2
         ensures forall vx, vy. edge_belongs g vx vy /\ vx <> v1 /\ vy <> v2 -> edge_belongs (old g) vx vy  
         ensures forall vx. edge_belongs g vx v2 /\ vx <> v1 -> edge_belongs (old g) vx v2  
@@ -215,25 +189,28 @@ module ImperativeUnlabeledDigraph(Vertex: COMPARABLE) = struct
   let add_vertex g v = if HM.mem g.self v then () else unsafe_add_vertex g v
   (*@ add_vertex g v  
         ensures vertex_belongs g v
-        ensures not vertex_belongs g v -> succ g v = Set.empty 
+        ensures not vertex_belongs (old g) v -> succ g v = Set.empty 
         ensures forall vx, vy. edge_belongs g vx vy -> edge_belongs (old g) vx vy  
         ensures forall v'. v' <> v /\ vertex_belongs g v' -> vertex_belongs (old g) v'
         ensures consistent (old g) g *)
 
   let add_edge g v1 v2 =
     if mem_edge g v1 v2 then ()
-    else
-      add_vertex g v1 ; add_vertex g v2 ;
+    else begin
+      add_vertex g v2 ;
+      add_vertex g v1 ;
       unsafe_add_edge g v1 v2
+    end
   (*@ add_edge g v1 v2 
         ensures forall vx, vy. edge_belongs g vx vy /\ vx <> v1 /\ vy <> v2 -> edge_belongs (old g) vx vy  
         ensures forall vx. edge_belongs g vx v2 /\ vx <> v1 -> edge_belongs (old g) vx v2  
         ensures forall vy. edge_belongs g v1 vy /\ vy <> v2 -> edge_belongs (old g) v1 vy  
+        ensures edge_belongs (old g) v1 v2 -> old g = g
         ensures vertex_belongs g v1
         ensures vertex_belongs g v2
         ensures edge_belongs g v1 v2 
         ensures consistent (old g) g 
-        raises Not_found -> not ( vertex_belongs g v1 ) 
+        raises Not_found -> false 
         *)
 
    let succ g v = S.elements (HM.find g.self v)
@@ -243,78 +220,40 @@ module ImperativeUnlabeledDigraph(Vertex: COMPARABLE) = struct
         ensures consistent (old g) g 
         ensures consistent g (old g) *)
 
+   let succ_e g v =
+      let s_list = succ g v in 
+      let rec attach (acc) ( l : vertex list) = 
+            match l with
+            | [] -> acc 
+            | x :: xs -> attach ((v,x)::acc) xs 
+      (*@ l_p = attach acc l 
+            requires forall e. List.mem e l -> List.mem e s_list
+            requires forall e. List.mem e acc -> List.mem (snd e) s_list /\ fst e = v 
+            variant l
+            ensures forall v'. List.mem v' acc -> List.mem v' l_p
+            ensures forall p. List.mem p l_p -> fst p = v /\ List.mem (snd p) s_list
+            ensures forall e. List.mem e l -> List.mem (v, e) l_p  *)
+      in
+      attach [] s_list
+   (*@ l = succ_e g v 
+        raises Not_found -> not ( vertex_belongs g v )
+        ensures forall p. let (vx, vy) = p in 
+             List.mem p l <-> Set.mem vy (succ g vx) /\ vx = v 
+        ensures consistent (old g) g 
+        ensures consistent g (old g) *)
+
   let add_edge_e g (v1, v2) = add_edge g v1 v2
   (*@ add_edge_e g p 
+        ensures forall vx, vy. edge_belongs g vx vy /\ vx <> (fst p) /\ vy <> (snd p) -> edge_belongs (old g) vx vy  
+        ensures forall vx. edge_belongs g vx (snd p) /\ vx <> (fst p) -> edge_belongs (old g) vx (snd p)  
+        ensures forall vy. edge_belongs g (fst p) vy /\ vy <> (snd p) -> edge_belongs (old g) (fst p) vy  
         ensures vertex_belongs g (fst p)
         ensures vertex_belongs g (snd p)
         ensures edge_belongs g (fst p) (snd p) 
         ensures consistent (old g) g 
-        raises Not_found -> not ( vertex_belongs g (fst p) ) *)
-
-   (*let remove_vertex g v =
-         if HM.mem g v then begin
-           ignore (HM.remove g v);
-           let rec remove_all = function 
-           | Nil -> () 
-           | Cons( x, a) ->  HM.add g x (S.remove v (HM.find g x)) ; remove_all ( a () ) in
-           remove_all (HM.to_seq_keys g ())
-         end *)
-
-   (*****    HIGHER ORDER FUNCTIONS     *****)
-
-    (* let iter_succ f g v =
-   *   S.iter f (HM.find g v)
-   *
-   * let fold_succ f g v =
-   *   S.fold f (HM.find g v)
-   *
-   * let iter_succ_e f g v = iter_succ (fun v2 -> f (v, v2)) g v
-   * let fold_succ_e f g v = fold_succ (fun v2 -> f (v, v2)) g v *)
-
-  (* let succ g v = S.elements (HM.find g v)
-   *
-   * let succ_e g v = fold_succ_e (fun e l -> e :: l) g v [] *)
-
-  (*let map_vertex f g =
-    let module MV = Util.Memo(V) in
-    let f = MV.memo f in
-    HM.map (fun v s -> f v, S.fold (fun v s -> S.add (f v) s) s S.empty) g*)
-
-  (* let all g= let l = ref [] in HM.iter (fun v k -> l := v::!l) g; !l ;; *)
-
-    (* let iter_edges f = HM.iter (fun v -> S.iter (f v))
-     * let fold_edges f = HM.fold (fun v -> S.fold (f v))
-     * let iter_edges_e f = iter_edges (fun v1 v2 -> f (v1, v2))
-     * let fold_edges_e f = fold_edges (fun v1 v2 a -> f (v1, v2) a) *)
-
-  (* let iter_pred f g v =
-   *   if not (mem_vertex g v ) then invalid_arg "[ocamlgraph] iter_pred";
-   *   iter_edges (fun v1 v2 -> if  V.equal v v2 then f v1) g
-   *
-   * let fold_pred f g v =
-   *   if not (mem_vertex g v ) then invalid_arg "[ocamlgraph] fold_pred";
-   *   fold_edges (fun v1 v2 a -> if  V.equal v v2 then f v1 a else a) g
-   *
-   * let pred g v = fold_pred (fun v l -> v :: l) g v []
-   *
-   * let in_degree g v =
-   *   if not (mem_vertex g v) then invalid_arg "[ocamlgraph] in_degree";
-   *   fold_pred (fun _ n -> n + 1) g v 0
-   *
-   * let iter_pred_e f g v =
-   *   if not (mem_vertex g v) then invalid_arg "[ocamlgraph] iter_pred_e";
-   *   iter_edges_e (fun e -> if  V.equal v (E.dst e) then f e) g
-   *
-   * let fold_pred_e f g v =
-   *   if not (mem_vertex g v) then invalid_arg "[ocamlgraph] fold_pred_e";
-   *   fold_edges_e (fun e a -> if  V.equal v (E.dst e) then f e a else a) g
-   *
-   * let pred_e g v = fold_pred_e (fun v l -> v :: l) g v []
-   *
-   * let iter_vertex f = HM.iter (fun v _ -> f v)
-   *
-   * let fold_vertex f = HM.fold (fun v _ -> f v)
-   *)
+        raises Not_found -> false *)
+   
+   
 end
 
 
