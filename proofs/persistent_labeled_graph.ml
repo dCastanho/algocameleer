@@ -261,15 +261,35 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
 
   let pred g v = succ g v
   (*@ l = pred g v 
-        raises Not_found *)
+        raises Not_found
+        ensures forall e. List.mem e l <-> edge_belongs g e v *)
+
+
   let in_degree g v = out_degree g v 
   (*@ d = in_degree g v 
         raises Invalid_argument _ -> not (vertex_belongs g v)
         ensures d = Set.cardinal (g.self.HM.view v).S.dom  *)
   
-  let pred_e g v = succ_e g v
-  (*@ l = pred_e g v 
-        raises Not_found *)  
+  let pred_e gr v = 
+    let g = gr.self in 
+    let sucs_e_set = S.elements (HM.find v g) in 
+    let rec convert (acc) ( l : (vertex*Edge.t) list) = 
+      match l with
+      | [] -> acc 
+      | (v', c ):: xs -> convert ( (v', c, v )::acc) xs  
+    (*@ l_p = convert acc l 
+          requires forall e. List.mem e l -> List.mem e sucs_e_set
+          requires forall e. List.mem e acc -> List.mem (E.src e, E.label e) sucs_e_set /\ E.dst e = v
+          variant l
+          ensures forall e. List.mem e acc -> List.mem e l_p
+          ensures forall e. List.mem e l_p -> List.mem (E.src e, E.label e) sucs_e_set /\ E.dst e = v
+          ensures forall e. List.mem e l -> List.mem (fst e, snd e, v) l_p  *) 
+
+    in convert [] sucs_e_set 
+    (*@  l = pred_e g v 
+        raises Not_found -> not ( vertex_belongs g v )
+        ensures forall e. List.mem e l <-> edge_belongs_label g (E.src e) (E.dst e) (E.label e) /\ E.dst e = v 
+    *)
 
   let add_edge_e g e =
     let (v1, l, v2) = e in 

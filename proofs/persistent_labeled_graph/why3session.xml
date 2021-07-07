@@ -483,12 +483,18 @@
   </goal>
  </transf>
  </goal>
+ <goal name="PersistentLabeledGraph.pred&#39;vc" expl="VC for pred" proved="true">
+ <proof prover="0"><result status="valid" time="0.82" steps="8024"/></proof>
+ </goal>
  <goal name="PersistentLabeledGraph.in_degree&#39;vc" expl="VC for in_degree" proved="true">
  <proof prover="0"><result status="valid" time="0.02" steps="20"/></proof>
  <proof prover="1"><result status="valid" time="0.08" steps="28183"/></proof>
  <proof prover="2"><result status="valid" time="0.03"/></proof>
  <proof prover="3"><result status="valid" time="0.02" steps="11061"/></proof>
  <proof prover="4"><result status="valid" time="0.01"/></proof>
+ </goal>
+ <goal name="PersistentLabeledGraph.pred_e&#39;vc" expl="VC for pred_e" proved="true">
+ <proof prover="0"><result status="valid" time="0.32" steps="2647"/></proof>
  </goal>
  <goal name="PersistentLabeledGraph.add_edge_e&#39;vc" expl="VC for add_edge_e" proved="true">
  <transf name="split_vc" proved="true" >
