@@ -192,11 +192,12 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
           variant l
           ensures forall e. List.mem e acc -> List.mem e l_p
           ensures forall e. List.mem e l_p -> List.mem (E.dst e, E.label e) sucs_e_set /\ E.src e = v
-          ensures forall e. List.mem e l -> List.mem (v, snd e, fst e) l_p *) 
+          ensures forall e. List.mem e l -> List.mem (v, snd e, fst e) l_p  *) 
+
     in convert [] sucs_e_set 
     (*@  l = succ_e g v 
         raises Not_found -> not ( vertex_belongs g v )
-        ensures forall e. List.mem e l <-> edge_belongs_label g v (E.dst e) (E.label e)  
+        ensures forall e. List.mem e l <-> edge_belongs_label g (E.src e) (E.dst e) (E.label e) /\ E.src e = v 
     *)
     
   let empty = { self = HM.empty }
