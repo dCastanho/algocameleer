@@ -513,7 +513,7 @@
  <proof prover="0"><result status="valid" time="3.05" steps="24466"/></proof>
  </goal>
  <goal name="Cycle.is_cycle_func&#39;vc" expl="VC for is_cycle_func" proved="true">
- <proof prover="0"><result status="valid" time="0.14" steps="838"/></proof>
+ <proof prover="0"><result status="valid" time="0.14" steps="608"/></proof>
  </goal>
 </theory>
 </file>

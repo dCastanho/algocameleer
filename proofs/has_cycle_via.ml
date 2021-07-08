@@ -243,10 +243,10 @@ let has_cycle_directed g =
         let rec get_last = function 
         | x :: [] -> x 
         | x :: xs -> get_last xs 
-        | [] -> raise Not_found 
+        | [] -> assert false
         (*@ x = get_last l
               variant l 
-              raises Not_found -> l = []
+              requires l <> []
               ensures List.mem x l
               ensures x = (of_list l)[List.length l - 1] *) 
         in
@@ -254,7 +254,6 @@ let has_cycle_directed g =
         let v = get_last l in is_path_func v l v g 
         (*@ b = is_cycle_func l g 
               requires forall v. List.mem v l -> Set.mem v g.G.dom
-              raises Not_found -> false
               ensures b <-> is_cycle (of_list l) g *)
 
 end
