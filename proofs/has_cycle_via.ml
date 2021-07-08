@@ -1,7 +1,7 @@
 (*@ open Set *)
 (*@ open Seq *)
 (*@ open SeqOfList *)
-(*include Imperative_unlabeled_digraph_copy*)
+
 module type COMPARABLE = sig
   type t
   val [@logic] compare : t -> t -> int
@@ -218,7 +218,7 @@ let has_cycle_directed g =
             ensures b <-> List.mem v l *)
       in 
       let rec iter_path = function 
-      | [] -> true
+      | [] -> assert false
       | v' :: v'' :: vs -> is_succ (v'') (G.succ g v') && iter_path (v'' :: vs)
       | v' :: [] -> G.V.equal v' v2
       (*@ b = iter_path l 
@@ -236,8 +236,6 @@ let has_cycle_directed g =
             requires forall v. List.mem v l -> Set.mem v g.G.dom
             raises Not_found -> false
             ensures b <-> is_path v1 (of_list l) v2 g *)
-
-
 
       (*Cycles have the form: [vx, ..., v] where vx is a successor of v. 
       So, single vertex loops take the shape of [v] and empty lists aren't loops *)      
@@ -260,69 +258,3 @@ let has_cycle_directed g =
               ensures b <-> is_cycle (of_list l) g *)
 
 end
-
-
-(*  TESTING PURPOSES
-
-
-module T = struct
-   type t = int 
-   let compare v1 v2 = v1 - v2 
-
-   let hash t = t 
-
-   let equal = (=)
-end
-
-module GTR = Imperative_unlabeled_digraph_copy.ImperativeUnlabeledDigraph(T)
-
-module CYC = Cycle(GTR) 
-
-let rec print_list = function
-  | [] -> ()
-  | x :: xs -> print_int x ; print_string " " ; print_list xs
-
-let () =
-  let g = GTR.create 10 in 
-  GTR.add_vertex g 1 ; 
-  GTR.add_vertex g 2 ; 
-  GTR.add_vertex g 3 ; 
-  GTR.add_vertex g 4 ; 
-  GTR.add_vertex g 5 ; 
-  GTR.add_vertex g 6 ;
-  GTR.add_vertex g 7 ;
-  GTR.add_vertex g 8 ;
-  GTR.add_vertex g 9 ;
-  GTR.add_vertex g 10 ;
-  GTR.add_vertex g 11 ;
-  GTR.add_vertex g 12 ;
-  GTR.add_vertex g 13 ;
-  GTR.add_vertex g 14 ;
-  GTR.add_vertex g 15 ;
-  GTR.add_vertex g 16 ;
-  GTR.add_vertex g 17 ;
-  GTR.add_vertex g 18 ;
-  GTR.add_edge g 1 3 ; 
-  GTR.add_edge g 3 2 ; 
-  GTR.add_edge g 3 4 ; 
-  GTR.add_edge g 5 3 ; 
-  GTR.add_edge g 4 6 ; 
-  GTR.add_edge g 6 7 ;
-  GTR.add_edge g 8 7 ; 
-  GTR.add_edge g 7 9 ; 
-  GTR.add_edge g 7 4 ; 
-  GTR.add_edge g 9 18 ; 
-  GTR.add_edge g 18 5 ; 
-  (*GTR.add_edge g 6 10 ; 
-  GTR.add_edge g 16 18 ; *)
-  GTR.add_edge g 11 10 ; 
-  GTR.add_edge g 16 11 ; 
-  GTR.add_edge g 17 16 ; 
-  GTR.add_edge g 13 16 ; 
-  GTR.add_edge g 10 12 ; 
-  GTR.add_edge g 12 13 ; 
-  GTR.add_edge g 14 13 ; 
-  GTR.add_edge g 15 13 ; 
-  print_list (CYC.has_cycle_directed g)
-
-*)
