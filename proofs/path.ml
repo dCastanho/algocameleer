@@ -147,6 +147,8 @@
                           requires forall v'. Seq.mem v' q.Queue.view -> has_path v1 v' pc.graph
                           variant l 
                           ensures sucs = p @ l
+                          ensures forall v'. Seq.mem v' (old q).Queue.view -> Seq.mem v' q.Queue.view
+                          ensures (old visited) = visited
                           ensures forall v'. List.mem v' l -> Seq.mem v' q.Queue.view
                           ensures q.Queue.view == oldQ.Queue.view ++ (of_list sucs)
                           ensures q.Queue.view == oldQ.Queue.view ++ ( of_list p ++ of_list l)
@@ -154,6 +156,7 @@
                           ensures forall v'. Seq.mem v' q.Queue.view -> Set.mem v' pc.graph.G.dom  
                           ensures has_path v1 v2 pc.graph -> exists w. Seq.mem w q.Queue.view /\ has_path w v2 pc.graph /\ not (Set.mem w visited.HV.dom)
                           ensures forall v'. Set.mem v' visited.HV.dom -> has_path v1 v' pc.graph 
+                          ensures l = sucs -> forall v'. Set.mem v' visited.HV.dom -> forall s. edge v' s pc.graph -> Seq.mem s q.Queue.view \/ Set.mem s visited.HV.dom
                           *)
                     in
                     iter_succ [] sucs
