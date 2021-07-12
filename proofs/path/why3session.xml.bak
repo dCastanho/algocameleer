@@ -10,15 +10,15 @@
 <path name=".."/><path name="path.ml"/>
 <theory name="Path">
  <goal name="seq_cons" proved="true">
- <proof prover="0" obsolete="true"><result status="valid" time="0.02" steps="11"/></proof>
+ <proof prover="0"><result status="valid" time="0.02" steps="11"/></proof>
  <proof prover="1" timelimit="1"><result status="valid" time="0.15" steps="33032"/></proof>
  </goal>
  <goal name="equal_hashes_HASHABLE" proved="true">
- <proof prover="0" obsolete="true"><result status="valid" time="0.01" steps="6"/></proof>
+ <proof prover="0"><result status="valid" time="0.01" steps="6"/></proof>
  <proof prover="1" timelimit="1"><result status="valid" time="0.04" steps="24510"/></proof>
  </goal>
  <goal name="equal_hashes_COMPARABLE" proved="true">
- <proof prover="0" obsolete="true"><result status="valid" time="0.01" steps="6"/></proof>
+ <proof prover="0"><result status="valid" time="0.01" steps="6"/></proof>
  <proof prover="1" timelimit="1"><result status="valid" time="0.04" steps="24582"/></proof>
  </goal>
  <goal name="Check.G.gt&#39;vc" expl="VC for gt" proved="true">
@@ -28,7 +28,7 @@
    <goal name="gt&#39;vc.0.0" proved="true">
    <transf name="split_vc" proved="true" >
     <goal name="gt&#39;vc.0.0.0" expl="type invariant" proved="true">
-    <proof prover="0" obsolete="true"><result status="valid" time="0.01" steps="12"/></proof>
+    <proof prover="0"><result status="valid" time="0.01" steps="12"/></proof>
     <proof prover="1" timelimit="1"><result status="valid" time="0.09" steps="29576"/></proof>
     </goal>
    </transf>
@@ -38,7 +38,7 @@
  </transf>
  </goal>
  <goal name="Check.emp_cons" proved="true">
- <proof prover="0" obsolete="true"><result status="valid" time="0.04" steps="87"/></proof>
+ <proof prover="0"><result status="valid" time="0.04" steps="87"/></proof>
  <proof prover="1" timelimit="1"><result status="valid" time="0.19" steps="38070"/></proof>
  </goal>
  <goal name="Check.path_suc" proved="true">
@@ -53,7 +53,7 @@
      <goal name="path_suc.0.0.0.0" proved="true">
      <transf name="exists" proved="true" arg1="(snoc p v3)">
       <goal name="path_suc.0.0.0.0.0" proved="true">
-      <proof prover="0" obsolete="true"><result status="valid" time="0.04" steps="339"/></proof>
+      <proof prover="0"><result status="valid" time="0.04" steps="339"/></proof>
       <proof prover="1" timelimit="1"><result status="valid" time="0.21" steps="49734"/></proof>
       <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
       </goal>
@@ -68,11 +68,11 @@
  </transf>
  </goal>
  <goal name="Check.edge_path" proved="true">
- <proof prover="0" obsolete="true"><result status="valid" time="0.02" steps="54"/></proof>
+ <proof prover="0"><result status="valid" time="0.02" steps="54"/></proof>
  <proof prover="1" timelimit="1"><result status="valid" time="0.10" steps="29514"/></proof>
  </goal>
  <goal name="Check.self_path" proved="true">
- <proof prover="0" obsolete="true"><result status="valid" time="0.03" steps="34"/></proof>
+ <proof prover="0"><result status="valid" time="0.03" steps="34"/></proof>
  <proof prover="1" timelimit="1"><result status="valid" time="0.09" steps="29430"/></proof>
  </goal>
  <goal name="Check.path_checker&#39;vc" expl="VC for path_checker" proved="true">
@@ -80,20 +80,22 @@
  <proof prover="3"><result status="valid" time="0.16"/></proof>
  <transf name="exists" proved="true" arg1="(cache_empty () : t bool)">
   <goal name="path_checker&#39;vc.0" proved="true">
-  <proof prover="0" memlimit="2000"><result status="timeout" time="5.00"/></proof>
-  <proof prover="1" memlimit="2000"><result status="timeout" time="5.00" steps="633881"/></proof>
-  <proof prover="2" memlimit="2000"><result status="timeout" time="5.00" steps="9579178"/></proof>
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="440629"/></proof>
+  <proof prover="2" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="9579178"/></proof>
   <proof prover="3"><result status="valid" time="0.22"/></proof>
   </goal>
  </transf>
  </goal>
  <goal name="Check.create&#39;vc" expl="VC for create" proved="true">
- <proof prover="0" obsolete="true"><result status="valid" time="0.02" steps="104"/></proof>
+ <proof prover="0"><result status="valid" time="0.02" steps="104"/></proof>
  <proof prover="1" timelimit="1"><result status="valid" time="0.16" steps="39817"/></proof>
+ <proof prover="3"><result status="valid" time="0.25"/></proof>
  </goal>
  <goal name="Check.list_notNil_cons&#39;vc" expl="VC for list_notNil_cons" proved="true">
- <proof prover="0" obsolete="true"><result status="valid" time="0.01" steps="6"/></proof>
+ <proof prover="0"><result status="valid" time="0.01" steps="6"/></proof>
  <proof prover="1" timelimit="1"><result status="valid" time="0.06" steps="28671"/></proof>
+ <proof prover="3"><result status="valid" time="0.04"/></proof>
  </goal>
  <goal name="Check.check_path&#39;vc" expl="VC for check_path">
  <transf name="split_vc" >
@@ -102,8 +104,9 @@
    <goal name="check_path&#39;vc.0.0" expl="postcondition" proved="true">
    <transf name="case" proved="true" arg1="( view (cache pc) @ (v1, v2) = Nil )">
     <goal name="check_path&#39;vc.0.0.0" expl="true case (postcondition)" proved="true">
-    <proof prover="0" obsolete="true"><result status="valid" time="0.02" steps="12"/></proof>
+    <proof prover="0"><result status="valid" time="0.02" steps="12"/></proof>
     <proof prover="1" timelimit="1"><result status="valid" time="0.10" steps="29038"/></proof>
+    <proof prover="3"><result status="valid" time="0.03"/></proof>
     </goal>
     <goal name="check_path&#39;vc.0.0.1" expl="false case (postcondition)" proved="true">
     <transf name="unfold" proved="true" arg1="has_path">
@@ -114,26 +117,28 @@
        <goal name="check_path&#39;vc.0.0.1.0.0.0" expl="VC for check_path" proved="true">
        <transf name="destruct" proved="true" arg1="Hinst">
         <goal name="check_path&#39;vc.0.0.1.0.0.0.0" expl="destruct premise" proved="true">
-        <proof prover="0" obsolete="true"><result status="valid" time="0.03" steps="15"/></proof>
+        <proof prover="0"><result status="valid" time="0.03" steps="15"/></proof>
         <proof prover="1" timelimit="1"><result status="valid" time="0.14" steps="36388"/></proof>
+        <proof prover="3"><result status="valid" time="0.08"/></proof>
         </goal>
         <goal name="check_path&#39;vc.0.0.1.0.0.0.1" expl="VC for check_path" proved="true">
-        <proof prover="0" memlimit="2000"><result status="timeout" time="5.00"/></proof>
-        <proof prover="1" memlimit="2000"><result status="timeout" time="5.00" steps="921061"/></proof>
-        <proof prover="2" memlimit="2000"><result status="timeout" time="5.00" steps="9925373"/></proof>
-        <proof prover="3"><result status="valid" time="2.86"/></proof>
+        <proof prover="0" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+        <proof prover="1" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="921061"/></proof>
+        <proof prover="2" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="9925373"/></proof>
+        <proof prover="3"><result status="valid" time="3.01"/></proof>
         <transf name="inline_goal" >
          <goal name="check_path&#39;vc.0.0.1.0.0.0.1.0" expl="VC for check_path">
          <transf name="split_all_full" >
           <goal name="check_path&#39;vc.0.0.1.0.0.0.1.0.0" expl="VC for check_path">
-          <proof prover="0" memlimit="2000"><result status="timeout" time="5.00"/></proof>
-          <proof prover="1" memlimit="2000"><result status="timeout" time="5.00" steps="577374"/></proof>
-          <proof prover="2" memlimit="2000"><result status="timeout" time="5.00" steps="9813600"/></proof>
+          <proof prover="0" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+          <proof prover="1" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="577374"/></proof>
+          <proof prover="2" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="9813600"/></proof>
           <transf name="inline_goal" >
            <goal name="check_path&#39;vc.0.0.1.0.0.0.1.0.0.0" expl="VC for check_path">
-           <proof prover="0" timelimit="30" memlimit="4000"><result status="timeout" time="30.00"/></proof>
-           <proof prover="1" timelimit="30" memlimit="4000"><result status="timeout" time="30.00" steps="1931846"/></proof>
-           <proof prover="2" timelimit="30" memlimit="4000"><result status="timeout" time="30.00" steps="21100676"/></proof>
+           <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+           <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="362774"/></proof>
+           <proof prover="2" timelimit="30" memlimit="4000" obsolete="true"><result status="timeout" time="30.00" steps="21100676"/></proof>
+           <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
            </goal>
           </transf>
           </goal>
@@ -154,10 +159,10 @@
    <goal name="check_path&#39;vc.0.1" expl="postcondition" proved="true">
    <transf name="case" proved="true" arg1="( view (cache pc) @ (v1, v2) = Nil )">
     <goal name="check_path&#39;vc.0.1.0" expl="true case (postcondition)" proved="true">
-    <proof prover="0" obsolete="true"><result status="valid" time="0.01" steps="12"/></proof>
+    <proof prover="0"><result status="valid" time="0.01" steps="12"/></proof>
     <proof prover="1" timelimit="1"><result status="valid" time="0.09" steps="29038"/></proof>
-    <proof prover="2" obsolete="true"><result status="valid" time="0.01" steps="11360"/></proof>
-    <proof prover="3" obsolete="true"><result status="valid" time="0.04"/></proof>
+    <proof prover="2"><result status="valid" time="0.01" steps="11459"/></proof>
+    <proof prover="3"><result status="valid" time="0.04"/></proof>
     </goal>
     <goal name="check_path&#39;vc.0.1.1" expl="false case (postcondition)" proved="true">
     <transf name="instantiate" proved="true" arg1="path_checker&#39;invariant" arg2="pc">
@@ -166,24 +171,24 @@
       <goal name="check_path&#39;vc.0.1.1.0.0" expl="false case (postcondition)" proved="true">
       <transf name="destruct" proved="true" arg1="Hinst">
        <goal name="check_path&#39;vc.0.1.1.0.0.0" expl="destruct premise" proved="true">
-       <proof prover="0" obsolete="true"><result status="valid" time="0.03" steps="16"/></proof>
+       <proof prover="0"><result status="valid" time="0.03" steps="16"/></proof>
        <proof prover="1" timelimit="1"><result status="valid" time="0.14" steps="36396"/></proof>
-       <proof prover="2" obsolete="true"><result status="valid" time="0.05" steps="194798"/></proof>
-       <proof prover="3" obsolete="true"><result status="valid" time="0.11"/></proof>
+       <proof prover="2"><result status="valid" time="0.05" steps="196089"/></proof>
+       <proof prover="3"><result status="valid" time="0.11"/></proof>
        </goal>
        <goal name="check_path&#39;vc.0.1.1.0.0.1" expl="false case (postcondition)" proved="true">
        <transf name="assert" proved="true" arg1="(exists x x1. (view (cache pc)) @ (v1, v2) = Cons x x1)">
         <goal name="check_path&#39;vc.0.1.1.0.0.1.0" expl="asserted formula" proved="true">
-        <proof prover="0" timelimit="30" memlimit="4000"><result status="timeout" time="30.00"/></proof>
-        <proof prover="1" timelimit="30" memlimit="4000"><result status="timeout" time="30.00" steps="3074004"/></proof>
-        <proof prover="2" timelimit="30" memlimit="4000"><result status="timeout" time="30.00" steps="34944506"/></proof>
+        <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+        <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="744077"/></proof>
+        <proof prover="2" timelimit="30" memlimit="4000" obsolete="true"><result status="timeout" time="30.00" steps="34944506"/></proof>
         <proof prover="3"><result status="valid" time="0.06"/></proof>
         </goal>
         <goal name="check_path&#39;vc.0.1.1.0.0.1.1" expl="false case (postcondition)" proved="true">
-        <proof prover="0" obsolete="true"><result status="valid" time="0.04" steps="99"/></proof>
+        <proof prover="0"><result status="valid" time="0.04" steps="99"/></proof>
         <proof prover="1" timelimit="1"><result status="valid" time="0.14" steps="33401"/></proof>
-        <proof prover="2" obsolete="true"><result status="valid" time="0.07" steps="178002"/></proof>
-        <proof prover="3" obsolete="true"><result status="valid" time="0.95"/></proof>
+        <proof prover="2"><result status="valid" time="0.07" steps="179476"/></proof>
+        <proof prover="3"><result status="valid" time="0.95"/></proof>
         </goal>
        </transf>
        </goal>
@@ -198,402 +203,393 @@
   </transf>
   </goal>
   <goal name="check_path&#39;vc.1" expl="type invariant" proved="true">
-  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="0"><result status="valid" time="0.25" steps="1659"/></proof>
   <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="632780"/></proof>
   <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4320351"/></proof>
   <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
-  <transf name="split_vc" proved="true" >
-   <goal name="check_path&#39;vc.1.0" expl="type invariant" proved="true">
-   <proof prover="0"><result status="valid" time="0.02" steps="54"/></proof>
-   </goal>
-   <goal name="check_path&#39;vc.1.1" expl="type invariant" proved="true">
-   <proof prover="0"><result status="valid" time="0.07" steps="556"/></proof>
-   <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="704874"/></proof>
-   <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
-   </goal>
-   <goal name="check_path&#39;vc.1.2" expl="type invariant" proved="true">
-   <proof prover="0"><result status="valid" time="0.09" steps="1211"/></proof>
-   </goal>
-  </transf>
   </goal>
   <goal name="check_path&#39;vc.2" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.03" steps="44"/></proof>
-  <proof prover="1" timelimit="1" obsolete="true"><result status="valid" time="0.12" steps="32992"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.03" steps="103127"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.08"/></proof>
+  <proof prover="1" timelimit="1"><result status="valid" time="0.12" steps="32992"/></proof>
+  <proof prover="2"><result status="valid" time="0.03" steps="103883"/></proof>
+  <proof prover="3"><result status="valid" time="0.08"/></proof>
   </goal>
   <goal name="check_path&#39;vc.3" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.02" steps="76"/></proof>
-  <proof prover="1" timelimit="1" obsolete="true"><result status="valid" time="0.12" steps="31744"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.06" steps="184428"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.08"/></proof>
+  <proof prover="1" timelimit="1"><result status="valid" time="0.12" steps="31744"/></proof>
+  <proof prover="2"><result status="valid" time="0.06" steps="185903"/></proof>
+  <proof prover="3"><result status="valid" time="0.08"/></proof>
   </goal>
   <goal name="check_path&#39;vc.4" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.03" steps="81"/></proof>
-  <proof prover="1" timelimit="1" obsolete="true"><result status="valid" time="0.15" steps="34472"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.06" steps="224594"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.20"/></proof>
+  <proof prover="1"><result status="valid" time="0.15" steps="34472"/></proof>
+  <proof prover="2"><result status="valid" time="0.06" steps="205008"/></proof>
+  <proof prover="3"><result status="valid" time="0.20"/></proof>
   </goal>
   <goal name="check_path&#39;vc.5" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.04" steps="304"/></proof>
-  <proof prover="1" timelimit="1" obsolete="true"><result status="valid" time="0.75" steps="108384"/></proof>
+  <proof prover="1" timelimit="1"><result status="valid" time="0.75" steps="108384"/></proof>
   <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4366847"/></proof>
   <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
   </goal>
   <goal name="check_path&#39;vc.6" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.02" steps="47"/></proof>
-  <proof prover="1" timelimit="1" obsolete="true"><result status="valid" time="0.09" steps="33114"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="13346"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.04"/></proof>
+  <proof prover="1" timelimit="1"><result status="valid" time="0.09" steps="33114"/></proof>
+  <proof prover="2"><result status="valid" time="0.02" steps="13424"/></proof>
+  <proof prover="3"><result status="valid" time="0.04"/></proof>
   </goal>
   <goal name="check_path&#39;vc.7" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.05" steps="244"/></proof>
-  <proof prover="1" timelimit="1" obsolete="true"><result status="valid" time="0.14" steps="35232"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.08" steps="222221"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.23"/></proof>
+  <proof prover="1" timelimit="1"><result status="valid" time="0.14" steps="35232"/></proof>
+  <proof prover="2"><result status="valid" time="0.08" steps="223440"/></proof>
+  <proof prover="3"><result status="valid" time="0.23"/></proof>
   </goal>
   <goal name="check_path&#39;vc.8" expl="type invariant" proved="true">
-  <proof prover="0"><result status="valid" time="0.39" steps="3681"/></proof>
-  <proof prover="1"><result status="timeout" time="5.00" steps="820430"/></proof>
+  <proof prover="0"><result status="valid" time="0.43" steps="3681"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="591386"/></proof>
   <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="2105673"/></proof>
   <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
   </goal>
   <goal name="check_path&#39;vc.9" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.02" steps="48"/></proof>
-  <proof prover="1" timelimit="1" obsolete="true"><result status="valid" time="0.09" steps="33084"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.04" steps="103701"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.06"/></proof>
+  <proof prover="1" timelimit="1"><result status="valid" time="0.09" steps="33084"/></proof>
+  <proof prover="2"><result status="valid" time="0.04" steps="104307"/></proof>
+  <proof prover="3"><result status="valid" time="0.06"/></proof>
   </goal>
   <goal name="check_path&#39;vc.10" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.02" steps="82"/></proof>
-  <proof prover="1" timelimit="1" obsolete="true"><result status="valid" time="0.10" steps="31836"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.06" steps="185793"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.07"/></proof>
+  <proof prover="1" timelimit="1"><result status="valid" time="0.10" steps="31836"/></proof>
+  <proof prover="2"><result status="valid" time="0.06" steps="187012"/></proof>
+  <proof prover="3"><result status="valid" time="0.07"/></proof>
   </goal>
   <goal name="check_path&#39;vc.11" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.16" steps="1441"/></proof>
-  <proof prover="1"><result status="timeout" time="5.00" steps="709157"/></proof>
+  <proof prover="0"><result status="valid" time="0.17" steps="1441"/></proof>
+  <proof prover="1"><result status="timeout" time="5.00" steps="588546"/></proof>
   <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="2137272"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.06"/></proof>
+  <proof prover="3"><result status="timeout" time="5.00"/></proof>
   </goal>
   <goal name="check_path&#39;vc.12" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.05" steps="419"/></proof>
-  <proof prover="1"><result status="timeout" time="5.00" steps="844704"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="844704"/></proof>
   <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="1924822"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.45"/></proof>
+  <proof prover="3"><result status="valid" time="0.45"/></proof>
   </goal>
   <goal name="check_path&#39;vc.13" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.02" steps="51"/></proof>
   <proof prover="1"><result status="valid" time="0.08" steps="33187"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.03" steps="13386"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.04"/></proof>
+  <proof prover="2"><result status="valid" time="0.03" steps="13464"/></proof>
+  <proof prover="3"><result status="valid" time="0.04"/></proof>
   </goal>
   <goal name="check_path&#39;vc.14" expl="postcondition" proved="true">
   <transf name="split_vc" proved="true" >
    <goal name="check_path&#39;vc.14.0" expl="postcondition" proved="true">
-   <proof prover="0"><result status="valid" time="2.54" steps="23299"/></proof>
-   <proof prover="1"><result status="valid" time="2.61" steps="601387"/></proof>
-   <proof prover="2"><result status="timeout" time="5.00" steps="3474947"/></proof>
-   <proof prover="3"><result status="timeout" time="5.00"/></proof>
+   <proof prover="0"><result status="valid" time="3.13" steps="23299"/></proof>
+   <proof prover="1"><result status="valid" time="3.96" steps="601387"/></proof>
+   <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="3474947"/></proof>
+   <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
    </goal>
   </transf>
   </goal>
   <goal name="check_path&#39;vc.15" expl="precondition" proved="true">
   <proof prover="0"><result status="valid" time="0.02" steps="356"/></proof>
-  <proof prover="1"><result status="timeout" time="5.00" steps="827369"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="827369"/></proof>
   <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="2078082"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.56"/></proof>
+  <proof prover="3"><result status="valid" time="0.56"/></proof>
   </goal>
   <goal name="check_path&#39;vc.16" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.03" steps="64"/></proof>
   <proof prover="1"><result status="valid" time="0.06" steps="32717"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.02" steps="13721"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.04"/></proof>
+  <proof prover="2"><result status="valid" time="0.02" steps="13555"/></proof>
+  <proof prover="3"><result status="valid" time="0.04"/></proof>
   </goal>
   <goal name="check_path&#39;vc.17" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.02" steps="66"/></proof>
-  <proof prover="1"><result status="valid" time="0.06" steps="31619"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.14"/></proof>
+  <proof prover="0"><result status="valid" time="0.02" steps="64"/></proof>
+  <proof prover="1" obsolete="true"><result status="failure" time="0.00"/></proof>
+  <proof prover="2" obsolete="true"><result status="failure" time="0.00"/></proof>
+  <proof prover="3" obsolete="true"><result status="failure" time="0.00"/></proof>
   </goal>
   <goal name="check_path&#39;vc.18" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.02" steps="64"/></proof>
-  <proof prover="1"><result status="valid" time="0.07" steps="31449"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.03"/></proof>
+  <proof prover="0"><result status="valid" time="0.02" steps="66"/></proof>
+  <proof prover="1"><result status="valid" time="0.19" steps="31620"/></proof>
+  <proof prover="3"><result status="valid" time="0.14"/></proof>
   </goal>
   <goal name="check_path&#39;vc.19" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.10" steps="110"/></proof>
-  <proof prover="1"><result status="valid" time="0.18" steps="40240"/></proof>
-  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4402043"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.03"/></proof>
+  <proof prover="0"><result status="valid" time="0.02" steps="64"/></proof>
+  <proof prover="1"><result status="valid" time="0.07" steps="31450"/></proof>
+  <proof prover="3"><result status="valid" time="0.03"/></proof>
   </goal>
   <goal name="check_path&#39;vc.20" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.07" steps="515"/></proof>
-  <proof prover="1"><result status="valid" time="0.25" steps="45419"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.10" steps="281411"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.15"/></proof>
+  <proof prover="0"><result status="valid" time="0.10" steps="110"/></proof>
+  <proof prover="1"><result status="valid" time="0.18" steps="40241"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4402043"/></proof>
+  <proof prover="3"><result status="valid" time="0.19"/></proof>
   </goal>
   <goal name="check_path&#39;vc.21" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.03" steps="66"/></proof>
-  <proof prover="1"><result status="valid" time="0.12" steps="34615"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.05" steps="201306"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.06"/></proof>
+  <proof prover="0"><result status="valid" time="0.07" steps="515"/></proof>
+  <proof prover="1"><result status="valid" time="0.25" steps="45420"/></proof>
+  <proof prover="2"><result status="valid" time="0.10" steps="284230"/></proof>
+  <proof prover="3"><result status="valid" time="0.15"/></proof>
   </goal>
   <goal name="check_path&#39;vc.22" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.04" steps="116"/></proof>
-  <proof prover="1"><result status="valid" time="0.15" steps="33391"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.05" steps="205927"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.17"/></proof>
+  <proof prover="0"><result status="valid" time="0.03" steps="66"/></proof>
+  <proof prover="1"><result status="valid" time="0.12" steps="34616"/></proof>
+  <proof prover="2"><result status="valid" time="0.05" steps="203949"/></proof>
+  <proof prover="3"><result status="valid" time="0.06"/></proof>
   </goal>
   <goal name="check_path&#39;vc.23" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.03" steps="121"/></proof>
-  <proof prover="1"><result status="valid" time="0.17" steps="36093"/></proof>
-  <proof prover="2" obsolete="true"><result status="valid" time="0.08" steps="224450"/></proof>
-  <proof prover="3" obsolete="true"><result status="valid" time="0.20"/></proof>
+  <proof prover="0"><result status="valid" time="0.03" steps="116"/></proof>
+  <proof prover="1"><result status="valid" time="0.11" steps="33392"/></proof>
+  <proof prover="2"><result status="valid" time="0.07" steps="202800"/></proof>
+  <proof prover="3"><result status="valid" time="0.14"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.24" expl="postcondition">
-  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
-  <transf name="split_vc" >
-   <goal name="check_path&#39;vc.24.0" expl="postcondition">
-   <proof prover="0" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
-   <proof prover="1" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="942384"/></proof>
-   <proof prover="2" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="4867637"/></proof>
+  <goal name="check_path&#39;vc.24" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="121"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="561953"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="3171460"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  </goal>
+  <goal name="check_path&#39;vc.25" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="4.35" steps="32400"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="809832"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4869595"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <transf name="split_vc" proved="true" >
+   <goal name="check_path&#39;vc.25.0" expl="postcondition" proved="true">
+   <proof prover="0"><result status="valid" time="4.91" steps="35383"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="809660"/></proof>
+   <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4874681"/></proof>
    <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
-   <transf name="inline_goal" >
-    <goal name="check_path&#39;vc.24.0.0" expl="postcondition">
-    <transf name="split_all_full" >
-     <goal name="check_path&#39;vc.24.0.0.0" expl="postcondition">
-     <proof prover="0" timelimit="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
-     <proof prover="1" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="149337"/></proof>
-     <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="1902627"/></proof>
-     <transf name="split_vc" >
-      <goal name="check_path&#39;vc.24.0.0.0.0" expl="postcondition">
-      <proof prover="0" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
-      <proof prover="1" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="578636"/></proof>
-      <proof prover="2" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="10098373"/></proof>
-      <transf name="inline_goal" >
-       <goal name="check_path&#39;vc.24.0.0.0.0.0" expl="postcondition">
-       <proof prover="0"><result status="timeout" time="5.00"/></proof>
-       <proof prover="1"><result status="timeout" time="5.00" steps="562279"/></proof>
-       <proof prover="2"><result status="timeout" time="5.00" steps="9447719"/></proof>
-       <proof prover="3"><result status="timeout" time="5.00"/></proof>
-       </goal>
-      </transf>
-      </goal>
-     </transf>
-     </goal>
-    </transf>
-    </goal>
-   </transf>
    </goal>
   </transf>
   </goal>
-  <goal name="check_path&#39;vc.25" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.03" steps="115"/></proof>
-  <proof prover="1"><result status="valid" time="0.11" steps="33633"/></proof>
-  <proof prover="2"><result status="valid" time="0.07" steps="203811"/></proof>
-  <proof prover="3"><result status="valid" time="0.14"/></proof>
-  </goal>
   <goal name="check_path&#39;vc.26" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.10" steps="979"/></proof>
-  <proof prover="1"><result status="valid" time="0.15" steps="44198"/></proof>
-  <proof prover="2"><result status="timeout" time="5.00" steps="4953917"/></proof>
-  <proof prover="3"><result status="valid" time="0.21"/></proof>
+  <proof prover="0"><result status="valid" time="0.04" steps="115"/></proof>
+  <proof prover="1"><result status="valid" time="0.15" steps="33660"/></proof>
+  <proof prover="2"><result status="valid" time="0.05" steps="203987"/></proof>
+  <proof prover="3"><result status="valid" time="0.17"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.27" expl="variant decrease" proved="true">
+  <goal name="check_path&#39;vc.27" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.10" steps="986"/></proof>
+  <proof prover="1"><result status="valid" time="0.15" steps="44209"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4953917"/></proof>
+  <proof prover="3"><result status="valid" time="0.25"/></proof>
+  </goal>
+  <goal name="check_path&#39;vc.28" expl="variant decrease" proved="true">
   <proof prover="0"><result status="valid" time="0.13" steps="1098"/></proof>
   <proof prover="1"><result status="valid" time="0.18" steps="46899"/></proof>
   <proof prover="2"><result status="valid" time="0.13" steps="275179"/></proof>
   <proof prover="3"><result status="valid" time="0.19"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.28" expl="precondition">
-  <proof prover="0"><result status="timeout" time="5.00"/></proof>
-  <proof prover="1"><result status="timeout" time="5.00" steps="905800"/></proof>
-  <proof prover="2"><result status="timeout" time="5.00" steps="6426140"/></proof>
-  <proof prover="3"><result status="timeout" time="5.00"/></proof>
+  <goal name="check_path&#39;vc.29" expl="precondition">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="170995"/></proof>
+  <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="1958651"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <transf name="split_vc" >
+   <goal name="check_path&#39;vc.29.0" expl="precondition">
+   <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   <transf name="inline_all" >
+    <goal name="check_path&#39;vc.29.0.0" expl="precondition">
+    <proof prover="0" obsolete="true"><result status="failure" time="0.00"/></proof>
+    <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="1029313"/></proof>
+    <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
   </goal>
-  <goal name="check_path&#39;vc.29" expl="precondition" proved="true">
+  <goal name="check_path&#39;vc.30" expl="precondition" proved="true">
   <proof prover="0"><result status="valid" time="0.37" steps="3569"/></proof>
   <proof prover="1"><result status="valid" time="0.59" steps="93308"/></proof>
   <proof prover="2"><result status="valid" time="0.13" steps="369398"/></proof>
   <proof prover="3"><result status="valid" time="0.20"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.30" expl="precondition" proved="true">
+  <goal name="check_path&#39;vc.31" expl="precondition" proved="true">
   <proof prover="0" timelimit="1" obsolete="true"><result status="timeout" time="2.00"/></proof>
   <proof prover="1" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="148323"/></proof>
   <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="1582645"/></proof>
   <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
   <transf name="split_vc" proved="true" >
-   <goal name="check_path&#39;vc.30.0" expl="precondition" proved="true">
-   <proof prover="0"><result status="valid" time="1.11" steps="10179"/></proof>
-   <proof prover="1"><result status="timeout" time="5.00" steps="749982"/></proof>
-   <proof prover="2"><result status="timeout" time="5.00" steps="7059589"/></proof>
-   <proof prover="3"><result status="timeout" time="5.00"/></proof>
+   <goal name="check_path&#39;vc.31.0" expl="precondition" proved="true">
+   <proof prover="0"><result status="valid" time="1.34" steps="10179"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="556932"/></proof>
+   <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="7059589"/></proof>
+   <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
    </goal>
   </transf>
   </goal>
-  <goal name="check_path&#39;vc.31" expl="precondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.09" steps="603"/></proof>
-  <proof prover="1"><result status="valid" time="0.17" steps="44899"/></proof>
-  <proof prover="2"><result status="valid" time="0.10" steps="330385"/></proof>
-  <proof prover="3"><result status="valid" time="0.29"/></proof>
-  </goal>
   <goal name="check_path&#39;vc.32" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.11" steps="603"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="625535"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="5329351"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  </goal>
+  <goal name="check_path&#39;vc.33" expl="precondition" proved="true">
   <proof prover="0"><result status="valid" time="0.06" steps="600"/></proof>
   <proof prover="1"><result status="valid" time="0.13" steps="42266"/></proof>
   <proof prover="2"><result status="valid" time="0.09" steps="310287"/></proof>
   <proof prover="3"><result status="valid" time="0.19"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.33" expl="precondition" proved="true">
-  <proof prover="0"><result status="valid" time="1.65" steps="14098"/></proof>
-  <proof prover="1"><result status="timeout" time="5.00" steps="804392"/></proof>
-  <proof prover="2"><result status="timeout" time="5.00" steps="6842877"/></proof>
-  <proof prover="3"><result status="timeout" time="5.00"/></proof>
-  </goal>
   <goal name="check_path&#39;vc.34" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="1.90" steps="14098"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="474356"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="6842877"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  </goal>
+  <goal name="check_path&#39;vc.35" expl="precondition" proved="true">
   <proof prover="0" timelimit="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
   <proof prover="1" timelimit="1" obsolete="true"><result status="timeout" time="2.00" steps="165041"/></proof>
   <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="1988067"/></proof>
   <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
   <transf name="split_vc" proved="true" >
-   <goal name="check_path&#39;vc.34.0" expl="precondition" proved="true">
-   <proof prover="0"><result status="valid" time="0.06" steps="100"/></proof>
-   <proof prover="1"><result status="valid" time="0.09" steps="33613"/></proof>
-   <proof prover="2"><result status="valid" time="0.05" steps="207476"/></proof>
-   <proof prover="3"><result status="valid" time="0.21"/></proof>
+   <goal name="check_path&#39;vc.35.0" expl="precondition" proved="true">
+   <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   <proof prover="1"><result status="valid" time="0.12" steps="33613"/></proof>
+   <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4957605"/></proof>
+   <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
    </goal>
   </transf>
   </goal>
-  <goal name="check_path&#39;vc.35" expl="precondition" proved="true">
+  <goal name="check_path&#39;vc.36" expl="precondition" proved="true">
   <proof prover="0"><result status="timeout" time="5.00"/></proof>
-  <proof prover="1"><result status="valid" time="3.58" steps="532628"/></proof>
-  <proof prover="2"><result status="timeout" time="5.00" steps="4667610"/></proof>
-  <proof prover="3"><result status="timeout" time="5.00"/></proof>
-  </goal>
-  <goal name="check_path&#39;vc.36" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.02" steps="71"/></proof>
-  <proof prover="1"><result status="valid" time="0.07" steps="33462"/></proof>
-  <proof prover="2"><result status="valid" time="0.02" steps="14016"/></proof>
-  <proof prover="3"><result status="valid" time="0.04"/></proof>
+  <proof prover="1"><result status="valid" time="4.57" steps="532628"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4667610"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
   </goal>
   <goal name="check_path&#39;vc.37" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.36" steps="3656"/></proof>
-  <proof prover="1"><result status="timeout" time="5.00" steps="811678"/></proof>
-  <proof prover="2"><result status="timeout" time="5.00" steps="6505595"/></proof>
-  <proof prover="3"><result status="valid" time="4.51"/></proof>
+  <proof prover="0"><result status="valid" time="0.02" steps="71"/></proof>
+  <proof prover="1"><result status="valid" time="0.07" steps="33470"/></proof>
+  <proof prover="2"><result status="valid" time="0.02" steps="14024"/></proof>
+  <proof prover="3"><result status="valid" time="0.04"/></proof>
   </goal>
   <goal name="check_path&#39;vc.38" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.02" steps="71"/></proof>
-  <proof prover="1"><result status="valid" time="0.06" steps="32249"/></proof>
-  <proof prover="2"><result status="valid" time="0.02" steps="13341"/></proof>
+  <proof prover="1"><result status="valid" time="0.06" steps="32200"/></proof>
+  <proof prover="2"><result status="valid" time="0.02" steps="13312"/></proof>
   <proof prover="3"><result status="valid" time="0.04"/></proof>
   </goal>
   <goal name="check_path&#39;vc.39" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.25" steps="2247"/></proof>
-  <proof prover="1"><result status="timeout" time="5.00" steps="645021"/></proof>
-  <proof prover="2"><result status="timeout" time="5.00" steps="5032687"/></proof>
-  <proof prover="3"><result status="timeout" time="9.00"/></proof>
+  <proof prover="0"><result status="valid" time="0.36" steps="3190"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="620724"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="5708392"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="10.00"/></proof>
   </goal>
   <goal name="check_path&#39;vc.40" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.10" steps="71"/></proof>
-  <proof prover="1"><result status="valid" time="0.11" steps="33572"/></proof>
-  <proof prover="2"><result status="valid" time="0.02" steps="14063"/></proof>
-  <proof prover="3"><result status="valid" time="0.03"/></proof>
+  <proof prover="0"><result status="valid" time="0.02" steps="71"/></proof>
+  <proof prover="1" obsolete="true"><result status="failure" time="0.00"/></proof>
+  <proof prover="2" obsolete="true"><result status="failure" time="0.00"/></proof>
+  <proof prover="3" obsolete="true"><result status="failure" time="0.00"/></proof>
   </goal>
   <goal name="check_path&#39;vc.41" expl="postcondition" proved="true">
-  <transf name="assert" proved="true" arg1="(of_list p ++ of_list l ==&#39; of_list sucs)">
-   <goal name="check_path&#39;vc.41.0" expl="asserted formula" proved="true">
-   <proof prover="0"><result status="valid" time="0.04" steps="266"/></proof>
-   <proof prover="1"><result status="valid" time="0.20" steps="43933"/></proof>
-   <proof prover="2"><result status="valid" time="0.06" steps="223833"/></proof>
-   <proof prover="3"><result status="valid" time="0.16"/></proof>
-   </goal>
-   <goal name="check_path&#39;vc.41.1" expl="postcondition" proved="true">
-   <proof prover="0"><result status="valid" time="0.03" steps="73"/></proof>
-   <proof prover="1"><result status="valid" time="0.12" steps="35435"/></proof>
-   <proof prover="2"><result status="valid" time="0.04" steps="116862"/></proof>
-   <proof prover="3"><result status="valid" time="0.15"/></proof>
-   </goal>
-  </transf>
+  <proof prover="0"><result status="valid" time="0.43" steps="2208"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="711959"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4937645"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
   </goal>
   <goal name="check_path&#39;vc.42" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.02" steps="130"/></proof>
-  <proof prover="1"><result status="valid" time="0.14" steps="34215"/></proof>
-  <proof prover="2"><result status="valid" time="0.04" steps="211531"/></proof>
-  <proof prover="3"><result status="valid" time="0.06"/></proof>
+  <proof prover="0"><result status="valid" time="0.10" steps="71"/></proof>
+  <proof prover="1"><result status="valid" time="0.11" steps="33581"/></proof>
+  <proof prover="2"><result status="valid" time="0.02" steps="14073"/></proof>
+  <proof prover="3"><result status="valid" time="0.03"/></proof>
   </goal>
   <goal name="check_path&#39;vc.43" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.04" steps="134"/></proof>
-  <proof prover="1"><result status="valid" time="0.14" steps="36892"/></proof>
-  <proof prover="2"><result status="valid" time="0.08" steps="229534"/></proof>
-  <proof prover="3"><result status="valid" time="0.20"/></proof>
+  <transf name="assert" proved="true" arg1="(of_list p ++ of_list l ==&#39; of_list sucs)">
+   <goal name="check_path&#39;vc.43.0" expl="asserted formula" proved="true">
+   <proof prover="0"><result status="valid" time="0.04" steps="269"/></proof>
+   <proof prover="1"><result status="valid" time="0.20" steps="43946"/></proof>
+   <proof prover="2"><result status="valid" time="0.06" steps="223929"/></proof>
+   <proof prover="3"><result status="valid" time="0.16"/></proof>
+   </goal>
+   <goal name="check_path&#39;vc.43.1" expl="postcondition" proved="true">
+   <proof prover="0"><result status="valid" time="0.03" steps="73"/></proof>
+   <proof prover="1"><result status="valid" time="0.12" steps="35448"/></proof>
+   <proof prover="2"><result status="valid" time="0.04" steps="116958"/></proof>
+   <proof prover="3"><result status="valid" time="0.03"/></proof>
+   </goal>
+  </transf>
   </goal>
   <goal name="check_path&#39;vc.44" expl="postcondition" proved="true">
-  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
-  <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="911399"/></proof>
-  <transf name="split_vc" proved="true" >
-   <goal name="check_path&#39;vc.44.0" expl="postcondition" proved="true">
-   <proof prover="0"><result status="valid" time="0.09" steps="440"/></proof>
-   <proof prover="1"><result status="valid" time="0.11" steps="37008"/></proof>
-   <proof prover="2"><result status="valid" time="0.02" steps="21735"/></proof>
-   <proof prover="3"><result status="valid" time="0.15"/></proof>
-   </goal>
-  </transf>
+  <proof prover="0"><result status="valid" time="0.02" steps="129"/></proof>
+  <proof prover="1"><result status="valid" time="0.14" steps="34228"/></proof>
+  <proof prover="2"><result status="valid" time="0.04" steps="211627"/></proof>
+  <proof prover="3"><result status="valid" time="0.17"/></proof>
   </goal>
   <goal name="check_path&#39;vc.45" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.04" steps="129"/></proof>
-  <proof prover="1"><result status="valid" time="0.12" steps="34497"/></proof>
-  <proof prover="2"><result status="valid" time="0.06" steps="211863"/></proof>
-  <proof prover="3"><result status="valid" time="0.10"/></proof>
+  <proof prover="0"><result status="valid" time="0.04" steps="134"/></proof>
+  <proof prover="1"><result status="valid" time="0.14" steps="36905"/></proof>
+  <proof prover="2"><result status="valid" time="0.08" steps="229630"/></proof>
+  <proof prover="3"><result status="valid" time="0.20"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.46" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.12" steps="1069"/></proof>
-  <proof prover="1"><result status="valid" time="0.21" steps="46808"/></proof>
-  <proof prover="2"><result status="timeout" time="5.00" steps="6946152"/></proof>
-  <proof prover="3"><result status="valid" time="0.16"/></proof>
-  </goal>
-  <goal name="check_path&#39;vc.47" expl="type invariant" proved="true">
-  <proof prover="0"><result status="timeout" time="5.00"/></proof>
-  <proof prover="1"><result status="timeout" time="5.00" steps="588360"/></proof>
-  <proof prover="2"><result status="timeout" time="5.00" steps="4848669"/></proof>
-  <proof prover="3"><result status="timeout" time="5.00"/></proof>
-  <transf name="split_vc" proved="true" >
-   <goal name="check_path&#39;vc.47.0" expl="type invariant" proved="true">
-   <proof prover="1"><result status="valid" time="0.16" steps="43638"/></proof>
-   </goal>
-   <goal name="check_path&#39;vc.47.1" expl="type invariant" proved="true">
-   <proof prover="0"><result status="valid" time="2.89" steps="25294"/></proof>
-   <proof prover="1"><result status="timeout" time="5.00" steps="716735"/></proof>
-   <proof prover="2"><result status="timeout" time="5.00" steps="4901349"/></proof>
-   </goal>
-   <goal name="check_path&#39;vc.47.2" expl="type invariant" proved="true">
-   <proof prover="0"><result status="valid" time="0.09" steps="863"/></proof>
-   <proof prover="1"><result status="timeout" time="5.00" steps="718808"/></proof>
-   <proof prover="2"><result status="timeout" time="5.00" steps="5335064"/></proof>
+  <goal name="check_path&#39;vc.46" expl="postcondition">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="148147"/></proof>
+  <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="2122937"/></proof>
+  <transf name="split_vc" >
+   <goal name="check_path&#39;vc.46.0" expl="postcondition">
+   <proof prover="0"><result status="timeout" time="5.00"/></proof>
+   <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
    </goal>
   </transf>
   </goal>
-  <goal name="check_path&#39;vc.48" expl="precondition" proved="true">
+  <goal name="check_path&#39;vc.47" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="128"/></proof>
+  <proof prover="1"><result status="valid" time="0.12" steps="34536"/></proof>
+  <proof prover="2"><result status="valid" time="0.06" steps="212246"/></proof>
+  <proof prover="3"><result status="valid" time="0.10"/></proof>
+  </goal>
+  <goal name="check_path&#39;vc.48" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.12" steps="1048"/></proof>
+  <proof prover="1"><result status="valid" time="0.21" steps="46831"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="5451263"/></proof>
+  <proof prover="3"><result status="valid" time="0.16"/></proof>
+  </goal>
+  <goal name="check_path&#39;vc.49" expl="type invariant" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="588360"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4848669"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <transf name="split_vc" proved="true" >
+   <goal name="check_path&#39;vc.49.0" expl="type invariant" proved="true">
+   <proof prover="0"><result status="valid" time="0.03" steps="76"/></proof>
+   <proof prover="1"><result status="valid" time="0.16" steps="43638"/></proof>
+   <proof prover="3"><result status="valid" time="0.18"/></proof>
+   </goal>
+   <goal name="check_path&#39;vc.49.1" expl="type invariant" proved="true">
+   <proof prover="0"><result status="valid" time="3.34" steps="25294"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="716735"/></proof>
+   <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4901349"/></proof>
+   <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   </goal>
+   <goal name="check_path&#39;vc.49.2" expl="type invariant" proved="true">
+   <proof prover="0"><result status="valid" time="0.21" steps="863"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="718808"/></proof>
+   <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="5335064"/></proof>
+   <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="check_path&#39;vc.50" expl="precondition" proved="true">
   <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
   <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="905671"/></proof>
   <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
   <transf name="split_vc" proved="true" >
-   <goal name="check_path&#39;vc.48.0" expl="precondition" proved="true">
-   <proof prover="0"><result status="valid" time="4.72" steps="41582"/></proof>
-   <proof prover="1"><result status="timeout" time="5.00" steps="1058347"/></proof>
-   <proof prover="2"><result status="timeout" time="5.00" steps="4649509"/></proof>
-   <proof prover="3"><result status="timeout" time="5.00"/></proof>
+   <goal name="check_path&#39;vc.50.0" expl="precondition" proved="true">
+   <proof prover="0"><result status="valid" time="5.41" steps="41582"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="753517"/></proof>
+   <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4649509"/></proof>
+   <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
    </goal>
   </transf>
   </goal>
-  <goal name="check_path&#39;vc.49" expl="precondition" proved="true">
+  <goal name="check_path&#39;vc.51" expl="precondition" proved="true">
   <proof prover="0"><result status="valid" time="0.06" steps="413"/></proof>
   <proof prover="1"><result status="valid" time="0.19" steps="49246"/></proof>
   <proof prover="2"><result status="valid" time="0.08" steps="310427"/></proof>
   <proof prover="3"><result status="valid" time="0.17"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.50" expl="precondition" proved="true">
+  <goal name="check_path&#39;vc.52" expl="precondition" proved="true">
   <transf name="split_vc" proved="true" >
-   <goal name="check_path&#39;vc.50.0" expl="precondition" proved="true">
+   <goal name="check_path&#39;vc.52.0" expl="precondition" proved="true">
    <proof prover="0"><result status="valid" time="0.10" steps="90"/></proof>
    <proof prover="1"><result status="valid" time="0.11" steps="38848"/></proof>
    <proof prover="2"><result status="valid" time="0.06" steps="237567"/></proof>
@@ -601,333 +597,332 @@
    </goal>
   </transf>
   </goal>
-  <goal name="check_path&#39;vc.51" expl="precondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.04" steps="112"/></proof>
-  <proof prover="1"><result status="valid" time="0.12" steps="35525"/></proof>
-  <proof prover="2"><result status="valid" time="0.05" steps="215737"/></proof>
-  <proof prover="3"><result status="valid" time="0.07"/></proof>
+  <goal name="check_path&#39;vc.53" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="112"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="754493"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4784849"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.52" expl="precondition" proved="true">
+  <goal name="check_path&#39;vc.54" expl="precondition" proved="true">
   <proof prover="0"><result status="valid" time="0.03" steps="117"/></proof>
   <proof prover="1"><result status="valid" time="0.16" steps="38991"/></proof>
   <proof prover="2"><result status="valid" time="0.08" steps="221945"/></proof>
   <proof prover="3"><result status="valid" time="0.20"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.53" expl="precondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.34" steps="3054"/></proof>
-  <proof prover="1"><result status="timeout" time="5.00" steps="1001018"/></proof>
-  <proof prover="2"><result status="timeout" time="5.00" steps="4832532"/></proof>
-  <proof prover="3"><result status="timeout" time="5.00"/></proof>
-  </goal>
-  <goal name="check_path&#39;vc.54" expl="precondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.07" steps="521"/></proof>
-  <proof prover="1"><result status="timeout" time="5.00" steps="771147"/></proof>
-  <proof prover="2"><result status="timeout" time="5.00" steps="4397646"/></proof>
-  <proof prover="3"><result status="valid" time="2.72"/></proof>
-  </goal>
   <goal name="check_path&#39;vc.55" expl="precondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.31" steps="3215"/></proof>
-  <proof prover="1"><result status="timeout" time="5.00" steps="738333"/></proof>
-  <proof prover="2"><result status="timeout" time="5.00" steps="4670482"/></proof>
+  <proof prover="0"><result status="valid" time="0.38" steps="3054"/></proof>
+  <proof prover="1"><result status="timeout" time="5.00" steps="753800"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4832532"/></proof>
   <proof prover="3"><result status="timeout" time="5.00"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.56" expl="variant decrease" proved="true">
-  <proof prover="0"><result status="valid" time="0.04" steps="284"/></proof>
-  <proof prover="1"><result status="valid" time="0.25" steps="48557"/></proof>
-  <proof prover="2"><result status="valid" time="0.09" steps="276016"/></proof>
-  <proof prover="3"><result status="timeout" time="5.00"/></proof>
+  <goal name="check_path&#39;vc.56" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.08" steps="521"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="510499"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4397646"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="6.00"/></proof>
   </goal>
   <goal name="check_path&#39;vc.57" expl="precondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.06" steps="484"/></proof>
-  <proof prover="1"><result status="valid" time="0.24" steps="44079"/></proof>
-  <proof prover="2"><result status="valid" time="0.09" steps="249377"/></proof>
-  <proof prover="3"><result status="valid" time="2.00"/></proof>
-  </goal>
-  <goal name="check_path&#39;vc.58" expl="precondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.07" steps="523"/></proof>
-  <proof prover="1"><result status="valid" time="0.11" steps="36260"/></proof>
-  <proof prover="2"><result status="valid" time="0.07" steps="245654"/></proof>
-  <proof prover="3"><result status="valid" time="0.16"/></proof>
-  </goal>
-  <goal name="check_path&#39;vc.59" expl="precondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.07" steps="378"/></proof>
-  <proof prover="1"><result status="valid" time="0.14" steps="36345"/></proof>
-  <proof prover="2"><result status="valid" time="0.02" steps="21065"/></proof>
-  <proof prover="3"><result status="valid" time="0.10"/></proof>
-  </goal>
-  <goal name="check_path&#39;vc.60" expl="precondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.04" steps="115"/></proof>
-  <proof prover="1"><result status="valid" time="0.08" steps="33620"/></proof>
-  <proof prover="2"><result status="valid" time="0.05" steps="203728"/></proof>
-  <proof prover="3"><result status="valid" time="0.07"/></proof>
-  </goal>
-  <goal name="check_path&#39;vc.61" expl="precondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.03" steps="114"/></proof>
-  <proof prover="1"><result status="valid" time="0.17" steps="33683"/></proof>
-  <proof prover="2"><result status="valid" time="0.08" steps="203754"/></proof>
-  <proof prover="3"><result status="valid" time="0.09"/></proof>
-  </goal>
-  <goal name="check_path&#39;vc.62" expl="precondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.18" steps="1415"/></proof>
-  <proof prover="1"><result status="timeout" time="5.00" steps="658550"/></proof>
-  <proof prover="2"><result status="timeout" time="5.00" steps="5264868"/></proof>
+  <proof prover="0"><result status="valid" time="0.39" steps="3215"/></proof>
+  <proof prover="1"><result status="timeout" time="5.00" steps="639017"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4670482"/></proof>
   <proof prover="3"><result status="timeout" time="5.00"/></proof>
   </goal>
+  <goal name="check_path&#39;vc.58" expl="variant decrease" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="284"/></proof>
+  <proof prover="1"><result status="valid" time="0.25" steps="48558"/></proof>
+  <proof prover="2"><result status="valid" time="0.09" steps="276018"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  </goal>
+  <goal name="check_path&#39;vc.59" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.06" steps="484"/></proof>
+  <proof prover="1"><result status="valid" time="0.24" steps="44080"/></proof>
+  <proof prover="2"><result status="valid" time="0.09" steps="249379"/></proof>
+  <proof prover="3"><result status="valid" time="2.48"/></proof>
+  </goal>
+  <goal name="check_path&#39;vc.60" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.07" steps="523"/></proof>
+  <proof prover="1"><result status="valid" time="0.11" steps="36261"/></proof>
+  <proof prover="2"><result status="valid" time="0.07" steps="245656"/></proof>
+  <proof prover="3"><result status="valid" time="0.16"/></proof>
+  </goal>
+  <goal name="check_path&#39;vc.61" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.07" steps="378"/></proof>
+  <proof prover="1"><result status="valid" time="0.14" steps="36346"/></proof>
+  <proof prover="2"><result status="valid" time="0.02" steps="21067"/></proof>
+  <proof prover="3"><result status="valid" time="0.10"/></proof>
+  </goal>
+  <goal name="check_path&#39;vc.62" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="115"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="639504"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4658397"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  </goal>
   <goal name="check_path&#39;vc.63" expl="precondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.03" steps="123"/></proof>
-  <proof prover="1"><result status="valid" time="0.13" steps="36381"/></proof>
-  <proof prover="2"><result status="valid" time="0.06" steps="222873"/></proof>
-  <proof prover="3"><result status="valid" time="0.07"/></proof>
+  <proof prover="0"><result status="valid" time="0.03" steps="114"/></proof>
+  <proof prover="1"><result status="valid" time="0.17" steps="33684"/></proof>
+  <proof prover="2"><result status="valid" time="0.08" steps="203756"/></proof>
+  <proof prover="3"><result status="valid" time="0.09"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.64" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.02" steps="75"/></proof>
-  <proof prover="1"><result status="valid" time="0.08" steps="33000"/></proof>
-  <proof prover="2"><result status="valid" time="0.02" steps="13612"/></proof>
-  <proof prover="3"><result status="valid" time="0.03"/></proof>
+  <goal name="check_path&#39;vc.64" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.18" steps="1415"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="620449"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="5264237"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.65" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.02" steps="135"/></proof>
-  <proof prover="1"><result status="valid" time="0.10" steps="33814"/></proof>
-  <proof prover="2"><result status="valid" time="0.05" steps="206774"/></proof>
-  <proof prover="3"><result status="valid" time="0.07"/></proof>
+  <goal name="check_path&#39;vc.65" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.05" steps="123"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="617036"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="6121171"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
   </goal>
   <goal name="check_path&#39;vc.66" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.03" steps="141"/></proof>
-  <proof prover="1"><result status="valid" time="0.14" steps="36484"/></proof>
-  <proof prover="2"><result status="valid" time="0.08" steps="224851"/></proof>
-  <proof prover="3"><result status="valid" time="0.07"/></proof>
-  </goal>
-  <goal name="check_path&#39;vc.67" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.03" steps="75"/></proof>
-  <proof prover="1"><result status="valid" time="0.08" steps="32118"/></proof>
-  <proof prover="2"><result status="valid" time="0.03" steps="46121"/></proof>
+  <proof prover="0"><result status="valid" time="0.02" steps="75"/></proof>
+  <proof prover="1"><result status="valid" time="0.08" steps="33001"/></proof>
+  <proof prover="2"><result status="valid" time="0.02" steps="13614"/></proof>
   <proof prover="3"><result status="valid" time="0.03"/></proof>
   </goal>
+  <goal name="check_path&#39;vc.67" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="135"/></proof>
+  <proof prover="1"><result status="valid" time="0.10" steps="33815"/></proof>
+  <proof prover="2"><result status="valid" time="0.05" steps="206776"/></proof>
+  <proof prover="3"><result status="valid" time="0.07"/></proof>
+  </goal>
   <goal name="check_path&#39;vc.68" expl="postcondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.02" steps="75"/></proof>
-  <proof prover="1"><result status="valid" time="0.07" steps="34693"/></proof>
-  <proof prover="2"><result status="valid" time="0.02" steps="14339"/></proof>
-  <proof prover="3"><result status="valid" time="0.04"/></proof>
+  <proof prover="0"><result status="valid" time="0.03" steps="141"/></proof>
+  <proof prover="1"><result status="valid" time="0.14" steps="36485"/></proof>
+  <proof prover="2"><result status="valid" time="0.08" steps="224853"/></proof>
+  <proof prover="3"><result status="valid" time="0.07"/></proof>
   </goal>
   <goal name="check_path&#39;vc.69" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="75"/></proof>
+  <proof prover="1"><result status="valid" time="0.08" steps="32119"/></proof>
+  <proof prover="2"><result status="valid" time="0.03" steps="46123"/></proof>
+  <proof prover="3"><result status="valid" time="0.03"/></proof>
+  </goal>
+  <goal name="check_path&#39;vc.70" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="75"/></proof>
+  <proof prover="1"><result status="valid" time="0.07" steps="34694"/></proof>
+  <proof prover="2"><result status="valid" time="0.02" steps="14341"/></proof>
+  <proof prover="3"><result status="valid" time="0.04"/></proof>
+  </goal>
+  <goal name="check_path&#39;vc.71" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.09" steps="613"/></proof>
-  <proof prover="1"><result status="valid" time="0.15" steps="36872"/></proof>
-  <proof prover="2"><result status="valid" time="0.07" steps="252125"/></proof>
+  <proof prover="1"><result status="valid" time="0.15" steps="36873"/></proof>
+  <proof prover="2"><result status="valid" time="0.07" steps="252127"/></proof>
   <proof prover="3"><result status="valid" time="0.11"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.70" expl="type invariant" proved="true">
+  <goal name="check_path&#39;vc.72" expl="type invariant" proved="true">
   <proof prover="0" timelimit="1" obsolete="true"><result status="timeout" time="2.00"/></proof>
   <proof prover="1" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="112448"/></proof>
   <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="1999929"/></proof>
   <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
   <transf name="split_vc" proved="true" >
-   <goal name="check_path&#39;vc.70.0" expl="type invariant" proved="true">
+   <goal name="check_path&#39;vc.72.0" expl="type invariant" proved="true">
    <proof prover="0"><result status="valid" time="0.03" steps="61"/></proof>
    <proof prover="1"><result status="valid" time="0.16" steps="42355"/></proof>
    <proof prover="2"><result status="valid" time="0.06" steps="241079"/></proof>
    <proof prover="3"><result status="valid" time="0.18"/></proof>
    </goal>
-   <goal name="check_path&#39;vc.70.1" expl="type invariant" proved="true">
-   <proof prover="0"><result status="valid" time="0.07" steps="636"/></proof>
-   <proof prover="1"><result status="timeout" time="5.00" steps="690943"/></proof>
-   <proof prover="2"><result status="timeout" time="5.00" steps="3819599"/></proof>
-   <proof prover="3"><result status="timeout" time="5.00"/></proof>
+   <goal name="check_path&#39;vc.72.1" expl="type invariant" proved="true">
+   <proof prover="0"><result status="valid" time="0.11" steps="636"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="690943"/></proof>
+   <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="3819599"/></proof>
+   <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
    </goal>
-   <goal name="check_path&#39;vc.70.2" expl="type invariant" proved="true">
+   <goal name="check_path&#39;vc.72.2" expl="type invariant" proved="true">
    <proof prover="0"><result status="valid" time="0.11" steps="542"/></proof>
-   <proof prover="1"><result status="timeout" time="5.00" steps="694331"/></proof>
-   <proof prover="2"><result status="timeout" time="5.00" steps="4253097"/></proof>
-   <proof prover="3"><result status="timeout" time="5.00"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="694331"/></proof>
+   <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4253097"/></proof>
+   <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
    </goal>
   </transf>
   </goal>
-  <goal name="check_path&#39;vc.71" expl="variant decrease" proved="true">
+  <goal name="check_path&#39;vc.73" expl="variant decrease" proved="true">
   <proof prover="0"><result status="valid" time="0.03" steps="100"/></proof>
   <proof prover="1"><result status="valid" time="0.19" steps="45265"/></proof>
   <proof prover="2"><result status="valid" time="0.08" steps="286622"/></proof>
-  <proof prover="3"><result status="valid" time="0.18"/></proof>
+  <proof prover="3"><result status="valid" time="0.30"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.72" expl="precondition" proved="true">
+  <goal name="check_path&#39;vc.74" expl="precondition" proved="true">
   <proof prover="0"><result status="valid" time="0.02" steps="50"/></proof>
   <proof prover="1"><result status="valid" time="0.08" steps="33062"/></proof>
   <proof prover="2"><result status="valid" time="0.02" steps="13389"/></proof>
   <proof prover="3"><result status="valid" time="0.05"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.73" expl="precondition" proved="true">
-  <proof prover="0"><result status="valid" time="2.02" steps="16664"/></proof>
-  <proof prover="1"><result status="valid" time="4.40" steps="1004297"/></proof>
-  <proof prover="2"><result status="timeout" time="5.00" steps="3545032"/></proof>
-  <proof prover="3"><result status="timeout" time="5.00"/></proof>
-  </goal>
-  <goal name="check_path&#39;vc.74" expl="precondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.39" steps="2566"/></proof>
-  <proof prover="1"><result status="valid" time="0.44" steps="92882"/></proof>
-  <proof prover="2"><result status="timeout" time="5.00" steps="3318554"/></proof>
-  <proof prover="3"><result status="timeout" time="5.00"/></proof>
-  </goal>
   <goal name="check_path&#39;vc.75" expl="precondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.06" steps="1434"/></proof>
-  <proof prover="1"><result status="timeout" time="5.00" steps="879049"/></proof>
-  <proof prover="2"><result status="timeout" time="5.00" steps="3395137"/></proof>
-  <proof prover="3"><result status="timeout" time="6.00"/></proof>
+  <proof prover="0"><result status="valid" time="2.26" steps="16664"/></proof>
+  <proof prover="1"><result status="valid" time="5.94" steps="1004297"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="3545032"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
   </goal>
   <goal name="check_path&#39;vc.76" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.39" steps="2566"/></proof>
+  <proof prover="1"><result status="valid" time="0.61" steps="92882"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="3318554"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  </goal>
+  <goal name="check_path&#39;vc.77" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.21" steps="1434"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="597051"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="3395137"/></proof>
+  <proof prover="3"><result status="timeout" time="8.00"/></proof>
+  </goal>
+  <goal name="check_path&#39;vc.78" expl="precondition" proved="true">
   <proof prover="0"><result status="valid" time="0.06" steps="81"/></proof>
   <proof prover="1"><result status="valid" time="0.12" steps="32188"/></proof>
   <proof prover="2"><result status="valid" time="0.04" steps="189966"/></proof>
   <proof prover="3"><result status="valid" time="0.08"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.77" expl="precondition" proved="true">
+  <goal name="check_path&#39;vc.79" expl="precondition" proved="true">
   <proof prover="0"><result status="valid" time="0.04" steps="50"/></proof>
   <proof prover="1"><result status="valid" time="0.10" steps="33491"/></proof>
   <proof prover="2"><result status="valid" time="0.03" steps="106326"/></proof>
   <proof prover="3"><result status="valid" time="0.07"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.78" expl="precondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.22" steps="1652"/></proof>
-  <proof prover="1"><result status="timeout" time="5.00" steps="859278"/></proof>
-  <proof prover="2"><result status="timeout" time="5.00" steps="3563605"/></proof>
+  <goal name="check_path&#39;vc.80" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.26" steps="1652"/></proof>
+  <proof prover="1"><result status="timeout" time="5.00" steps="614654"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="3563605"/></proof>
   <proof prover="3"><result status="timeout" time="5.00"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.79" expl="postcondition" proved="true">
+  <goal name="check_path&#39;vc.81" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.02" steps="62"/></proof>
   <proof prover="1"><result status="valid" time="0.09" steps="31897"/></proof>
   <proof prover="2"><result status="valid" time="0.02" steps="12967"/></proof>
   <proof prover="3"><result status="valid" time="0.04"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.80" expl="postcondition" proved="true">
+  <goal name="check_path&#39;vc.82" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.04" steps="104"/></proof>
   <proof prover="1"><result status="valid" time="0.10" steps="32371"/></proof>
   <proof prover="2"><result status="valid" time="0.05" steps="191867"/></proof>
   <proof prover="3"><result status="valid" time="0.07"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.81" expl="postcondition" proved="true">
+  <goal name="check_path&#39;vc.83" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.03" steps="109"/></proof>
   <proof prover="1"><result status="valid" time="0.12" steps="35076"/></proof>
   <proof prover="2"><result status="valid" time="0.05" steps="210584"/></proof>
   <proof prover="3"><result status="valid" time="0.09"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.82" expl="postcondition" proved="true">
+  <goal name="check_path&#39;vc.84" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.02" steps="62"/></proof>
   <proof prover="1"><result status="valid" time="0.07" steps="30781"/></proof>
   <proof prover="2"><result status="valid" time="0.02" steps="42718"/></proof>
   <proof prover="3"><result status="valid" time="0.02"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.83" expl="postcondition" proved="true">
+  <goal name="check_path&#39;vc.85" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.02" steps="62"/></proof>
   <proof prover="1"><result status="valid" time="0.08" steps="33625"/></proof>
   <proof prover="2"><result status="valid" time="0.03" steps="13720"/></proof>
   <proof prover="3"><result status="valid" time="0.05"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.84" expl="postcondition" proved="true">
+  <goal name="check_path&#39;vc.86" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.07" steps="357"/></proof>
-  <proof prover="1"><result status="valid" time="0.12" steps="35799"/></proof>
-  <proof prover="2"><result status="valid" time="0.08" steps="232398"/></proof>
-  <proof prover="3"><result status="valid" time="0.67"/></proof>
+  <proof prover="1"><result status="valid" time="0.24" steps="35799"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4958315"/></proof>
+  <proof prover="3"><result status="valid" time="0.84"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.85" expl="exceptional postcondition" proved="true">
+  <goal name="check_path&#39;vc.87" expl="exceptional postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.02" steps="36"/></proof>
   <proof prover="1"><result status="valid" time="0.09" steps="31418"/></proof>
   <proof prover="2"><result status="valid" time="0.05" steps="97742"/></proof>
   <proof prover="3"><result status="valid" time="0.06"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.86" expl="precondition" proved="true">
+  <goal name="check_path&#39;vc.88" expl="precondition" proved="true">
   <proof prover="0"><result status="valid" time="0.04" steps="149"/></proof>
   <proof prover="1"><result status="valid" time="0.20" steps="37868"/></proof>
   <proof prover="2"><result status="valid" time="0.07" steps="219473"/></proof>
   <proof prover="3"><result status="valid" time="0.16"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.87" expl="precondition" proved="true">
+  <goal name="check_path&#39;vc.89" expl="precondition" proved="true">
   <proof prover="0"><result status="valid" time="0.04" steps="214"/></proof>
   <proof prover="1"><result status="valid" time="0.18" steps="38539"/></proof>
   <proof prover="2"><result status="valid" time="0.06" steps="229654"/></proof>
   <proof prover="3"><result status="valid" time="0.22"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.88" expl="precondition" proved="true">
+  <goal name="check_path&#39;vc.90" expl="precondition" proved="true">
   <transf name="exists" proved="true" arg1="v1">
-   <goal name="check_path&#39;vc.88.0" proved="true">
+   <goal name="check_path&#39;vc.90.0" proved="true">
    <proof prover="0"><result status="valid" time="0.04" steps="250"/></proof>
-   <proof prover="1"><result status="timeout" time="5.00" steps="953602"/></proof>
-   <proof prover="2"><result status="timeout" time="5.00" steps="4553021"/></proof>
-   <proof prover="3"><result status="timeout" time="5.00"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="775516"/></proof>
+   <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4553021"/></proof>
+   <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
    </goal>
   </transf>
   </goal>
-  <goal name="check_path&#39;vc.89" expl="precondition" proved="true">
+  <goal name="check_path&#39;vc.91" expl="precondition" proved="true">
   <proof prover="0"><result status="valid" time="0.03" steps="301"/></proof>
-  <proof prover="1"><result status="timeout" time="5.00" steps="560767"/></proof>
-  <proof prover="2"><result status="timeout" time="5.00" steps="5821614"/></proof>
-  <proof prover="3"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="533209"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="5821614"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.90" expl="precondition" proved="true">
+  <goal name="check_path&#39;vc.92" expl="precondition" proved="true">
   <proof prover="0"><result status="valid" time="0.04" steps="341"/></proof>
   <proof prover="1"><result status="valid" time="0.14" steps="34042"/></proof>
   <proof prover="2"><result status="valid" time="0.06" steps="208039"/></proof>
   <proof prover="3"><result status="valid" time="0.15"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.91" expl="precondition" proved="true">
+  <goal name="check_path&#39;vc.93" expl="precondition" proved="true">
   <proof prover="0"><result status="valid" time="0.03" steps="269"/></proof>
   <proof prover="1"><result status="valid" time="0.16" steps="35512"/></proof>
   <proof prover="2"><result status="valid" time="0.05" steps="211947"/></proof>
   <proof prover="3"><result status="valid" time="0.20"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.92" expl="precondition" proved="true">
+  <goal name="check_path&#39;vc.94" expl="precondition" proved="true">
   <transf name="split_vc" proved="true" >
-   <goal name="check_path&#39;vc.92.0" expl="precondition" proved="true">
+   <goal name="check_path&#39;vc.94.0" expl="precondition" proved="true">
    <proof prover="0"><result status="valid" time="0.04" steps="79"/></proof>
-   <proof prover="1"><result status="timeout" time="5.00" steps="963867"/></proof>
-   <proof prover="2"><result status="timeout" time="5.00" steps="6499396"/></proof>
-   <proof prover="3"><result status="timeout" time="5.00"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="906546"/></proof>
+   <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="6499396"/></proof>
+   <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
    </goal>
   </transf>
   </goal>
-  <goal name="check_path&#39;vc.93" expl="postcondition" proved="true">
+  <goal name="check_path&#39;vc.95" expl="postcondition" proved="true">
   <proof prover="0"><result status="valid" time="0.02" steps="34"/></proof>
   <proof prover="1"><result status="valid" time="0.08" steps="29820"/></proof>
   <proof prover="2"><result status="valid" time="0.02" steps="40242"/></proof>
   <proof prover="3"><result status="valid" time="0.04"/></proof>
   </goal>
+  <goal name="check_path&#39;vc.37" expl="precondition">
+  <proof prover="0"><result status="valid" time="0.09" steps="514"/></proof>
+  <proof prover="1" obsolete="true"><result status="failure" time="0.00"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4645235"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  </goal>
   <goal name="check_path&#39;vc.59" expl="precondition">
-  <proof prover="0"><undone/></proof>
-  <proof prover="1"><undone/></proof>
-  <proof prover="2"><undone/></proof>
-  <proof prover="3"><undone/></proof>
+  <proof prover="0"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" obsolete="true"><result status="failure" time="0.00"/></proof>
+  <proof prover="2" obsolete="true"><result status="failure" time="0.00"/></proof>
+  <proof prover="3"><result status="timeout" time="5.00"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.76" expl="precondition">
-  <proof prover="0"><undone/></proof>
-  <proof prover="1"><undone/></proof>
-  <proof prover="2"><undone/></proof>
-  <proof prover="3"><undone/></proof>
+  <goal name="check_path&#39;vc.61" expl="precondition">
+  <proof prover="0"><result status="failure" time="0.00"/></proof>
+  <proof prover="1" obsolete="true"><result status="failure" time="0.00"/></proof>
+  <proof prover="2" obsolete="true"><result status="failure" time="0.00"/></proof>
+  <proof prover="3" obsolete="true"><result status="failure" time="0.00"/></proof>
   </goal>
-  <goal name="check_path&#39;vc.92" expl="precondition">
-  <proof prover="0"><undone/></proof>
-  <proof prover="1"><undone/></proof>
-  <proof prover="2"><undone/></proof>
-  <proof prover="3"><undone/></proof>
-  </goal>
-  <goal name="check_path&#39;vc.73" expl="postcondition">
-  <proof prover="0"><undone/></proof>
-  <proof prover="1"><undone/></proof>
-  <proof prover="2"><undone/></proof>
-  <proof prover="3"><undone/></proof>
-  </goal>
-  <goal name="check_path&#39;vc.90" expl="postcondition">
-  <proof prover="0"><undone/></proof>
-  <proof prover="1"><undone/></proof>
-  <proof prover="2"><undone/></proof>
-  <proof prover="3"><undone/></proof>
-  </goal>
-  <goal name="check_path&#39;vc.16" expl="postcondition">
-  <proof prover="0"><undone/></proof>
-  <proof prover="1"><undone/></proof>
-  <proof prover="2"><undone/></proof>
-  <proof prover="3"><undone/></proof>
+  <goal name="check_path&#39;vc.38" expl="precondition">
+  <proof prover="0"><result status="failure" time="0.00"/></proof>
+  <proof prover="1"><result status="timeout" time="5.00" steps="639356"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00" steps="6613945"/></proof>
+  <proof prover="3"><result status="timeout" time="5.00"/></proof>
   </goal>
   <goal name="check_path&#39;vc.8" expl="postcondition">
-  <proof prover="0"><undone/></proof>
-  <proof prover="1"><undone/></proof>
-  <proof prover="2"><undone/></proof>
-  <proof prover="3"><undone/></proof>
+  <proof prover="0"><result status="failure" time="0.00"/></proof>
+  <proof prover="1"><result status="failure" time="0.00"/></proof>
+  <proof prover="2"><result status="failure" time="0.00"/></proof>
+  <proof prover="3"><result status="failure" time="0.00"/></proof>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="Check.not_empty_succ">
+ <proof prover="0"><result status="timeout" time="5.00"/></proof>
+ <proof prover="3"><result status="timeout" time="5.00"/></proof>
+ <transf name="split_vc" >
+  <goal name="not_empty_succ.0">
+  <proof prover="0"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1"><result status="timeout" time="5.00" steps="463685"/></proof>
+  <proof prover="3"><result status="timeout" time="5.00"/></proof>
   </goal>
  </transf>
  </goal>

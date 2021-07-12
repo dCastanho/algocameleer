@@ -81,6 +81,9 @@
               Set.mem v1 g.G.dom -> has_path v1 v2 g -> edge v2 v3 g ->
               has_path v1 v3 g *)
 
+        (* lemma not_empty_succ : forall v1, v2, v3 : G.V.t, g : G.gt. 
+              has_path v1 v2 g -> has_path v1 v3 g /\ has_path v3 v2 g -> G.succ g v3 <> [] *)
+
         (*@ lemma edge_path : forall v1, v2, v3 : G.V.t, g : G.gt. 
               edge v1 v2 g /\ edge v2 v3 g -> is_path v1 (Seq.singleton v2) v3 g -> has_path v1 v3 g*)
         
@@ -109,8 +112,6 @@
         (*@ list_notNil_cons l 
               requires l <> []
               ensures exists x, x1. l = x::x1 *)
-      
-
               
         let check_path pc v1 v2 =
           try
@@ -147,6 +148,7 @@
                           requires forall v'. Seq.mem v' q.Queue.view -> has_path v1 v' pc.graph
                           variant l 
                           ensures sucs = p @ l
+                          ensures old pc = pc
                           ensures forall v'. Seq.mem v' (old q).Queue.view -> Seq.mem v' q.Queue.view
                           ensures (old visited) = visited
                           ensures forall v'. List.mem v' l -> Seq.mem v' q.Queue.view
@@ -154,7 +156,7 @@
                           ensures q.Queue.view == oldQ.Queue.view ++ ( of_list p ++ of_list l)
                           ensures forall v'. Seq.mem v' q.Queue.view -> has_path v1 v' pc.graph
                           ensures forall v'. Seq.mem v' q.Queue.view -> Set.mem v' pc.graph.G.dom  
-                          ensures has_path v1 v2 pc.graph -> exists w. Seq.mem w q.Queue.view /\ has_path w v2 pc.graph /\ not (Set.mem w visited.HV.dom)
+                          ensures l = sucs /\ has_path v1 v2 pc.graph -> exists w. Seq.mem w q.Queue.view /\ has_path w v2 pc.graph /\ not (Set.mem w visited.HV.dom)
                           ensures forall v'. Set.mem v' visited.HV.dom -> has_path v1 v' pc.graph 
                           ensures l = sucs -> forall v'. Set.mem v' visited.HV.dom -> forall s. edge v' s pc.graph -> Seq.mem s q.Queue.view \/ Set.mem s visited.HV.dom
                           *)
