@@ -135,22 +135,23 @@
                 false
               end else begin
                 let v = Queue.pop q in
-                HV.add visited v () ; 
                 HVV.add pc.cache (v1, v) true;
                 if G.V.compare v v2 = 0 then
                   true
                 else begin
+                  HV.add visited v () ; 
                   let sucs = G.succ pc.graph v in
-                  let [@ghost] oldMarked = HV.copy marked in
                   let rec iter_succ ( prefix [@ghost] ) = function
                     | [] -> ()
                     | v' :: r -> if not (HV.mem marked v' ) then begin HV.add marked v' () ; Queue.add v' q end ; iter_succ (prefix @ [v']) r 
                   (*@ iter_succ p l
-                        requires forall v. Seq.mem v q.Queue.view -> not (Set.mem v visited.HV.dom)
+                        requires forall v'. Set.mem v' visited.HV.dom /\ v' <> v -> forall s. edge v' s pc.graph -> Set.mem s marked.HV.dom 
+                        requires forall v'. Seq.mem v' q.Queue.view -> not (Set.mem v' visited.HV.dom)
                         requires distinct q.Queue.view 
-                        requires forall v. Set.mem v visited.HV.dom -> not (Seq.mem v q.Queue.view)
-                        requires forall v. Set.mem v visited.HV.dom -> Set.mem v marked.HV.dom
-                        requires forall v. Seq.mem v q.Queue.view -> Set.mem v marked.HV.dom
+                        requires forall v'. Set.mem v' visited.HV.dom -> not (Seq.mem v' q.Queue.view)   
+                        requires forall v'. Set.mem v' marked.HV.dom ->  Set.mem v' visited.HV.dom \/ Seq.mem v' q.Queue.view
+                        requires forall v'. Set.mem v' visited.HV.dom -> Set.mem v' marked.HV.dom        
+                        requires forall v'. Seq.mem v' q.Queue.view -> Set.mem v' marked.HV.dom
                         requires of_list sucs = of_list p ++ of_list l
                         requires forall v'. List.mem v' l -> Set.mem v' pc.graph.G.dom
                         requires forall v'. List.mem v' l -> edge v v' pc.graph
@@ -165,16 +166,20 @@
                         ensures distinct q.Queue.view 
                         ensures old pc = pc
                         ensures (old visited) = visited
+                        ensures forall v'. Set.mem v' (old marked).HV.dom -> Set.mem v' marked.HV.dom
                         ensures subset marked.HV.dom pc.graph.G.dom
+                        ensures forall v'. Set.mem v' marked.HV.dom ->  Set.mem v' visited.HV.dom \/ Seq.mem v' q.Queue.view
                         ensures forall v'. Set.mem v' visited.HV.dom -> has_path v1 v' pc.graph 
                         ensures forall v'. Set.mem v' marked.HV.dom -> has_path v1 v' pc.graph
                         ensures forall v'. Seq.mem v' q.Queue.view -> has_path v1 v' pc.graph
                         ensures forall v'. Seq.mem v' q.Queue.view -> Set.mem v' pc.graph.G.dom  
+                        ensures forall v'. List.mem v' l -> Set.mem v' marked.HV.dom
                         ensures has_path v1 v2 pc.graph -> exists w. Seq.mem w q.Queue.view /\ has_path w v2 pc.graph
-                        ensures forall v. Seq.mem v q.Queue.view -> not (Set.mem v visited.HV.dom)
-                        ensures forall v. Set.mem v visited.HV.dom -> not (Seq.mem v q.Queue.view)
-                        ensures forall v. Set.mem v visited.HV.dom -> Set.mem v marked.HV.dom
-                        ensures forall v. Seq.mem v q.Queue.view -> Set.mem v marked.HV.dom
+                        ensures l = sucs -> forall s. edge v s pc.graph -> Set.mem s marked.HV.dom
+                        ensures forall v'. Seq.mem v' q.Queue.view -> not (Set.mem v' visited.HV.dom)
+                        ensures forall v'. Set.mem v' visited.HV.dom -> not (Seq.mem v' q.Queue.view)
+                        ensures forall v'. Set.mem v' visited.HV.dom -> Set.mem v' marked.HV.dom
+                        ensures forall v'. Seq.mem v' q.Queue.view -> Set.mem v' marked.HV.dom
                         *)
                   in
                   iter_succ [] sucs ;
@@ -182,6 +187,8 @@
                 end
               end
             (*@ b = loop () 
+                  requires forall v'. Set.mem v' marked.HV.dom ->  Set.mem v' visited.HV.dom \/ Seq.mem v' q.Queue.view
+                  requires forall v. Set.mem v visited.HV.dom -> forall s. edge v s pc.graph -> Set.mem s marked.HV.dom 
                   requires distinct q.Queue.view 
                   requires forall v. Seq.mem v q.Queue.view -> not (Set.mem v visited.HV.dom)
                   requires forall v. Set.mem v visited.HV.dom -> not (Seq.mem v q.Queue.view)
@@ -197,6 +204,7 @@
                   raises  Queue.Empty -> false
                   variant Set.cardinal pc.graph.G.dom - Set.cardinal visited.HV.dom, Seq.length q.Queue.view 
                   ensures distinct q.Queue.view 
+                  ensures forall v'. Set.mem v' marked.HV.dom /\ v' <> v2 ->  Set.mem v' visited.HV.dom \/ Seq.mem v' q.Queue.view
                   ensures subset visited.HV.dom pc.graph.G.dom
                   ensures subset marked.HV.dom pc.graph.G.dom
                   ensures forall v. Set.mem v marked.HV.dom -> has_path v1 v pc.graph
@@ -206,6 +214,7 @@
                   ensures forall v. Seq.mem v q.Queue.view -> not (Set.mem v visited.HV.dom)
                   ensures forall v. Set.mem v visited.HV.dom -> not (Seq.mem v q.Queue.view)
                   ensures forall v. Set.mem v visited.HV.dom -> Set.mem v marked.HV.dom
+                  ensures forall v. Set.mem v visited.HV.dom -> forall s. edge v s pc.graph -> Set.mem s marked.HV.dom 
                   ensures forall v. Seq.mem v q.Queue.view -> Set.mem v marked.HV.dom
                   *)  
             in
@@ -221,6 +230,7 @@
     (*ensures forall v'. List.mem v' l /\ not (Set.mem v' (old marked).HV.dom) -> Seq.mem v' q.Queue.view /\ Set.mem v' marked.HV.dom*)
 
     (*************************************************************************************************************************
+    
     
     Altered version of the original path.ml. Table *visited* became ghost and a new table was added called *marked*. 
     No repeated vertices are added to the queue now, as they are checked before being added and not on pop. Ghost 
