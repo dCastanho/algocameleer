@@ -94,10 +94,6 @@
         (*@ lemma self_path : forall v1 : G.V.t, g: G.gt.
               is_path v1 (Seq.empty) v1 g -> has_path v1 v1 g *)
 
-        (* predicate is_union ( fs1 : G.V.t fset ) ( fs2 : G.V.t fset) (s3 : G.V.t seq) = 
-           ( forall v. Set.mem v fs2 -> Set.mem v fs1 ) /\ ( forall v. Seq.mem v s3 -> Set.mem v fs1 ) /\
-              ( forall v. Set.mem v fs1 -> Seq.mem v s3 \/ Set.mem v fs2 ) *)
-
         let [@ghost] [@logic] cache_empty () = HVV.create 42
         (* c = cache_empty () 
               ensures c.HVV.dom = Set.empty*)
@@ -145,6 +141,10 @@
                     | [] -> ()
                     | v' :: r -> if not (HV.mem marked v' ) then begin HV.add marked v' () ; Queue.add v' q end ; iter_succ (prefix @ [v']) r 
                   (*@ iter_succ p l
+                        requires Set.mem v1 marked.HV.dom 
+                        requires Seq.mem v1 q.Queue.view -> q.Queue.view == Seq.singleton v1
+                        requires Set.mem v1 visited.HV.dom
+                        requires not (Set.mem v2 visited.HV.dom)
                         requires forall v'. Set.mem v' visited.HV.dom /\ v' <> v -> forall s. edge v' s pc.graph -> Set.mem s marked.HV.dom 
                         requires forall v'. Seq.mem v' q.Queue.view -> not (Set.mem v' visited.HV.dom)
                         requires distinct q.Queue.view 
@@ -162,6 +162,9 @@
                         requires forall v'. Seq.mem v' q.Queue.view -> has_path v1 v' pc.graph
                         requires subset marked.HV.dom pc.graph.G.dom
                         variant l 
+                        ensures Set.mem v1 visited.HV.dom
+                        ensures Seq.mem v1 q.Queue.view -> q.Queue.view == Seq.singleton v1
+                        ensures not (Set.mem v2 visited.HV.dom)
                         ensures sucs = p @ l
                         ensures distinct q.Queue.view 
                         ensures old pc = pc
@@ -180,6 +183,7 @@
                         ensures forall v'. Set.mem v' visited.HV.dom -> not (Seq.mem v' q.Queue.view)
                         ensures forall v'. Set.mem v' visited.HV.dom -> Set.mem v' marked.HV.dom
                         ensures forall v'. Seq.mem v' q.Queue.view -> Set.mem v' marked.HV.dom
+                        ensures Set.mem v1 marked.HV.dom 
                         *)
                   in
                   iter_succ [] sucs ;
@@ -187,6 +191,9 @@
                 end
               end
             (*@ b = loop () 
+                  requires Set.mem v1 marked.HV.dom 
+                  requires Seq.mem v1 q.Queue.view -> q.Queue.view == Seq.singleton v1
+                  requires not (Set.mem v2 visited.HV.dom)
                   requires forall v'. Set.mem v' marked.HV.dom ->  Set.mem v' visited.HV.dom \/ Seq.mem v' q.Queue.view
                   requires forall v. Set.mem v visited.HV.dom -> forall s. edge v s pc.graph -> Set.mem s marked.HV.dom 
                   requires distinct q.Queue.view 
@@ -211,11 +218,14 @@
                   ensures forall v. Set.mem v visited.HV.dom -> has_path v1 v pc.graph
                   ensures forall v'. Seq.mem v' q.Queue.view -> Set.mem v' pc.graph.G.dom  
                   ensures b <-> has_path v1 v2 pc.graph  
+                  ensures not (Set.mem v2 visited.HV.dom)
                   ensures forall v. Seq.mem v q.Queue.view -> not (Set.mem v visited.HV.dom)
                   ensures forall v. Set.mem v visited.HV.dom -> not (Seq.mem v q.Queue.view)
                   ensures forall v. Set.mem v visited.HV.dom -> Set.mem v marked.HV.dom
                   ensures forall v. Set.mem v visited.HV.dom -> forall s. edge v s pc.graph -> Set.mem s marked.HV.dom 
                   ensures forall v. Seq.mem v q.Queue.view -> Set.mem v marked.HV.dom
+                  ensures Seq.mem v1 q.Queue.view -> q.Queue.view == Seq.singleton v1
+                  ensures Set.mem v1 marked.HV.dom 
                   *)  
             in
             HV.add marked v1 () ;
