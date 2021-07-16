@@ -11,7 +11,7 @@
       
         val equal : t -> t -> bool
         (*@ b = equal t1 t2 
-              ensures b <-> t1 = t2*)
+            ensures b <-> t1 = t2*)
       end
       
       (** Signature merging {!ORDERED_TYPE} and {!HASHABLE}. *)
@@ -37,17 +37,14 @@
              module V : COMPARABLE
             type gt
             (*@ model dom: V.t fset 
-                model suc: V.t -> V.t fset
-                invariant forall v1, v2. Set.mem v1 dom /\ Set.mem v2 (suc v1) -> Set.mem v2 dom*)
+                  model suc: V.t -> V.t fset
+                  invariant forall v1, v2. Set.mem v1 dom /\ Set.mem v2 (suc v1) -> Set.mem v2 dom*)
       
              val [@logic] succ : gt -> V.t -> V.t list
              (*@ l = succ g v
                   requires Set.mem v g.dom
-                  ensures forall v'. List.mem v' l -> Set.mem v' g.dom
                   ensures forall v'. List.mem v' l <-> Set.mem v' (g.suc v) *)
-      
-
-
+                  
            end) =
       struct
         module HTProduct = struct
@@ -59,18 +56,17 @@
         module HV = Hashtbl.Make(G.V)
         module HVV = Hashtbl.Make(HTProduct)
 
-       (*@ predicate edge (v1 : G.V.t) (v2 : G.V.t) (g : G.gt) = Set.mem v2 (g.G.suc v1)*)
+      (*@ predicate edge (v1 : G.V.t) (v2 : G.V.t) (g : G.gt) = Set.mem v2 (g.G.suc v1)*)
 
-       (*@ predicate distinct (s : G.V.t seq) =
-               forall i j. 0 <= i < length s -> 0 <= j < length s ->
+      (*@ predicate distinct (s : G.V.t seq) =
+            forall i j. 0 <= i < length s -> 0 <= j < length s ->
                   i <> j -> s[i] <> s[j] *)
 
-       (*@ lemma emp_cons : forall q : 'a seq.
+      (*@ lemma emp_cons : forall q : 'a seq.
             q == q ++ of_list [] *)
-      
-      (*@ predicate suffix ( l : G.V.t seq ) ( q : G.V.t seq ) = 
-      Seq.length l <= Seq.length q /\
-        forall i. 0 <= i < Seq.length l -> l[i] = q[Seq.length q - Seq.length l + i] *)      
+
+      (*@ predicate disjoint ( sq : G.V.t Queue.t ) ( st : unit HV.t ) = 
+            forall v1. Seq.mem v1 sq.Queue.view -> not (Set.mem v1 st.HV.dom) /\ forall v2. Set.mem v2 st.HV.dom -> not (Seq.mem v2 sq.Queue.view) *)
 
       (*@ predicate is_path (v1 : G.V.t) (l : G.V.t seq) (v2 : G.V.t) (g : G.gt) =
             let len = Seq.length l in
@@ -78,29 +74,26 @@
               edge v1 l[0] g && l[len - 1] = v2 && Set.mem v1 g.G.dom &&
             forall i : int. 0 <= i < len - 1 -> edge l[i] l[i+1] g *)
         
-        (*@ predicate has_path (v1 : G.V.t) (v2 : G.V.t) (g : G.gt) = 
-              exists p : G.V.t seq. is_path v1 p v2 g *)
+      (*@ predicate has_path (v1 : G.V.t) (v2 : G.V.t) (g : G.gt) = 
+            exists p : G.V.t seq. is_path v1 p v2 g *)
 
-        (*@ lemma path_suc : forall v1, v2, v3 : G.V.t, g : G.gt.
-              Set.mem v1 g.G.dom -> has_path v1 v2 g -> edge v2 v3 g ->
-              has_path v1 v3 g *)
+      (*@ lemma path_suc : forall v1, v2, v3 : G.V.t, g : G.gt.
+            Set.mem v1 g.G.dom -> has_path v1 v2 g -> edge v2 v3 g ->
+            has_path v1 v3 g *)
 
-        (* lemma not_empty_succ : forall v1, v2, v3 : G.V.t, g : G.gt. 
-              has_path v1 v2 g -> has_path v1 v3 g /\ has_path v3 v2 g -> G.succ g v3 <> [] *)
-
-        (*@ lemma edge_path : forall v1, v2, v3 : G.V.t, g : G.gt. 
-              edge v1 v2 g /\ edge v2 v3 g -> is_path v1 (Seq.singleton v2) v3 g -> has_path v1 v3 g*)
+      (*@ lemma edge_path : forall v1, v2, v3 : G.V.t, g : G.gt. 
+            edge v1 v2 g /\ edge v2 v3 g -> is_path v1 (Seq.singleton v2) v3 g -> has_path v1 v3 g*)
         
-        (*@ lemma self_path : forall v1 : G.V.t, g: G.gt.
-              is_path v1 (Seq.empty) v1 g -> has_path v1 v1 g *)
+      (*@ lemma self_path : forall v1 : G.V.t, g: G.gt.
+            is_path v1 (Seq.empty) v1 g -> has_path v1 v1 g *)
 
-        (*@ lemma intermediate_value : forall p : (G.V.t -> bool), u, v : G.V.t, s : G.V.t seq, g : G.gt. 
-                  p u -> not p v -> is_path u s v g -> 
-                        exists u' v' s1 s2. p u' /\ not p v' /\ is_path u s1 u' g /\ is_path v' s2 v g /\ edge u' v' g *)
+      (*@ lemma intermediate_value : forall p : (G.V.t -> bool), u, v : G.V.t, s : G.V.t seq, g : G.gt. 
+            p u -> not p v -> is_path u s v g -> 
+                  exists u' v' s1 s2. p u' /\ not p v' /\ is_path u s1 u' g /\ is_path v' s2 v g /\ edge u' v' g *)
 
         let [@ghost] [@logic] cache_empty () = HVV.create 42
-        (* c = cache_empty () 
-              ensures c.HVV.dom = Set.empty*)
+        (*@ c = cache_empty () 
+            ensures c.HVV.dom = Set.empty*)
 
         (* the cache contains the path tests already computed *)
         type path_checker = { cache : bool HVV.t; graph : G.gt }
@@ -145,53 +138,38 @@
                     | [] -> ()
                     | v' :: r -> if not (HV.mem marked v' ) then begin HV.add marked v' () ; Queue.add v' q end ; iter_succ (prefix @ [v']) r 
                   (*@ iter_succ p l
-                        requires Set.mem v1 marked.HV.dom 
-                        requires forall v'. List.mem v' p -> Set.mem v' marked.HV.dom
-                        requires Seq.mem v1 q.Queue.view -> q.Queue.view == Seq.singleton v1
                         requires Set.mem v1 visited.HV.dom
+                        requires Set.mem v1 marked.HV.dom
                         requires not (Set.mem v2 visited.HV.dom)
+                        requires disjoint q visited
+                        requires forall v'. Set.mem v' visited.HV.dom -> Set.mem v' marked.HV.dom      
+                        requires forall v'. Set.mem v' marked.HV.dom  -> Set.mem v' visited.HV.dom \/ Seq.mem v' q.Queue.view  
+                        requires forall v'. Seq.mem v' q.Queue.view   -> Set.mem v' marked.HV.dom
+                        requires forall v'. List.mem v' p -> Set.mem v' marked.HV.dom
                         requires forall v'. Set.mem v' visited.HV.dom /\ v' <> v -> forall s. edge v' s pc.graph -> Set.mem s marked.HV.dom 
-                        requires forall v'. Seq.mem v' q.Queue.view -> not (Set.mem v' visited.HV.dom)
                         requires distinct q.Queue.view 
-                        requires forall v'. Set.mem v' visited.HV.dom -> not (Seq.mem v' q.Queue.view)   
-                        requires forall v'. Set.mem v' marked.HV.dom ->  Set.mem v' visited.HV.dom \/ Seq.mem v' q.Queue.view
-                        requires forall v'. Set.mem v' visited.HV.dom -> Set.mem v' marked.HV.dom        
-                        requires forall v'. Seq.mem v' q.Queue.view -> Set.mem v' marked.HV.dom
-                        requires of_list sucs = of_list p ++ of_list l
-                        requires forall v'. List.mem v' l -> Set.mem v' pc.graph.G.dom
+                        requires sucs = p @ l
                         requires forall v'. List.mem v' l -> edge v v' pc.graph
-                        requires forall v'. List.mem v' l -> has_path v1 v' pc.graph
-                        requires forall v'. Seq.mem v' q.Queue.view -> Set.mem v' pc.graph.G.dom
-                        requires forall v'. Set.mem v' visited.HV.dom -> has_path v1 v' pc.graph
                         requires forall v'. Set.mem v' marked.HV.dom -> has_path v1 v' pc.graph
-                        requires forall v'. Seq.mem v' q.Queue.view -> has_path v1 v' pc.graph
                         requires subset marked.HV.dom pc.graph.G.dom
                         variant l 
                         ensures Set.mem v1 visited.HV.dom
-                        ensures Seq.mem v1 q.Queue.view -> q.Queue.view == Seq.singleton v1
                         ensures not (Set.mem v2 visited.HV.dom)
                         ensures sucs = p @ l
                         ensures distinct q.Queue.view 
-                        ensures old pc = pc
-                        ensures (old visited) = visited
                         ensures forall v'. Set.mem v' (old marked).HV.dom -> Set.mem v' marked.HV.dom
                         ensures forall v'. Set.mem v' (old visited).HV.dom -> Set.mem v' visited.HV.dom
                         ensures forall v'. Seq.mem v' (old q).Queue.view -> Seq.mem v' q.Queue.view
                         ensures subset marked.HV.dom pc.graph.G.dom
-                        ensures forall v'. Set.mem v' marked.HV.dom ->  Set.mem v' visited.HV.dom \/ Seq.mem v' q.Queue.view
-                        ensures forall v'. Set.mem v' visited.HV.dom -> has_path v1 v' pc.graph 
-                        ensures forall v'. Set.mem v' marked.HV.dom -> has_path v1 v' pc.graph
-                        ensures forall v'. Seq.mem v' q.Queue.view -> has_path v1 v' pc.graph
-                        ensures forall v'. Seq.mem v' q.Queue.view -> Set.mem v' pc.graph.G.dom  
+                        ensures forall v'. Set.mem v' marked.HV.dom  -> Set.mem v' visited.HV.dom \/ Seq.mem v' q.Queue.view
+                        ensures forall v'. Set.mem v' marked.HV.dom  -> has_path v1 v' pc.graph
                         ensures forall v'. List.mem v' l -> Set.mem v' marked.HV.dom
                         ensures forall v'. Set.mem v' visited.HV.dom -> forall s. edge v' s pc.graph -> Set.mem s marked.HV.dom
                         ensures has_path v1 v2 pc.graph -> exists w. Seq.mem w q.Queue.view /\ has_path w v2 pc.graph
-                        ensures forall v'. Seq.mem v' q.Queue.view -> not (Set.mem v' visited.HV.dom)
-                        ensures forall v'. Set.mem v' visited.HV.dom -> not (Seq.mem v' q.Queue.view)
+                        ensures disjoint q visited
                         ensures forall v'. Set.mem v' visited.HV.dom -> Set.mem v' marked.HV.dom
-                        ensures forall v'. Seq.mem v' q.Queue.view -> Set.mem v' marked.HV.dom
-                        ensures Set.mem v1 marked.HV.dom 
-                        *)
+                        ensures forall v'. Seq.mem v' q.Queue.view   -> Set.mem v' marked.HV.dom
+                        ensures Set.mem v1 marked.HV.dom  *)
                   in
                   iter_succ [] sucs ;
                   loop ()
@@ -204,17 +182,13 @@
                   requires forall v'. Set.mem v' marked.HV.dom ->  Set.mem v' visited.HV.dom \/ Seq.mem v' q.Queue.view
                   requires forall v. Set.mem v visited.HV.dom -> forall s. edge v s pc.graph -> Set.mem s marked.HV.dom 
                   requires distinct q.Queue.view 
-                  requires forall v. Seq.mem v q.Queue.view -> not (Set.mem v visited.HV.dom)
-                  requires forall v. Set.mem v visited.HV.dom -> not (Seq.mem v q.Queue.view)
+                  requires disjoint q visited
                   requires forall v. Set.mem v visited.HV.dom -> Set.mem v marked.HV.dom
                   requires forall v. Seq.mem v q.Queue.view -> Set.mem v marked.HV.dom
                   requires has_path v1 v2 pc.graph -> exists w. Seq.mem w q.Queue.view /\ has_path w v2 pc.graph 
-                  requires forall v'. Seq.mem v' q.Queue.view -> has_path v1 v' pc.graph           
-                  requires forall v. Set.mem v visited.HV.dom -> has_path v1 v pc.graph
                   requires forall v. Set.mem v marked.HV.dom -> has_path v1 v pc.graph
                   requires subset visited.HV.dom pc.graph.G.dom
                   requires subset marked.HV.dom pc.graph.G.dom
-                  requires forall v. Seq.mem v q.Queue.view -> Set.mem v pc.graph.G.dom
                   raises  Queue.Empty -> false
                   variant Set.cardinal pc.graph.G.dom - Set.cardinal visited.HV.dom, Seq.length q.Queue.view 
                   ensures distinct q.Queue.view 
@@ -222,12 +196,9 @@
                   ensures subset visited.HV.dom pc.graph.G.dom
                   ensures subset marked.HV.dom pc.graph.G.dom
                   ensures forall v. Set.mem v marked.HV.dom -> has_path v1 v pc.graph
-                  ensures forall v. Set.mem v visited.HV.dom -> has_path v1 v pc.graph
-                  ensures forall v'. Seq.mem v' q.Queue.view -> Set.mem v' pc.graph.G.dom  
                   ensures b <-> has_path v1 v2 pc.graph  
                   ensures not (Set.mem v2 visited.HV.dom)
-                  ensures forall v. Seq.mem v q.Queue.view -> not (Set.mem v visited.HV.dom)
-                  ensures forall v. Set.mem v visited.HV.dom -> not (Seq.mem v q.Queue.view)
+                  ensures disjoint q visited
                   ensures forall v. Set.mem v visited.HV.dom -> Set.mem v marked.HV.dom
                   ensures forall v. Set.mem v visited.HV.dom -> forall s. edge v s pc.graph -> Set.mem s marked.HV.dom 
                   ensures forall v. Seq.mem v q.Queue.view -> Set.mem v marked.HV.dom
@@ -243,11 +214,8 @@
                   ensures b <-> has_path v1 v2 pc.graph *)
 
           end
-          
-    (*ensures forall v'. List.mem v' l /\ not (Set.mem v' (old marked).HV.dom) -> Seq.mem v' q.Queue.view /\ Set.mem v' marked.HV.dom*)
 
     (*************************************************************************************************************************
-    
     
     Altered version of the original path.ml. Table *visited* became ghost and a new table was added called *marked*. 
     No repeated vertices are added to the queue now, as they are checked before being added and not on pop. Ghost 
