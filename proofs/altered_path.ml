@@ -1,6 +1,7 @@
 (*@ open Set *)
 (*@ open Seq *)
 (*@ open SeqOfList *)
+(*@ open ListOfSeq *)
 
 (*@ lemma seq_cons: forall s1 s2: 'a seq, x: 'a.
       s1 = cons x s2 -> forall i. 0 <= i < Seq.length s2 -> s1[i+1] = s2[i] *)
@@ -44,7 +45,7 @@
              (*@ l = succ g v
                   requires Set.mem v g.dom
                   ensures forall v'. List.mem v' l <-> Set.mem v' (g.suc v) *)
-                  
+
            end) =
       struct
         module HTProduct = struct
@@ -86,6 +87,22 @@
         
       (*@ lemma self_path : forall v1 : G.V.t, g: G.gt.
             is_path v1 (Seq.empty) v1 g -> has_path v1 v1 g *)
+
+      let [@ghost] [@logic] rec intermediate_value_func p (u : G.V.t) (v : G.V.t) ( s : G.V.t list) ( g : G.gt)  = 
+          match s with 
+          | [] -> assert false 
+          | x :: xs -> if not (p x) then (u, x, [], xs) else 
+                  let (u', v', s1, s2) = intermediate_value_func p x v xs g in (u', v', x::s1, s2)
+      (*@ (u', v', s1, s2 ) = intermediate_value_func p u v s g
+            requires p u
+            requires not (p v)
+            requires is_path u (of_list s) v g
+            variant s
+            ensures p u' 
+            ensures not (p v')
+            ensures is_path u s1 u' g
+            ensures is_path v' s2 v g
+            ensures edge u' v' g *)
 
       (*@ lemma intermediate_value : forall p : (G.V.t -> bool), u, v : G.V.t, s : G.V.t seq, g : G.gt. 
             p u -> not p v -> is_path u s v g -> 
