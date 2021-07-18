@@ -1,4 +1,7 @@
 (*@ open Set *)
+(*@ open FsetSum*)
+(*@ open Seq*)
+(*@ open SeqOfList *)
 
 module type COMPARABLE = sig
   type t
@@ -81,14 +84,18 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
 
     (*@ predicate vertex_belongs ( g : t ) ( v1 : Vertex.t ) = Set.mem v1 g.self.HM.dom *)
 
+    (*@ predicate vertex_belongs_HM ( g : S.t HM.t ) ( v1 : Vertex.t ) = Set.mem v1 g.HM.dom *)
+
     (*@ predicate edge_belongs_label ( g : t ) ( v1 : V.t ) ( v2 : V.t ) ( l : E.label ) = 
           let s = g.self.HM.view v1 in 
             vertex_belongs g v1 /\ vertex_belongs g v2 /\ Set.mem (v2, l) s.S.dom *)
 
+    (*@ predicate edge_belongs_label_HM ( g : S.t HM.t ) ( v1 : V.t ) ( v2 : V.t ) ( l : E.label ) = 
+          let s = g.HM.view v1 in 
+            vertex_belongs_HM g v1 /\ vertex_belongs_HM g v2 /\ Set.mem (v2, l) s.S.dom *)
    
     (*@ predicate edge_belongs ( g : t ) ( v1 : V.t ) ( v2 : V.t ) = 
           exists l. edge_belongs_label g v1 v2 l *)
-  
 
     (*@ predicate edge_belongs_e ( g : t ) (e : E.t ) = 
           let s1 = g.self.HM.view (E.src e) in 
@@ -98,7 +105,18 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
     (*@ predicate consistent ( o : t ) ( n : t) = 
               (forall v. vertex_belongs o v -> vertex_belongs n v) /\
               (forall e. edge_belongs_label o (E.src e) (E.dst e) (E.label e) -> edge_belongs_label n (E.src e) (E.dst e) (E.label e)) *)
-  
+
+    (*@ predicate distinct (s : (Vertex.t * S.t) seq) =
+      forall i j. 0 <= i < length s -> 0 <= j < length s ->
+            i <> j -> s[i] <> s[j] *)
+
+    (*@ lemma first_mem :  forall l. distinct (of_list l) -> forall i. 1 <= i < Seq.length (of_list l) -> (of_list l)[0] <> (of_list l)[i]  *)
+
+    (*@ lemma sub_list : forall l. distinct (of_list l) -> 
+          match l with 
+          | [] -> true
+          | x :: xs -> distinct xs /\ forall e. List.mem e xs -> e <> x*)
+
 
   let mem_edge g v1 v2 =
     try S.existe (fun (v2', _) -> V.equal v2 v2') (HM.find v1 g.self)
@@ -144,9 +162,13 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
       | [] -> l 
       | (v2', lab) :: r ->  iter_es (if V.equal v2 v2' then (v1, lab, v2) ::l else l) r
       (*@ edge_l = iter_es acc esL 
+            requires forall e. List.mem e es -> vertex_belongs g (fst e)
+            requires forall e. List.mem e es -> edge_belongs_label g v1 (fst e) (snd e)
             requires forall e. List.mem e esL -> List.mem e es
             requires forall e. List.mem e acc -> List.mem (E.dst e, E.label e) es /\ E.src e = v1 /\ E.dst e = v2 
             variant esL
+            ensures forall e. List.mem e es -> vertex_belongs g (fst e)
+            ensures forall e. List.mem e es -> edge_belongs_label g v1 (fst e) (snd e)
             ensures forall e. List.mem e edge_l -> List.mem (E.dst e, E.label e) es /\ E.src e = v1 /\ E.dst e = v2
             ensures forall p. List.mem p acc -> List.mem p edge_l 
             ensures forall p. fst p = v2 /\ List.mem p esL -> List.mem (v1, snd p, v2) edge_l  *)
@@ -173,11 +195,9 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
           ensures forall e. List.mem e l_p -> exists la. List.mem (e, la) sucs_e_set
           ensures forall e. List.mem e l -> List.mem (fst e) l_p *)
     in convert [] sucs_e_set
-    (*List.map (fun (v, _) -> v) sucs_e_set  *)
   (*@  l = succ g v 
         raises Not_found -> not ( vertex_belongs g v ) 
-        ensures forall v'. edge_belongs g v v' <-> List.mem v' l
-  *)
+        ensures forall v'. edge_belongs g v v' <-> List.mem v' l  *)
 
   let succ_e gr v =     
     let g = gr.self in 
@@ -197,8 +217,7 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
     in convert [] sucs_e_set 
     (*@  l = succ_e g v 
         raises Not_found -> not ( vertex_belongs g v )
-        ensures forall e. List.mem e l <-> edge_belongs_label g (E.src e) (E.dst e) (E.label e) /\ E.src e = v 
-    *)
+        ensures forall e. List.mem e l <-> edge_belongs_label g (E.src e) (E.dst e) (E.label e) /\ E.src e = v *)
     
   let empty = { self = HM.empty }
   (*@ g = empty 
@@ -216,8 +235,18 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
   (*@ n_v = nb_vertex g 
         ensures n_v = Set.cardinal g.self.HM.dom *)
   
-   (*let nb_edges g = List.length (HM.bindings g.self)
- @ n_e = nb_edges g *)
+  (* let nb_edges g = 
+    let rec iter_succs su (l : (Vertex.t * S.t) list ) =
+    match l with  
+    | [] -> su
+    | (v, sucs):: xs -> iter_succs (su + S.cardinal sucs) xs 
+    (* s = iter_succs sum l 
+        variant l
+        ensures s = sum_list l sum *)
+    in  
+    iter_succs 0 (HM.bindings g.self) / 2
+  n_e = nb_edges g
+       ensures n_e = div (n_edges g) 2*)
   
   let out_degree g v =
     S.cardinal
@@ -244,20 +273,8 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
       ensures consistent g1 g2
       ensures if not (vertex_belongs g1 v) then
          (g2.self.HM.view v).S.dom = Set.empty else (g2.self.HM.view v).S.dom = (g1.self.HM.view v).S.dom*)
-
-
-    (*let remove_vertex g v =
-      if HM.mem v g then
-        let g = HM.remove v g in
-        let remove v = S.filter (fun (v2, _) -> not (V.equal v v2)) in
-        HM.fold (fun k s -> HM.add k (remove v s)) g empty
-      else
-        g*)
-  
   
   let is_directed = false
-
-  (* Redefine iterators and [nb_edges]. *)
 
   let pred g v = succ g v
   (*@ l = pred g v 
@@ -288,8 +305,7 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
     in convert [] sucs_e_set 
     (*@  l = pred_e g v 
         raises Not_found -> not ( vertex_belongs g v )
-        ensures forall e. List.mem e l <-> edge_belongs_label g (E.src e) (E.dst e) (E.label e) /\ E.dst e = v 
-    *)
+        ensures forall e. List.mem e l <-> edge_belongs_label g (E.src e) (E.dst e) (E.label e) /\ E.dst e = v *)
 
   let add_edge_e g e =
     let (v1, l, v2) = e in 
@@ -304,8 +320,7 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
         ensures vertex_belongs g2 (E.src e) 
         ensures vertex_belongs g2 (E.dst e)
         ensures edge_belongs_label g2 (E.src e) (E.dst e) (E.label e)
-        ensures edge_belongs_label g2 (E.dst e) (E.src e) (E.label e)
-    *)
+        ensures edge_belongs_label g2 (E.dst e) (E.src e) (E.label e)  *)
         
 
   let add_edge g v1 v2 = add_edge_e g (v1, Edge.default, v2)
@@ -333,8 +348,7 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
         ensures forall v. vertex_belongs g1 v -> vertex_belongs g2 v
         ensures forall vy, vx, l. vx <> v1 /\ vx <> v2 /\ edge_belongs_label g1 vx vy l -> edge_belongs_label g2 vx vy l
         ensures forall vy, l. edge_belongs_label g1 v1 vy l /\ vy <> v2 -> edge_belongs_label g2 v1 vy l
-        ensures forall vx, l. edge_belongs_label g1 vx v2 l /\ vx <> v1 -> edge_belongs_label g2 vx v2 l
-        *)  
+        ensures forall vx, l. edge_belongs_label g1 vx v2 l /\ vx <> v1 -> edge_belongs_label g2 vx v2 l *)  
 
   let remove_edge_e g e =
     let (v1, l, v2) = e in 
@@ -351,8 +365,46 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
         ensures forall vy, l. edge_belongs_label g1 (E.src e) vy l /\ vy <> (E.dst e) -> edge_belongs_label g2 (E.src e) vy l
         ensures forall vx, l. edge_belongs_label g1 vx (E.dst e) l /\ vx <> (E.src e) -> edge_belongs_label g2 vx (E.dst e) l
         ensures forall l.  edge_belongs_label g1 (E.src e) (E.dst e) l /\ l <> (E.label e) -> edge_belongs_label g2 (E.src e) (E.dst e) l 
-        ensures forall vx, vy, l. edge_belongs_label g1 vx vy l /\ vx <> (E.src e) /\ vx <> (E.dst e) -> edge_belongs_label g2 vx vy l
-    *)
+        ensures forall vx, vy, l. edge_belongs_label g1 vx vy l /\ vx <> (E.src e) /\ vx <> (E.dst e) -> edge_belongs_label g2 vx vy l  *)
+
+    let remove_vertex g v = 
+      let gr = HM.remove v g.self in 
+      let binds = HM.bindings gr in
+      let rec iter_keys g (prefix [@ghost] )= function 
+      | [] -> g
+      | (x, st) :: r -> let st' = S.filter (fun (v',_) -> not (Vertex.equal v v') ) st in 
+              iter_keys (HM.add x st' g) (prefix @ [x]) r 
+      (*@ g2 = iter_keys g1 pre l 
+          requires forall v1. Set.mem v1 g1.HM.dom -> forall e. Set.mem e (g1.HM.view v1).S.dom /\ fst e <> v -> 
+            let (v2, l) = e in 
+              Set.mem v2 g1.HM.dom /\ Set.mem (v1, l) (g1.HM.view v2).S.dom
+          requires not (Set.mem v g1.HM.dom)
+          requires distinct l
+          requires forall e. List.mem e pre -> forall p. List.mem p l -> fst p <> e
+          requires forall v'. Set.mem v' g1.HM.dom -> List.mem v' pre \/ exists s. List.mem (v', s) l
+          requires forall e. List.mem e pre -> Set.mem e g1.HM.dom /\ forall p. Set.mem p (g1.HM.view e).S.dom -> fst p <> v
+          requires forall p1, p2. List.mem p1 l /\ List.mem p2 l /\ p1 <> p2 -> fst p1 <> fst p2 
+          requires forall p. List.mem p l -> Set.mem (fst p) g1.HM.dom /\ snd p = g1.HM.view (fst p)
+          variant l 
+          ensures not (Set.mem v g1.HM.dom)
+          ensures forall v1, v2, l. edge_belongs_label_HM g2 v1 v2 l ->  edge_belongs_label_HM g1 v1 v2 l
+          ensures forall v1, v2, l. edge_belongs_label_HM g1 v1 v2 l /\ v1 <> v /\ v2 <> v -> edge_belongs_label_HM g2 v1 v2 l
+          ensures forall v'. Set.mem v' g1.HM.dom <-> Set.mem v' g2.HM.dom
+          ensures forall v'. Set.mem v' g2.HM.dom -> forall p. Set.mem p (g2.HM.view v').S.dom -> fst p <> v 
+          ensures forall v1. Set.mem v1 g2.HM.dom -> forall e. Set.mem e (g2.HM.view v1).S.dom -> 
+            let (v2, l) = e in 
+              Set.mem v2 g2.HM.dom /\ Set.mem (v1, l) (g2.HM.view v2).S.dom
+          *)
+      in
+      let gr2 = iter_keys gr [] binds in 
+      {self = gr2 }
+    (*@ g2 = remove_vertex g1 v 
+        ensures not (vertex_belongs g2 v)
+        ensures forall v'. vertex_belongs g2 v' -> not (edge_belongs g2 v' v)
+        ensures forall v'. vertex_belongs g1 v' /\ v' <> v -> vertex_belongs g2 v'
+        ensures forall v1, v2, l. edge_belongs_label g1 v1 v2 l /\ v1 <> v /\ v2 <> v -> edge_belongs_label g2 v1 v2 l
+        ensures forall v1, v2, l. edge_belongs_label g2 v1 v2 l -> edge_belongs_label g1 v1 v2 l
+        *)
 
 end
 
