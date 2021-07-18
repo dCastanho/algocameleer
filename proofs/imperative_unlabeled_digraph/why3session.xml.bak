@@ -165,16 +165,16 @@
  <proof prover="3"><result status="valid" time="0.07" steps="27662"/></proof>
  </goal>
  <goal name="ImperativeUnlabeledDigraph.copy&#39;vc" expl="VC for copy">
- <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+ <proof prover="0"><result status="highfailure" time="2.34"/></proof>
  <transf name="split_vc" >
   <goal name="copy&#39;vc.0" expl="precondition" proved="true">
-  <proof prover="0"><result status="valid" time="0.02" steps="48"/></proof>
+  <proof prover="0"><result status="valid" time="0.03" steps="46"/></proof>
   </goal>
   <goal name="copy&#39;vc.1" expl="postcondition">
-  <proof prover="0"><result status="highfailure" time="2.07"/></proof>
+  <proof prover="0"><result status="highfailure" time="1.87"/></proof>
   <proof prover="1"><result status="timeout" time="5.00"/></proof>
-  <proof prover="2"><result status="timeout" time="5.00" steps="8194252"/></proof>
-  <proof prover="3"><result status="timeout" time="5.00" steps="2110500"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00" steps="10405890"/></proof>
+  <proof prover="3"><result status="timeout" time="5.00" steps="1581844"/></proof>
   </goal>
  </transf>
  </goal>

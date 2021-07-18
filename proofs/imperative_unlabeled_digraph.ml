@@ -74,31 +74,24 @@ module ImperativeUnlabeledDigraph(Vertex: COMPARABLE) = struct
     try S.mem v2 (HM.find g v1 )
     with Not_found -> false
   (*@ b = mem_edge g v1 v2
-        ensures b <-> edge_belongs g v1 v2 
-        ensures consistent (old g) g 
-        ensures consistent g (old g) *)
+        ensures b <-> edge_belongs g v1 v2 *)
 
   let mem_edge_e g (v1, v2) = mem_edge g v1 v2
   (*@ b = mem_edge_e g p 
-        ensures b <-> edge_belongs g (fst p) (snd p)        
-        ensures consistent (old g) g 
-        ensures consistent g (old g) *)
+        ensures b <-> edge_belongs g (fst p) (snd p) *)
 
   let find_edge g v1 v2 = if mem_edge g v1 v2 then v1, v2 else raise Not_found
   (*@ (vx, vy) = find_edge g v1 v2
         raises Not_found -> not ( edge_belongs g v1 v2 )
         ensures edge_belongs g v1 v2 
-        ensures vx = v1 /\ vy = v2 
-        ensures consistent (old g) g 
-        ensures consistent g (old g) *)
+        ensures vx = v1 /\ vy = v2 *)
 
   
   let find_all_edges g v1 v2 = try [ find_edge g v1 v2 ] with Not_found -> []
   (*@ l = find_all_edges g v1 v2
         ensures not ( edge_belongs g v1 v2 ) <-> l = []
         ensures edge_belongs g v1 v2 -> match l with | [] -> false | x :: r -> r = [] /\ fst x = v1 /\ snd x = v2
-        ensures consistent (old g) g 
-        ensures consistent g (old g)  *)
+        ensures consistent (old g) g *)
 
   let remove_edge gr v1 v2 =
     let g = gr.self in
@@ -111,8 +104,7 @@ module ImperativeUnlabeledDigraph(Vertex: COMPARABLE) = struct
         ensures Set.subset (succ g v1) (succ (old g) v1 )
         ensures forall vx, vy. vx <> v1 /\ vy <> v2 /\ edge_belongs (old g) vx vy -> edge_belongs g vx vy
         ensures forall vx. vx <> v1  /\ edge_belongs (old g) vx v2 -> edge_belongs g vx v2
-        ensures forall vy. vy <> v2 /\ edge_belongs (old g) v1 vy -> edge_belongs g v1 vy 
-  *)
+        ensures forall vy. vy <> v2 /\ edge_belongs (old g) v1 vy -> edge_belongs g v1 vy  *)
 
   let remove_edge_e g (v1, v2) = remove_edge g v1 v2
   (*@ remove_edge_e g p 
@@ -141,9 +133,10 @@ module ImperativeUnlabeledDigraph(Vertex: COMPARABLE) = struct
         ensures consistent (old g) g 
         ensures consistent g (old g) *)
 
-  (*let copy g = { self = HM.copy g.self }
-  @ g2 = copy g1 
-         ensures g1 = g2 *)
+   let copy g = { self = HM.copy g.self }
+   (*@ g2 = copy g1 
+        ensures consistent g1 g2
+        ensures consistent g2 g1 *)
          
    let clear g = HM.clear g.self
    (*@ clear g
@@ -154,15 +147,11 @@ module ImperativeUnlabeledDigraph(Vertex: COMPARABLE) = struct
       (try HM.find g.self v with Not_found -> invalid_arg "[ocamlgraph] out_degree")
   (*@ d = out_degree g v
         ensures d = Set.cardinal (succ g v)
-        raises  Invalid_argument _ -> not vertex_belongs g v
-        ensures consistent (old g) g 
-        ensures consistent g (old g)  *)
+        raises  Invalid_argument _ -> not vertex_belongs g v  *)
 
   let mem_vertex g v = HM.mem g.self v
   (*@ b = mem_vertex g v 
-        ensures b <-> vertex_belongs g v 
-        ensures consistent (old g) g 
-        ensures consistent g (old g) *)
+        ensures b <-> vertex_belongs g v *)
 
   let unsafe_add_vertex g v = HM.add g.self v S.empty
   (*@ unsafe_add_vertex g v 
@@ -216,9 +205,7 @@ module ImperativeUnlabeledDigraph(Vertex: COMPARABLE) = struct
    let succ g v = S.elements (HM.find g.self v)
    (*@ l = succ g v 
         raises Not_found -> not ( vertex_belongs g v )
-        ensures forall v'. List.mem v' l <-> Set.mem v' (succ g v) 
-        ensures consistent (old g) g 
-        ensures consistent g (old g) *)
+        ensures forall v'. List.mem v' l <-> Set.mem v' (succ g v)  *)
 
    let succ_e g v =
       let s_list = succ g v in 
@@ -238,9 +225,7 @@ module ImperativeUnlabeledDigraph(Vertex: COMPARABLE) = struct
    (*@ l = succ_e g v 
         raises Not_found -> not ( vertex_belongs g v )
         ensures forall p. let (vx, vy) = p in 
-             List.mem p l <-> Set.mem vy (succ g vx) /\ vx = v 
-        ensures consistent (old g) g 
-        ensures consistent g (old g) *)
+             List.mem p l <-> Set.mem vy (succ g vx) /\ vx = v *)
 
   let add_edge_e g (v1, v2) = add_edge g v1 v2
   (*@ add_edge_e g p 
@@ -258,7 +243,7 @@ end
 
 
       (************************************************************************************************************************
-      ConcreteDigraph proof notes:
+      ImperativeUnlabeledDigraph proof notes:
 
       1. Most functions used to get values are rather straight forward, since we must simply prove that the functions return is
       what we claim it is. Most times, this is a representation of how data ends up being stored. For example, saying an edge 
