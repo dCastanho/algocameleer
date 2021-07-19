@@ -151,6 +151,7 @@ let has_cycle_directed g =
           ignore (Stack.pop stack)
         end else begin
           H.add h v true;
+          cy := v::!cy ;
           let sucs = G.succ g v in 
           let rec iter_succ = function
           | [] -> () 
