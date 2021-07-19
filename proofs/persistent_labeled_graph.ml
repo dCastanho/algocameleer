@@ -90,6 +90,8 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
           let s = g.self.HM.view v1 in 
             vertex_belongs g v1 /\ vertex_belongs g v2 /\ Set.mem (v2, l) s.S.dom *)
 
+    (*@ lemma eq_seq_list : forall l :  (Vertex.t * S.t) list, e. List.mem e l -> Seq.mem e (of_list l) *)
+
     (*@ predicate edge_belongs_label_HM ( g : S.t HM.t ) ( v1 : V.t ) ( v2 : V.t ) ( l : E.label ) = 
           let s = g.HM.view v1 in 
             vertex_belongs_HM g v1 /\ vertex_belongs_HM g v2 /\ Set.mem (v2, l) s.S.dom *)
