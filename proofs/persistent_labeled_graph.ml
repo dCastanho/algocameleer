@@ -121,7 +121,7 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
 
 
   let mem_edge g v1 v2 =
-    try S.existe (fun (v2', _) -> V.equal v2 v2') (HM.find v1 g.self)
+    try S.exists (fun (v2', _) -> V.equal v2 v2') (HM.find v1 g.self)
     with Not_found -> false
   (*@ b = mem_edge g v1 v2 
         ensures b <-> vertex_belongs g v1 /\ edge_belongs g v1 v2 *)
@@ -129,7 +129,7 @@ module PersistentLabeledGraph(Vertex: COMPARABLE)(Edge: ORDERED_TYPE_DFT) = stru
   let mem_edge_e g (v1, l, v2) =
     try
       let ve = v2, l in
-      S.existe (fun ve' -> VE.compare ve ve' = 0) (HM.find v1 g.self)
+      S.exists (fun ve' -> VE.compare ve ve' = 0) (HM.find v1 g.self)
     with Not_found ->
       false
   (*@ b = mem_edge_e g e 
