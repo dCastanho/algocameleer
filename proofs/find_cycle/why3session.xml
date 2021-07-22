@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"http://why3.lri.fr/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="5" steplimit="0" memlimit="1000"/>
+<prover id="1" name="CVC4" version="1.6" timelimit="1" steplimit="0" memlimit="1000"/>
+<prover id="2" name="Eprover" version="2.5" timelimit="5" steplimit="0" memlimit="1000"/>
+<file format="ocaml" proved="true">
+<path name=".."/><path name="find_cycle.ml"/>
+<theory name="Find_cycle" proved="true">
+ <goal name="seq_cons" proved="true">
+ <proof prover="0"><result status="valid" time="0.02" steps="12"/></proof>
+ <proof prover="1" timelimit="5"><result status="valid" time="0.14" steps="33610"/></proof>
+ </goal>
+ <goal name="T.gt&#39;vc" expl="VC for gt" proved="true">
+ <proof prover="2"><result status="valid" time="0.15"/></proof>
+ </goal>
+ <goal name="Cycle.G.gt&#39;vc" expl="VC for gt" proved="true">
+ <proof prover="2"><result status="valid" time="0.13"/></proof>
+ </goal>
+ <goal name="Cycle.clean_up&#39;vc" expl="VC for clean_up" proved="true">
+ <proof prover="0"><result status="valid" time="0.04" steps="80"/></proof>
+ </goal>
+ <goal name="Cycle.find_cycle_directed&#39;vc" expl="VC for find_cycle_directed" proved="true">
+ <transf name="split_vc" proved="true" >
+  <goal name="find_cycle_directed&#39;vc.0" expl="loop invariant init" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="24"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.1" expl="loop invariant init" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="18"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.2" expl="loop variant decrease" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="87"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.3" expl="loop invariant preservation" proved="true">
+  <proof prover="0"><result status="valid" time="0.10" steps="595"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.4" expl="loop invariant preservation" proved="true">
+  <proof prover="0"><result status="valid" time="0.06" steps="302"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.5" expl="exceptional postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="34"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.6" expl="precondition" proved="true">
+  <transf name="assert" proved="true" arg1="(mem v (view1 stack))">
+   <goal name="find_cycle_directed&#39;vc.6.0" expl="asserted formula" proved="true">
+   <transf name="inline_goal" proved="true" >
+    <goal name="find_cycle_directed&#39;vc.6.0.0" expl="asserted formula" proved="true">
+    <transf name="split_all_full" proved="true" >
+     <goal name="find_cycle_directed&#39;vc.6.0.0.0" expl="asserted formula" proved="true">
+     <proof prover="1"><result status="valid" time="0.41" steps="81674"/></proof>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="find_cycle_directed&#39;vc.6.1" expl="precondition" proved="true">
+   <proof prover="0"><result status="valid" time="0.03" steps="45"/></proof>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.7" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="48"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.8" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="55"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.9" expl="variant decrease" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="224"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.10" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.08" steps="511"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.11" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.06" steps="207"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.12" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.05" steps="53"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.13" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="45"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.14" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="45"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.15" expl="loop variant decrease" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="115"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.16" expl="loop invariant preservation" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="45"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.17" expl="loop invariant preservation" proved="true">
+  <transf name="inline_goal" proved="true" >
+   <goal name="find_cycle_directed&#39;vc.17.0" expl="loop invariant preservation" proved="true">
+   <transf name="split_all_full" proved="true" >
+    <goal name="find_cycle_directed&#39;vc.17.0.0" expl="loop invariant preservation" proved="true">
+    <transf name="split_vc" proved="true" >
+     <goal name="find_cycle_directed&#39;vc.17.0.0.0" expl="loop invariant preservation" proved="true">
+     <proof prover="1" timelimit="30" memlimit="4000"><result status="valid" time="16.38" steps="1171889"/></proof>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.18" expl="exceptional postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="24"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.19" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="24"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.20" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.05" steps="31"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.21" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.06" steps="284"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.22" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="24"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.23" expl="variant decrease" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="132"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.24" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="28"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.25" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="121"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.26" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="36"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.27" expl="variant decrease" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="109"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.28" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="22"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.29" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.05" steps="98"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.30" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="28"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.31" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="84"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.32" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="20"/></proof>
+  </goal>
+  <goal name="find_cycle_directed&#39;vc.33" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="62"/></proof>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="Cycle.find_cycle_undirected&#39;vc" expl="VC for find_cycle_undirected" proved="true">
+ <transf name="split_vc" proved="true" >
+  <goal name="find_cycle_undirected&#39;vc.0" expl="loop invariant init" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="31"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.1" expl="loop invariant init" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="24"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.2" expl="loop variant decrease" proved="true">
+  <proof prover="0"><result status="valid" time="0.05" steps="107"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.3" expl="loop invariant preservation" proved="true">
+  <proof prover="0"><result status="valid" time="0.19" steps="1409"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.4" expl="loop invariant preservation" proved="true">
+  <proof prover="0"><result status="valid" time="0.09" steps="617"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.5" expl="exceptional postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.02" steps="46"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.6" expl="precondition" proved="true">
+  <transf name="assert" proved="true" arg1="(mem v (view1 stack))">
+   <goal name="find_cycle_undirected&#39;vc.6.0" expl="asserted formula" proved="true">
+   <transf name="inline_goal" proved="true" >
+    <goal name="find_cycle_undirected&#39;vc.6.0.0" expl="asserted formula" proved="true">
+    <transf name="split_all_full" proved="true" >
+     <goal name="find_cycle_undirected&#39;vc.6.0.0.0" expl="asserted formula" proved="true">
+     <proof prover="1"><result status="valid" time="0.41" steps="87588"/></proof>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="find_cycle_undirected&#39;vc.6.1" expl="precondition" proved="true">
+   <proof prover="1"><result status="valid" time="0.11" steps="37746"/></proof>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.7" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="62"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.8" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="71"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.9" expl="variant decrease" proved="true">
+  <proof prover="0"><result status="valid" time="0.08" steps="321"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.10" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.14" steps="794"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.11" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.07" steps="285"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.12" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="79"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.13" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="56"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.14" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="56"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.15" expl="loop variant decrease" proved="true">
+  <proof prover="0"><result status="valid" time="0.05" steps="131"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.16" expl="loop invariant preservation" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="56"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.17" expl="loop invariant preservation" proved="true">
+  <transf name="inline_goal" proved="true" >
+   <goal name="find_cycle_undirected&#39;vc.17.0" expl="loop invariant preservation" proved="true">
+   <transf name="split_all_full" proved="true" >
+    <goal name="find_cycle_undirected&#39;vc.17.0.0" expl="loop invariant preservation" proved="true">
+    <transf name="split_vc" proved="true" >
+     <goal name="find_cycle_undirected&#39;vc.17.0.0.0" expl="loop invariant preservation" proved="true">
+     <proof prover="1" timelimit="30" memlimit="4000"><result status="valid" time="23.71" steps="1712511"/></proof>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.18" expl="exceptional postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="32"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.19" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="32"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.20" expl="postcondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="42"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.21" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.07" steps="301"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.22" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.01" steps="28"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.23" expl="variant decrease" proved="true">
+  <proof prover="0"><result status="valid" time="0.05" steps="146"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.24" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.05" steps="134"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.25" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="40"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.26" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="32"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.27" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="22"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.28" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.03" steps="62"/></proof>
+  </goal>
+  <goal name="find_cycle_undirected&#39;vc.29" expl="precondition" proved="true">
+  <proof prover="0"><result status="valid" time="0.04" steps="107"/></proof>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="Cycle.is_empty&#39;vc" expl="VC for is_empty" proved="true">
+ <proof prover="0"><result status="valid" time="0.03" steps="64"/></proof>
+ </goal>
+ <goal name="Cycle.hd&#39;vc" expl="VC for hd" proved="true">
+ <proof prover="0"><result status="valid" time="0.03" steps="127"/></proof>
+ </goal>
+ <goal name="Cycle.is_path_func&#39;vc" expl="VC for is_path_func" proved="true">
+ <proof prover="0"><result status="valid" time="3.63" steps="24466"/></proof>
+ </goal>
+ <goal name="Cycle.is_cycle_func&#39;vc" expl="VC for is_cycle_func" proved="true">
+ <proof prover="0"><result status="valid" time="0.12" steps="608"/></proof>
+ </goal>
+</theory>
+</file>
+</why3session>

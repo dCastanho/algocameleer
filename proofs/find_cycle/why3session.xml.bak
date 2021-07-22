@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"http://why3.lri.fr/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Alt-Ergo" version="2.4.0" timelimit="5" steplimit="0" memlimit="1000"/>
+<prover id="1" name="CVC4" version="1.6" timelimit="5" steplimit="0" memlimit="1000"/>
+<file format="ocaml">
+<path name=".."/><path name="find_cycle.ml"/>
+<theory name="Find_cycle">
+ <goal name="seq_cons" proved="true">
+ <proof prover="0"><result status="valid" time="0.02" steps="12"/></proof>
+ <proof prover="1"><result status="valid" time="0.14" steps="33610"/></proof>
+ </goal>
+ <goal name="T.gt&#39;vc" expl="VC for gt">
+ <proof prover="0"><result status="timeout" time="5.00"/></proof>
+ </goal>
+ <goal name="Cycle.G.gt&#39;vc" expl="VC for gt">
+ <proof prover="0"><result status="timeout" time="5.00"/></proof>
+ </goal>
+ <goal name="Cycle.clean_up&#39;vc" expl="VC for clean_up" proved="true">
+ <proof prover="0"><result status="valid" time="0.04" steps="80"/></proof>
+ </goal>
+ <goal name="Cycle.find_cycle_directed&#39;vc" expl="VC for find_cycle_directed">
+ <proof prover="0"><result status="timeout" time="5.00"/></proof>
+ </goal>
+ <goal name="Cycle.find_cycle_undirected&#39;vc" expl="VC for find_cycle_undirected">
+ <proof prover="0"><result status="timeout" time="5.00"/></proof>
+ </goal>
+ <goal name="Cycle.is_empty&#39;vc" expl="VC for is_empty" proved="true">
+ <proof prover="0"><result status="valid" time="0.03" steps="64"/></proof>
+ </goal>
+ <goal name="Cycle.hd&#39;vc" expl="VC for hd" proved="true">
+ <proof prover="0"><result status="valid" time="0.03" steps="127"/></proof>
+ </goal>
+ <goal name="Cycle.is_path_func&#39;vc" expl="VC for is_path_func" proved="true">
+ <proof prover="0"><result status="valid" time="3.63" steps="24466"/></proof>
+ </goal>
+ <goal name="Cycle.is_cycle_func&#39;vc" expl="VC for is_cycle_func" proved="true">
+ <proof prover="0"><result status="valid" time="0.12" steps="608"/></proof>
+ </goal>
+</theory>
+</file>
+</why3session>
