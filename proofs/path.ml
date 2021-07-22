@@ -81,14 +81,31 @@
               Set.mem v1 g.G.dom -> has_path v1 v2 g -> edge v2 v3 g ->
               has_path v1 v3 g *)
 
-        (* lemma not_empty_succ : forall v1, v2, v3 : G.V.t, g : G.gt. 
-              has_path v1 v2 g -> has_path v1 v3 g /\ has_path v3 v2 g -> G.succ g v3 <> [] *)
-
         (*@ lemma edge_path : forall v1, v2, v3 : G.V.t, g : G.gt. 
               edge v1 v2 g /\ edge v2 v3 g -> is_path v1 (Seq.singleton v2) v3 g -> has_path v1 v3 g*)
         
         (*@ lemma self_path : forall v1 : G.V.t, g: G.gt.
               is_path v1 (Seq.empty) v1 g -> has_path v1 v1 g *)
+
+              let [@ghost] [@logic] rec intermediate_value_func p (u : G.V.t) (v : G.V.t) ( s : G.V.t list) ( g : G.gt)  = 
+              match s with 
+              | [] -> assert false 
+              | x :: xs -> if not (p x) then (u, x, [], xs) else 
+                      let (u', v', s1, s2) = intermediate_value_func p x v xs g in (u', v', x::s1, s2)
+          (*@ (u', v', s1, s2 ) = intermediate_value_func p u v s g
+                requires p u
+                requires not (p v)
+                requires is_path u (of_list s) v g
+                variant s
+                ensures p u' 
+                ensures not (p v')
+                ensures is_path u s1 u' g
+                ensures is_path v' s2 v g
+                ensures edge u' v' g *)
+    
+          (*@ lemma intermediate_value : forall p : (G.V.t -> bool), u, v : G.V.t, s : G.V.t seq, g : G.gt. 
+                p u -> not p v -> is_path u s v g -> 
+                      exists u' v' s1 s2. p u' /\ not p v' /\ is_path u s1 u' g /\ is_path v' s2 v g /\ edge u' v' g *)
 
         let [@ghost] [@logic] cache_empty () = HVV.create 42
         (* c = cache_empty () 
@@ -138,6 +155,9 @@
                       | [] -> ()
                       | v' :: r -> Queue.add v' q; iter_succ (prefix @ [v']) r 
                     (*@ iter_succ p l
+                          requires Set.mem v1 visited.HV.dom
+                          requires Seq.mem v1 q.Queue.view /\ Set.cardinal visited.HV.dom > 0 -> Set.mem v1 visited.HV.dom
+                          requires forall v'. List.mem v' p -> Seq.mem v' q.Queue.view
                           requires forall v'. Set.mem v' visited.HV.dom /\ v' <> v -> forall s. edge v' s pc.graph -> Seq.mem s q.Queue.view \/ Set.mem s visited.HV.dom
                           requires of_list sucs = of_list p ++ of_list l
                           requires q.Queue.view == oldQ.Queue.view ++ of_list p
@@ -156,9 +176,11 @@
                           ensures q.Queue.view == oldQ.Queue.view ++ ( of_list p ++ of_list l)
                           ensures forall v'. Seq.mem v' q.Queue.view -> has_path v1 v' pc.graph
                           ensures forall v'. Seq.mem v' q.Queue.view -> Set.mem v' pc.graph.G.dom  
-                          ensures l = sucs /\ has_path v1 v2 pc.graph -> exists w. Seq.mem w q.Queue.view /\ has_path w v2 pc.graph /\ not (Set.mem w visited.HV.dom)
+                          ensures has_path v1 v2 pc.graph -> exists w. Seq.mem w q.Queue.view /\ has_path w v2 pc.graph /\ not (Set.mem w visited.HV.dom)
                           ensures forall v'. Set.mem v' visited.HV.dom -> has_path v1 v' pc.graph 
-                          ensures l = sucs -> forall v'. Set.mem v' visited.HV.dom -> forall s. edge v' s pc.graph -> Seq.mem s q.Queue.view \/ Set.mem s visited.HV.dom
+                          ensures forall v'. Set.mem v' visited.HV.dom -> forall s. edge v' s pc.graph -> Seq.mem s q.Queue.view \/ Set.mem s visited.HV.dom
+                          ensures Set.mem v1 visited.HV.dom
+                          ensures Seq.mem v1 q.Queue.view /\ Set.cardinal visited.HV.dom > 0 -> Set.mem v1 visited.HV.dom
                           *)
                     in
                     iter_succ [] sucs
@@ -167,6 +189,9 @@
                 end
               end
             (*@ b = loop () 
+                  requires Seq.mem v1 q.Queue.view \/  Set.mem v1 visited.HV.dom
+                  requires Seq.mem v1 q.Queue.view /\ Set.cardinal visited.HV.dom > 0 -> Set.mem v1 visited.HV.dom
+                  requires Seq.mem v1 q.Queue.view /\ Set.cardinal visited.HV.dom = 0 -> q.Queue.view == Seq.singleton v1
                   requires not (Set.mem v2 visited.HV.dom)
                   requires forall v. Set.mem v visited.HV.dom -> forall s. edge v s pc.graph -> Seq.mem s q.Queue.view \/ Set.mem s visited.HV.dom
                   requires has_path v1 v2 pc.graph -> exists w. Seq.mem w q.Queue.view /\ has_path w v2 pc.graph /\ not (Set.mem w visited.HV.dom)
@@ -182,6 +207,7 @@
                   ensures b <-> has_path v1 v2 pc.graph  
                   ensures not (Set.mem v2 visited.HV.dom)
                   ensures forall v. Set.mem v visited.HV.dom -> forall s. edge v s pc.graph /\ s <> v2 -> Seq.mem s q.Queue.view \/ Set.mem s visited.HV.dom
+                  ensures Seq.mem v1 q.Queue.view /\ Set.cardinal visited.HV.dom > 0 -> Set.mem v1 visited.HV.dom
                   *)  
             in
             Queue.add v1 q;
