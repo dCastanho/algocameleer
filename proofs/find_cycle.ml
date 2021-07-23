@@ -206,12 +206,6 @@ let find_cycle_directed g =
     (*@ b = is_empty l 
           ensures b <-> l = [] *)
 
-    let hd = function | [] -> raise Not_found | x :: _ -> x 
-    (*@ x = hd l 
-        raises Not_found -> l = [] 
-        ensures x = (of_list l)[0]
-        ensures match l with | [] -> false | v::_-> v = x *)
-
     (*Paths have the form: v1 [vx, ...., v2] where vx is a successor of v1 *)    
     let is_path_func v1 l v2 g = 
       let rec is_succ v = function 
@@ -232,13 +226,13 @@ let find_cycle_directed g =
             ensures let s = of_list l in 
               b <-> (forall i. 0 <= i < List.length l - 1 -> edge s[i] s[i+1] g) /\ s[List.length l - 1] = v2 *)
       in
-      if is_empty l then G.V.equal v1 v2 else 
-        is_succ (hd l) (G.succ g v1) && iter_path l
+      match l with
+        | [] -> G.V.equal v1 v2
+        | x :: _ -> is_succ x (G.succ g v1) && iter_path l
       (*@ b = is_path_func v1 l v2 g
             requires Set.mem v1 g.G.dom 
             requires Set.mem v2 g.G.dom 
             requires forall v. List.mem v l -> Set.mem v g.G.dom
-            raises Not_found -> false
             ensures b <-> is_path v1 (of_list l) v2 g *)
 
       (*Cycles have the form: [vx, ..., v] where vx is a successor of v. 

@@ -278,11 +278,8 @@
  <goal name="Cycle.is_empty&#39;vc" expl="VC for is_empty" proved="true">
  <proof prover="0"><result status="valid" time="0.03" steps="64"/></proof>
  </goal>
- <goal name="Cycle.hd&#39;vc" expl="VC for hd" proved="true">
- <proof prover="0"><result status="valid" time="0.03" steps="127"/></proof>
- </goal>
  <goal name="Cycle.is_path_func&#39;vc" expl="VC for is_path_func" proved="true">
- <proof prover="0"><result status="valid" time="3.63" steps="24466"/></proof>
+ <proof prover="0"><result status="valid" time="1.73" steps="18239"/></proof>
  </goal>
  <goal name="Cycle.is_cycle_func&#39;vc" expl="VC for is_cycle_func" proved="true">
  <proof prover="0"><result status="valid" time="0.12" steps="608"/></proof>
