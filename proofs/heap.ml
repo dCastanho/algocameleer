@@ -100,10 +100,6 @@ module Imperative(X : Ordered) = struct
             i > 0 /\ 2*i+1 < h.size -> le h.data.(div (i-1) 2) h.data.(2*i+1) -> 
             i > 0 /\ 2*i+2 < h.size -> le h.data.(div (i-1) 2) h.data.(2*i+2)  *)
   
-  (* lemma grandfather : forall h : t, i : int. 
-        is_heap h.data h.size
-  *)
-
   let [@lemma] max_coherent (h: t) =
     let s = h.data in
     let n = h.size in
@@ -133,9 +129,6 @@ module Imperative(X : Ordered) = struct
       = numocc' a2.data a1.data.(a1.size - 1) a2.size *)
 
   (*@ lemma pop_order: forall a1 a2. pop a1 a2 -> is_heap a1.data a1.size -> is_heap a2.data a2.size *)
-
-  (* lemma same_occ: forall b: bag X.t, x a : X.t.
-        x <> a -> nb_occ x (Bag.diff b (Bag.singleton a)) = nb_occ x b*)
 
   let create n =
     { size = 0 ; data = Array.make n X.default}
@@ -174,14 +167,9 @@ module Imperative(X : Ordered) = struct
       size1 = size2 -> subst a1 a2 i size1 size2 -> (x <> a1.(i) /\ x <> a2.(i)) -> numocc' a1 x size1 = numocc' a2 x size2*)
 
   (*@  lemma sub_occ_2: forall a1 a2 : X.t array, i : int, size1 size2 : int.
-       size1 > 0 -> size1 = size2 -> subst a1 a2 i size1 size2 -> a1.(i) <> a2.(i) ->
+       size1 >= 0 -> size1 = size2 -> subst a1 a2 i size1 size2 -> a1.(i) <> a2.(i) ->
         let e = a1.(i) in 
           numocc' a1 e size1 = (numocc' a2 e size2) + 1 *)
-  
-  (*@  lemma sub_occ_2_1: forall a1 a2 : X.t array, i : int, size1 size2 : int.
-       size1 > 0 -> size1 = size2 -> subst a1 a2 i size1 size2 -> a1.(i) <> a2.(i) ->
-        let e = a1.(i) in 
-          (numocc' a1 e size1) - 1 = (numocc' a2 e size2) *)
 
   (*@ lemma sub_occ_3: forall a1 a2 : X.t array, i : int, size1 size2 : int.
       size1 = size2 -> subst a1 a2 i size1 size2 -> a1.(i) = a2.(i) -> numocc' a1 a1.(i) size1 = numocc' a2 a1.(i) size2 *)
@@ -193,7 +181,7 @@ module Imperative(X : Ordered) = struct
   (* lemma last_occ : forall a : X.t array, size : int, i: int. 0 <= i < size -> numocc' a (a.(i)) size >= 1 *)
 
   (*@ lemma push_occ: forall a1 a2 : X.t array, size1 size2 : int .
-        push a1 a2 size1 size2 -> size1 > 0 ->
+        push a1 a2 size1 size2 -> size1 >= 0 ->
           (forall x. x <> a2.(size2 - 1) -> numocc' a1 x size1 = numocc' a2 x size2 ) /\
             let e = a2.(size2 - 1) in
               (numocc' a1 e size1) + 1 = numocc' a2 e size2 *)
@@ -288,15 +276,24 @@ module Imperative(X : Ordered) = struct
           requires Array.length h.data > h.size
           requires 0 < i < h.size -> le (h.data.(div (i - 1) 2 )) x 
           requires is_heap h.data h.size
-          requires n >= i >= 0
+          requires n > i >= 0
           variant n - i 
-          ensures is_heap h.data h.size *)
+          ensures is_heap h.data h.size 
+          ensures forall e. e <> x -> e <> (old d).(i) -> numocc' (old h).data e (old h).size =  numocc' h.data e h.size
+          ensures let ol = (old h.data).(i) in
+                if ol = x then 
+                    numocc' (old h).data x (old h).size =  numocc' h.data x h.size  
+                else     
+                    (numocc' (old h).data x  (old h).size) + 1 =  numocc' h.data x  h.size /\
+                    (numocc' (old h).data ol (old h).size) - 1 =  numocc' h.data ol h.size
+          *)
     in
       movedown 0
   (*@ remove h 
       raises EmptyHeap -> is_empty h 
       requires is_heap h.data h.size 
       ensures is_heap h.data h.size
+      ensures forall e. e <> (old h.data).(0) -> numocc' (old h).data e (old h).size =  numocc' h.data e h.size 
       ensures h.size = (old h).size - 1 *)
 
   let pop_maximum h = let m = maximum h in remove h; m
