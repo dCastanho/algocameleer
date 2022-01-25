@@ -1,0 +1,1251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE why3session PUBLIC "-//Why3//proof session v5//EN"
+"http://why3.lri.fr/why3session.dtd">
+<why3session shape_version="6">
+<prover id="0" name="Eprover" version="2.5" timelimit="5" steplimit="0" memlimit="1000"/>
+<prover id="1" name="Alt-Ergo" version="2.4.0" timelimit="5" steplimit="0" memlimit="1000"/>
+<prover id="2" name="CVC4" version="1.6" timelimit="5" steplimit="0" memlimit="1000"/>
+<prover id="3" name="Z3" version="4.8.7" timelimit="5" steplimit="0" memlimit="1000"/>
+<file format="ocaml">
+<path name=".."/><path name="heap.ml"/>
+<theory name="Heap">
+ <goal name="Imperative.t&#39;vc" expl="VC for t" proved="true">
+ <proof prover="0"><result status="valid" time="0.10"/></proof>
+ <proof prover="1" obsolete="true"><result status="highfailure" time="1.20"/></proof>
+ <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4149661"/></proof>
+ <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="7364204"/></proof>
+ </goal>
+ <goal name="Imperative.num_exist" proved="true">
+ <proof prover="1"><result status="valid" time="0.39" steps="1895"/></proof>
+ </goal>
+ <goal name="Imperative.ancestor_f&#39;vc" expl="VC for ancestor_f" proved="true">
+ <proof prover="0"><result status="timeout" time="5.00"/></proof>
+ <proof prover="1"><result status="valid" time="5.73" steps="49728"/></proof>
+ <proof prover="2"><result status="valid" time="0.47" steps="74031"/></proof>
+ <proof prover="3"><result status="timeout" time="5.00" steps="7058845"/></proof>
+ </goal>
+ <goal name="Imperative.children_f&#39;vc" expl="VC for children_f" proved="true">
+ <proof prover="1"><result status="valid" time="0.03" steps="56"/></proof>
+ <proof prover="2"><result status="valid" time="0.16" steps="27937"/></proof>
+ </goal>
+ <goal name="Imperative.transativity" proved="true">
+ <proof prover="1"><result status="valid" time="0.07" steps="408"/></proof>
+ <proof prover="2"><result status="valid" time="1.46" steps="68887"/></proof>
+ </goal>
+ <goal name="Imperative.max_coherent&#39;vc" expl="VC for max_coherent">
+ <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+ <proof prover="1" timelimit="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+ <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="254661"/></proof>
+ <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="3292697"/></proof>
+ </goal>
+ <goal name="Imperative.pop_occ_1" proved="true">
+ <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+ <proof prover="1"><result status="valid" time="3.25" steps="16283"/></proof>
+ <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="364650"/></proof>
+ <proof prover="3"><result status="valid" time="2.06" steps="4038067"/></proof>
+ </goal>
+ <goal name="Imperative.pop_occ_2" proved="true">
+ <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+ <proof prover="1"><result status="valid" time="4.02" steps="19579"/></proof>
+ <proof prover="2"><result status="valid" time="5.84" steps="439961"/></proof>
+ <proof prover="3"><result status="valid" time="3.78" steps="5665877"/></proof>
+ </goal>
+ <goal name="Imperative.pop_order" proved="true">
+ <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+ <proof prover="1"><result status="valid" time="0.03" steps="224"/></proof>
+ <proof prover="2"><result status="valid" time="0.19" steps="36357"/></proof>
+ <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="7124784"/></proof>
+ </goal>
+ <goal name="Imperative.create&#39;vc" expl="VC for create" proved="true">
+ <proof prover="0"><result status="valid" time="0.04"/></proof>
+ <proof prover="1"><result status="valid" time="0.01" steps="10"/></proof>
+ <proof prover="2"><result status="valid" time="0.11" steps="27178"/></proof>
+ <proof prover="3"><result status="valid" time="0.04" steps="129664"/></proof>
+ </goal>
+ <goal name="Imperative.is_empty&#39;vc" expl="VC for is_empty" proved="true">
+ <proof prover="0"><result status="valid" time="0.05"/></proof>
+ <proof prover="1"><result status="valid" time="0.01" steps="6"/></proof>
+ <proof prover="2"><result status="valid" time="0.08" steps="24927"/></proof>
+ <proof prover="3"><result status="valid" time="0.02" steps="9677"/></proof>
+ </goal>
+ <goal name="Imperative.bigger_father" proved="true">
+ <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+ <proof prover="1"><result status="valid" time="5.89" steps="48642"/></proof>
+ <proof prover="2"><result status="valid" time="0.53" steps="76095"/></proof>
+ <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="6018915"/></proof>
+ </goal>
+ <goal name="Imperative.sub_order&#39;vc" expl="VC for sub_order" proved="true">
+ <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+ <proof prover="1"><result status="valid" time="0.49" steps="3391"/></proof>
+ <proof prover="2" obsolete="true"><result status="timeout" time="5.00"/></proof>
+ <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="8560492"/></proof>
+ </goal>
+ <goal name="Imperative.sub_occ_1" proved="true">
+ <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+ <proof prover="1"><result status="timeout" time="5.00"/></proof>
+ <proof prover="2"><result status="valid" time="0.65" steps="77581"/></proof>
+ <proof prover="3" obsolete="true"><result status="valid" time="1.72" steps="3366617"/></proof>
+ </goal>
+ <goal name="Imperative.sub_occ_2">
+ <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+ <proof prover="1"><result status="timeout" time="5.00"/></proof>
+ <proof prover="2"><result status="timeout" time="5.00"/></proof>
+ <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="3261057"/></proof>
+ <transf name="split_vc" >
+  <goal name="sub_occ_2.0">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="12686185"/></proof>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="Imperative.sub_occ_2_1">
+ <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
+ <transf name="split_vc" >
+  <goal name="sub_occ_2_1.0">
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="Imperative.sub_occ_3" proved="true">
+ <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+ <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
+ <proof prover="2"><result status="valid" time="0.49" steps="76757"/></proof>
+ <proof prover="3" obsolete="true"><result status="valid" time="1.33" steps="3051895"/></proof>
+ </goal>
+ <goal name="Imperative.push_occ" proved="true">
+ <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+ <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
+ <proof prover="2"><result status="timeout" time="5.00" steps="260161"/></proof>
+ <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="3021443"/></proof>
+ <transf name="split_vc" proved="true" >
+  <goal name="push_occ.0" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2"><result status="valid" time="0.90" steps="109598"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="7727939"/></proof>
+  </goal>
+  <goal name="push_occ.1" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2"><result status="valid" time="0.69" steps="107968"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="12196536"/></proof>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="Imperative.push_order" proved="true">
+ <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+ <proof prover="1"><result status="valid" time="0.17" steps="1076"/></proof>
+ <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="529437"/></proof>
+ <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="8021174"/></proof>
+ </goal>
+ <goal name="Imperative.add&#39;vc" expl="VC for add">
+ <proof prover="1" timelimit="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+ <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="255711"/></proof>
+ <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="3229532"/></proof>
+ <transf name="split_vc" >
+  <goal name="add&#39;vc.0" expl="check division by zero" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" obsolete="true"><result status="valid" time="0.02" steps="33"/></proof>
+  <proof prover="2"><result status="valid" time="0.11" steps="28573"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.03" steps="11107"/></proof>
+  </goal>
+  <goal name="add&#39;vc.1" expl="index in array bounds" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" obsolete="true"><result status="valid" time="0.02" steps="102"/></proof>
+  <proof prover="2"><result status="valid" time="0.19" steps="33427"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="1.18" steps="2180975"/></proof>
+  </goal>
+  <goal name="add&#39;vc.2" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.35"/></proof>
+  <proof prover="1" obsolete="true"><result status="valid" time="0.02" steps="16"/></proof>
+  <proof prover="2"><result status="valid" time="0.19" steps="32310"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.07" steps="160433"/></proof>
+  </goal>
+  <goal name="add&#39;vc.3" expl="check division by zero" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" obsolete="true"><result status="valid" time="0.01" steps="14"/></proof>
+  <proof prover="2"><result status="valid" time="0.12" steps="29190"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.02" steps="10697"/></proof>
+  </goal>
+  <goal name="add&#39;vc.4" expl="index in array bounds" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" obsolete="true"><result status="valid" time="0.05" steps="147"/></proof>
+  <proof prover="2"><result status="valid" time="0.19" steps="38907"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="3.39" steps="7196412"/></proof>
+  </goal>
+  <goal name="add&#39;vc.5" expl="index in array bounds" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" obsolete="true"><result status="valid" time="0.05" steps="150"/></proof>
+  <proof prover="2"><result status="valid" time="0.19" steps="40388"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.06" steps="167686"/></proof>
+  </goal>
+  <goal name="add&#39;vc.6" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" obsolete="true"><result status="valid" time="0.03" steps="33"/></proof>
+  <proof prover="2"><result status="valid" time="0.15" steps="31445"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.07" steps="166290"/></proof>
+  </goal>
+  <goal name="add&#39;vc.7" expl="type invariant" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.06"/></proof>
+  <proof prover="1" obsolete="true"><result status="valid" time="0.01" steps="38"/></proof>
+  <proof prover="2"><result status="valid" time="0.13" steps="30833"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.07" steps="162948"/></proof>
+  </goal>
+  <goal name="add&#39;vc.8" expl="type invariant" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.11"/></proof>
+  <proof prover="1" obsolete="true"><result status="valid" time="0.02" steps="39"/></proof>
+  <proof prover="2"><result status="valid" time="0.14" steps="31564"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.04" steps="167055"/></proof>
+  </goal>
+  <goal name="add&#39;vc.9" expl="variant decrease" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" obsolete="true"><result status="valid" time="0.04" steps="134"/></proof>
+  <proof prover="2"><result status="valid" time="0.13" steps="40722"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.07" steps="165000"/></proof>
+  </goal>
+  <goal name="add&#39;vc.10" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" timelimit="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+  <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="298006"/></proof>
+  <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="3429915"/></proof>
+  <transf name="split_vc" proved="true" >
+   <goal name="add&#39;vc.10.0" expl="precondition" proved="true">
+   <proof prover="1" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   <proof prover="2" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="2140571"/></proof>
+   <proof prover="3" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="13449741"/></proof>
+   <transf name="inline_goal" proved="true" >
+    <goal name="add&#39;vc.10.0.0" expl="precondition" proved="true">
+    <transf name="split_all_full" proved="true" >
+     <goal name="add&#39;vc.10.0.0.0" expl="precondition" proved="true">
+     <proof prover="1" timelimit="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+     <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="120846"/></proof>
+     <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="3341712"/></proof>
+     <transf name="split_vc" proved="true" >
+      <goal name="add&#39;vc.10.0.0.0.0" expl="precondition" proved="true">
+      <proof prover="1" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+      <proof prover="2" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+      <proof prover="3" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="12763249"/></proof>
+      <transf name="inline_goal" proved="true" >
+       <goal name="add&#39;vc.10.0.0.0.0.0" expl="precondition" proved="true">
+       <proof prover="1"><result status="valid" time="1.95" steps="11006"/></proof>
+       <proof prover="2"><result status="timeout" time="5.00"/></proof>
+       <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="9247951"/></proof>
+       </goal>
+      </transf>
+      </goal>
+     </transf>
+     </goal>
+     <goal name="add&#39;vc.10.0.0.1" expl="precondition" proved="true">
+     <proof prover="1" timelimit="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+     <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="119790"/></proof>
+     <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="3144788"/></proof>
+     <transf name="split_vc" proved="true" >
+      <goal name="add&#39;vc.10.0.0.1.0" expl="precondition" proved="true">
+      <proof prover="1" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+      <proof prover="2" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+      <proof prover="3" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="10978190"/></proof>
+      <transf name="inline_goal" proved="true" >
+       <goal name="add&#39;vc.10.0.0.1.0.0" expl="precondition" proved="true">
+       <proof prover="1"><result status="valid" time="1.69" steps="9553"/></proof>
+       <proof prover="2"><result status="timeout" time="5.00"/></proof>
+       <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="9428166"/></proof>
+       </goal>
+      </transf>
+      </goal>
+     </transf>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="add&#39;vc.11" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.33"/></proof>
+  <proof prover="1" obsolete="true"><result status="valid" time="0.03" steps="168"/></proof>
+  <proof prover="2"><result status="valid" time="0.16" steps="41003"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.09" steps="164333"/></proof>
+  </goal>
+  <goal name="add&#39;vc.12" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.08"/></proof>
+  <proof prover="1" obsolete="true"><result status="valid" time="0.03" steps="52"/></proof>
+  <proof prover="2"><result status="valid" time="0.15" steps="31694"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.05" steps="164622"/></proof>
+  </goal>
+  <goal name="add&#39;vc.13" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1"><result status="valid" time="2.27" steps="14151"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="9127453"/></proof>
+  </goal>
+  <goal name="add&#39;vc.14" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1"><result status="valid" time="1.46" steps="9426"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="8109408"/></proof>
+  </goal>
+  <goal name="add&#39;vc.15" expl="postcondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.04"/></proof>
+  <proof prover="1"><result status="valid" time="0.03" steps="61"/></proof>
+  <proof prover="2"><result status="valid" time="0.08" steps="29801"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.03" steps="11492"/></proof>
+  </goal>
+  <goal name="add&#39;vc.16" expl="postcondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.03"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="61"/></proof>
+  <proof prover="2"><result status="valid" time="0.10" steps="29760"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.03" steps="11480"/></proof>
+  </goal>
+  <goal name="add&#39;vc.17" expl="postcondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" timelimit="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+  <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="260862"/></proof>
+  <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="3862648"/></proof>
+  <transf name="assert" proved="true" arg1="(subst d d1 i (size h2) (size h2))">
+   <goal name="add&#39;vc.17.0" expl="asserted formula" proved="true">
+   <proof prover="1"><result status="valid" time="0.90" steps="3782"/></proof>
+   <proof prover="2"><result status="timeout" time="5.00" steps="1176426"/></proof>
+   <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="9983094"/></proof>
+   </goal>
+   <goal name="add&#39;vc.17.1" expl="postcondition" proved="true">
+   <proof prover="1"><result status="valid" time="0.80" steps="5422"/></proof>
+   <proof prover="2"><result status="timeout" time="5.00" steps="516114"/></proof>
+   <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="8410235"/></proof>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="add&#39;vc.18" expl="postcondition" proved="true">
+  <proof prover="1"><result status="valid" time="0.03" steps="61"/></proof>
+  <proof prover="2"><result status="valid" time="0.12" steps="31497"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.06" steps="172514"/></proof>
+  </goal>
+  <goal name="add&#39;vc.19" expl="postcondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" timelimit="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+  <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="128631"/></proof>
+  <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="3320935"/></proof>
+  <transf name="split_vc" proved="true" >
+   <goal name="add&#39;vc.19.0" expl="postcondition" proved="true">
+   <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   <proof prover="2" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="1158877"/></proof>
+   <proof prover="3" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="10067608"/></proof>
+   <transf name="assert" proved="true" arg1="(subst d d1 i (size h1) (size h1))">
+    <goal name="add&#39;vc.19.0.0" expl="asserted formula" proved="true">
+    <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+    <proof prover="1" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+    <proof prover="2" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="1445750"/></proof>
+    <proof prover="3" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="16162286"/></proof>
+    <transf name="inline_goal" proved="true" >
+     <goal name="add&#39;vc.19.0.0.0" expl="asserted formula" proved="true">
+     <transf name="split_all_full" proved="true" >
+      <goal name="add&#39;vc.19.0.0.0.0" proved="true">
+      <proof prover="1"><result status="valid" time="0.03" steps="56"/></proof>
+      <proof prover="2"><result status="valid" time="0.10" steps="45159"/></proof>
+      <proof prover="3" obsolete="true"><result status="valid" time="0.03" steps="16910"/></proof>
+      </goal>
+      <goal name="add&#39;vc.19.0.0.0.1" proved="true">
+      <proof prover="1"><result status="valid" time="0.03" steps="56"/></proof>
+      <proof prover="2"><result status="valid" time="0.11" steps="45161"/></proof>
+      <proof prover="3" obsolete="true"><result status="valid" time="0.02" steps="16914"/></proof>
+      </goal>
+      <goal name="add&#39;vc.19.0.0.0.2" proved="true">
+      <proof prover="1" timelimit="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+      <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="152802"/></proof>
+      <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="3311766"/></proof>
+      <transf name="split_vc" proved="true" >
+       <goal name="add&#39;vc.19.0.0.0.2.0" proved="true">
+       <proof prover="1"><result status="valid" time="0.05" steps="56"/></proof>
+       <proof prover="2"><result status="valid" time="0.14" steps="46892"/></proof>
+       <proof prover="3" obsolete="true"><result status="valid" time="0.07" steps="228337"/></proof>
+       </goal>
+      </transf>
+      </goal>
+      <goal name="add&#39;vc.19.0.0.0.3" proved="true">
+      <proof prover="1"><result status="valid" time="1.19" steps="4183"/></proof>
+      <proof prover="2"><result status="valid" time="0.25" steps="60686"/></proof>
+      <proof prover="3" obsolete="true"><result status="valid" time="0.07" steps="234485"/></proof>
+      </goal>
+     </transf>
+     </goal>
+    </transf>
+    </goal>
+    <goal name="add&#39;vc.19.0.1" expl="postcondition" proved="true">
+    <proof prover="1"><result status="valid" time="1.59" steps="5584"/></proof>
+    <proof prover="2"><result status="valid" time="0.21" steps="49897"/></proof>
+    <proof prover="3" obsolete="true"><result status="valid" time="0.08" steps="182496"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="add&#39;vc.19.1" expl="postcondition" proved="true">
+   <proof prover="1" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   <proof prover="2" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="954178"/></proof>
+   <proof prover="3" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="9367277"/></proof>
+   <transf name="assert" proved="true" arg1="(subst d d1 i (size h2) (size h2))">
+    <goal name="add&#39;vc.19.1.0" expl="asserted formula" proved="true">
+    <proof prover="1"><result status="valid" time="1.05" steps="3799"/></proof>
+    <proof prover="2"><result status="timeout" time="5.00" steps="1117853"/></proof>
+    <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="9444334"/></proof>
+    </goal>
+    <goal name="add&#39;vc.19.1.1" expl="postcondition" proved="true">
+    <proof prover="1"><result status="valid" time="0.51" steps="2519"/></proof>
+    <proof prover="2"><result status="timeout" time="5.00"/></proof>
+    <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="9022709"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="add&#39;vc.19.2" expl="postcondition" proved="true">
+   <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="279973"/></proof>
+   <proof prover="3" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="14809130"/></proof>
+   <transf name="assert" proved="true" arg1="(subst d d1 i (size h1) (size h1))">
+    <goal name="add&#39;vc.19.2.0" expl="asserted formula" proved="true">
+    <proof prover="1"><result status="valid" time="1.05" steps="3983"/></proof>
+    <proof prover="2"><result status="timeout" time="5.00" steps="1118070"/></proof>
+    <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="9790911"/></proof>
+    </goal>
+    <goal name="add&#39;vc.19.2.1" expl="postcondition" proved="true">
+    <proof prover="1"><result status="timeout" time="5.00"/></proof>
+    <proof prover="2"><result status="timeout" time="5.00" steps="322438"/></proof>
+    <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="7961051"/></proof>
+    <transf name="case" proved="true" arg1="(d1[i]&#39;&#39; = d[i]&#39;&#39;)">
+     <goal name="add&#39;vc.19.2.1.0" expl="true case (postcondition)" proved="true">
+     <proof prover="1"><result status="valid" time="0.33" steps="2465"/></proof>
+     </goal>
+     <goal name="add&#39;vc.19.2.1.1" expl="false case (postcondition)" proved="true">
+     <proof prover="1"><result status="timeout" time="5.00"/></proof>
+     <transf name="instantiate" proved="true" arg1="sub_occ_2" arg2="d1,d,i,h2.size,h2.size">
+      <goal name="add&#39;vc.19.2.1.1.0" expl="false case (postcondition)" proved="true">
+      <transf name="destruct_rec" proved="true" arg1="Hinst">
+       <goal name="add&#39;vc.19.2.1.1.0.0" expl="destruct premise" proved="true">
+       <proof prover="1"><result status="valid" time="0.03" steps="61"/></proof>
+       </goal>
+       <goal name="add&#39;vc.19.2.1.1.0.1" expl="destruct premise" proved="true">
+       <proof prover="1"><result status="valid" time="0.02" steps="60"/></proof>
+       </goal>
+       <goal name="add&#39;vc.19.2.1.1.0.2" expl="destruct premise" proved="true">
+       <proof prover="1"><result status="valid" time="0.14" steps="925"/></proof>
+       </goal>
+       <goal name="add&#39;vc.19.2.1.1.0.3" expl="destruct premise" proved="true">
+       <proof prover="1"><result status="valid" time="0.03" steps="60"/></proof>
+       </goal>
+       <goal name="add&#39;vc.19.2.1.1.0.4" expl="false case (postcondition)" proved="true">
+       <proof prover="1"><result status="valid" time="0.36" steps="2906"/></proof>
+       </goal>
+      </transf>
+      </goal>
+     </transf>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="add&#39;vc.20" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1"><result status="valid" time="0.04" steps="33"/></proof>
+  <proof prover="2"><result status="valid" time="0.09" steps="31457"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.06" steps="163353"/></proof>
+  </goal>
+  <goal name="add&#39;vc.21" expl="type invariant" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.04"/></proof>
+  <proof prover="1"><result status="valid" time="0.04" steps="38"/></proof>
+  <proof prover="2"><result status="valid" time="0.15" steps="30849"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.07" steps="159982"/></proof>
+  </goal>
+  <goal name="add&#39;vc.22" expl="type invariant" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.10"/></proof>
+  <proof prover="1"><result status="valid" time="0.04" steps="39"/></proof>
+  <proof prover="2"><result status="valid" time="0.14" steps="31580"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.07" steps="164089"/></proof>
+  </goal>
+  <goal name="add&#39;vc.23" expl="postcondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1"><result status="valid" time="0.33" steps="1888"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00" steps="1346878"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.03" steps="11377"/></proof>
+  </goal>
+  <goal name="add&#39;vc.24" expl="postcondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" obsolete="true"><result status="valid" time="0.02" steps="37"/></proof>
+  <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="313267"/></proof>
+  <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="2726485"/></proof>
+  <transf name="split_vc" proved="true" >
+   <goal name="add&#39;vc.24.0" expl="postcondition" proved="true">
+   <proof prover="1" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   <proof prover="2" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   <proof prover="3" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="12071888"/></proof>
+   <transf name="inline_goal" proved="true" >
+    <goal name="add&#39;vc.24.0.0" expl="postcondition" proved="true">
+    <transf name="split_all_full" proved="true" >
+     <goal name="add&#39;vc.24.0.0.0" expl="postcondition" proved="true">
+     <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+     <proof prover="1"><result status="valid" time="0.97" steps="5572"/></proof>
+     <proof prover="2"><result status="timeout" time="5.00"/></proof>
+     <proof prover="3" obsolete="true"><result status="valid" time="0.07" steps="227836"/></proof>
+     </goal>
+     <goal name="add&#39;vc.24.0.0.1" expl="postcondition" proved="true">
+     <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+     <proof prover="1"><result status="valid" time="0.74" steps="4793"/></proof>
+     <proof prover="2"><result status="timeout" time="5.00"/></proof>
+     <proof prover="3" obsolete="true"><result status="valid" time="0.09" steps="227823"/></proof>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="add&#39;vc.25" expl="postcondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="169650"/></proof>
+  <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="2590050"/></proof>
+  <transf name="split_vc" proved="true" >
+   <goal name="add&#39;vc.25.0" expl="postcondition" proved="true">
+   <proof prover="1" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   <proof prover="2" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="1212904"/></proof>
+   <proof prover="3" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="8460852"/></proof>
+   <transf name="assert" proved="true" arg1="(subst (data h1) (data h) i (size h) (size h))">
+    <goal name="add&#39;vc.25.0.0" expl="asserted formula" proved="true">
+    <proof prover="1"><result status="valid" time="0.37" steps="3432"/></proof>
+    </goal>
+    <goal name="add&#39;vc.25.0.1" expl="postcondition" proved="true">
+    <proof prover="1"><result status="valid" time="0.11" steps="891"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="add&#39;vc.26" expl="postcondition" proved="true">
+  <proof prover="1"><result status="valid" time="0.02" steps="46"/></proof>
+  <proof prover="2"><result status="valid" time="0.08" steps="29528"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.03" steps="11596"/></proof>
+  </goal>
+  <goal name="add&#39;vc.27" expl="postcondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" timelimit="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+  <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="108612"/></proof>
+  <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="2312136"/></proof>
+  <transf name="split_vc" proved="true" >
+   <goal name="add&#39;vc.27.0" expl="postcondition" proved="true">
+   <proof prover="1"><result status="timeout" time="5.00"/></proof>
+   <proof prover="2"><result status="timeout" time="5.00" steps="834324"/></proof>
+   <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="8720736"/></proof>
+   <transf name="assert" proved="true" arg1="(subst d d1 i (size h) (size h))">
+    <goal name="add&#39;vc.27.0.0" expl="asserted formula" proved="true">
+    <proof prover="1"><result status="valid" time="0.38" steps="3631"/></proof>
+    </goal>
+    <goal name="add&#39;vc.27.0.1" expl="postcondition" proved="true">
+    <proof prover="1"><result status="valid" time="0.16" steps="1393"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="add&#39;vc.27.1" expl="postcondition" proved="true">
+   <proof prover="1"><result status="timeout" time="5.00"/></proof>
+   <proof prover="2"><result status="timeout" time="5.00" steps="1070867"/></proof>
+   <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="8113908"/></proof>
+   <transf name="assert" proved="true" arg1="(subst d d1 i (size h) (size h))">
+    <goal name="add&#39;vc.27.1.0" expl="asserted formula" proved="true">
+    <proof prover="1"><result status="valid" time="0.31" steps="3024"/></proof>
+    </goal>
+    <goal name="add&#39;vc.27.1.1" expl="postcondition" proved="true">
+    <proof prover="1"><result status="valid" time="0.14" steps="1289"/></proof>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="add&#39;vc.27.2" expl="postcondition" proved="true">
+   <proof prover="1"><result status="timeout" time="5.00"/></proof>
+   <proof prover="2"><result status="timeout" time="5.00"/></proof>
+   <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="8052337"/></proof>
+   <transf name="assert" proved="true" arg1="(subst d d1 i (size h) (size h))">
+    <goal name="add&#39;vc.27.2.0" expl="asserted formula" proved="true">
+    <proof prover="1"><result status="valid" time="0.36" steps="3024"/></proof>
+    </goal>
+    <goal name="add&#39;vc.27.2.1" expl="postcondition" proved="true">
+    <proof prover="1"><result status="timeout" time="5.00"/></proof>
+    <transf name="case" proved="true" arg1="(d1[i]&#39;&#39; = d[i]&#39;&#39;)">
+     <goal name="add&#39;vc.27.2.1.0" expl="true case (postcondition)" proved="true">
+     <proof prover="1"><result status="valid" time="0.14" steps="1173"/></proof>
+     </goal>
+     <goal name="add&#39;vc.27.2.1.1" expl="false case (postcondition)" proved="true">
+     <proof prover="1"><result status="timeout" time="5.00"/></proof>
+     <transf name="instantiate" proved="true" arg1="sub_occ_2" arg2="d1,d,i,h2.size,h2.size">
+      <goal name="add&#39;vc.27.2.1.1.0" expl="false case (postcondition)" proved="true">
+      <transf name="destruct_rec" proved="true" arg1="Hinst">
+       <goal name="add&#39;vc.27.2.1.1.0.0" expl="destruct premise" proved="true">
+       <proof prover="1"><result status="valid" time="0.02" steps="48"/></proof>
+       </goal>
+       <goal name="add&#39;vc.27.2.1.1.0.1" expl="destruct premise" proved="true">
+       <proof prover="1"><result status="valid" time="0.02" steps="48"/></proof>
+       </goal>
+       <goal name="add&#39;vc.27.2.1.1.0.2" expl="destruct premise" proved="true">
+       <proof prover="1"><result status="valid" time="0.38" steps="3129"/></proof>
+       </goal>
+       <goal name="add&#39;vc.27.2.1.1.0.3" expl="destruct premise" proved="true">
+       <proof prover="1"><result status="valid" time="0.03" steps="48"/></proof>
+       </goal>
+       <goal name="add&#39;vc.27.2.1.1.0.4" expl="false case (postcondition)" proved="true">
+       <proof prover="1"><result status="valid" time="0.02" steps="52"/></proof>
+       </goal>
+      </transf>
+      </goal>
+     </transf>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="add&#39;vc.28" expl="type invariant" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.29"/></proof>
+  <proof prover="1"><result status="valid" time="0.03" steps="56"/></proof>
+  <proof prover="2"><result status="valid" time="0.15" steps="32245"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.06" steps="160600"/></proof>
+  </goal>
+  <goal name="add&#39;vc.29" expl="type invariant" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.10"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="20"/></proof>
+  <proof prover="2"><result status="valid" time="0.12" steps="30748"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.06" steps="161754"/></proof>
+  </goal>
+  <goal name="add&#39;vc.30" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1"><result status="valid" time="0.47" steps="3529"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00" steps="1119053"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="8528359"/></proof>
+  </goal>
+  <goal name="add&#39;vc.31" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1"><result status="valid" time="0.04" steps="63"/></proof>
+  <proof prover="2"><result status="valid" time="0.18" steps="32682"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.09" steps="167309"/></proof>
+  </goal>
+  <goal name="add&#39;vc.32" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.08"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="27"/></proof>
+  <proof prover="2"><result status="valid" time="0.12" steps="30877"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.06" steps="167992"/></proof>
+  </goal>
+  <goal name="add&#39;vc.33" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1"><result status="valid" time="0.03" steps="29"/></proof>
+  <proof prover="2"><result status="valid" time="0.11" steps="30391"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.06" steps="165048"/></proof>
+  </goal>
+  <goal name="add&#39;vc.34" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="30"/></proof>
+  <proof prover="2"><result status="valid" time="0.12" steps="30485"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.07" steps="170329"/></proof>
+  </goal>
+  <goal name="add&#39;vc.35" expl="postcondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="34"/></proof>
+  <proof prover="2"><result status="valid" time="0.09" steps="29236"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="9242046"/></proof>
+  </goal>
+  <goal name="add&#39;vc.36" expl="postcondition">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="721674"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="10680497"/></proof>
+  <transf name="split_vc" >
+   <goal name="add&#39;vc.36.0" expl="postcondition">
+   <proof prover="1"><result status="timeout" time="5.00"/></proof>
+   <proof prover="2"><result status="timeout" time="5.00" steps="965233"/></proof>
+   <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="11270259"/></proof>
+   <transf name="eliminate_let" >
+    <goal name="add&#39;vc.36.0.0" expl="postcondition">
+    <transf name="destruct" arg1="H1">
+     <goal name="add&#39;vc.36.0.0.0" expl="postcondition">
+     <proof prover="0"><result status="timeout" time="5.00"/></proof>
+     <proof prover="1" memlimit="2000"><result status="timeout" time="5.00"/></proof>
+     <proof prover="2" memlimit="2000"><result status="timeout" time="5.00" steps="1001409"/></proof>
+     <proof prover="3" memlimit="2000"><result status="timeout" time="5.00" steps="14141231"/></proof>
+     <transf name="instantiate" arg1="push_occ" arg2="d1,d,h2.size,h.size">
+      <goal name="add&#39;vc.36.0.0.0.0" expl="postcondition">
+      <transf name="destruct_rec" arg1="Hinst">
+       <goal name="add&#39;vc.36.0.0.0.0.0" expl="destruct premise" proved="true">
+       <proof prover="1"><result status="valid" time="0.42" steps="2629"/></proof>
+       </goal>
+       <goal name="add&#39;vc.36.0.0.0.0.1" expl="destruct premise">
+       <proof prover="1"><result status="timeout" time="5.00"/></proof>
+       </goal>
+       <goal name="add&#39;vc.36.0.0.0.0.2" expl="postcondition">
+       <proof prover="1"><result status="timeout" time="5.00"/></proof>
+       </goal>
+      </transf>
+      </goal>
+     </transf>
+     </goal>
+     <goal name="add&#39;vc.36.0.0.1" expl="postcondition">
+     <proof prover="0"><result status="timeout" time="5.00"/></proof>
+     <proof prover="1"><result status="timeout" time="5.00"/></proof>
+     <proof prover="2"><result status="timeout" time="5.00" steps="299099"/></proof>
+     <proof prover="3"><result status="timeout" time="5.00" steps="11386394"/></proof>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="add&#39;vc.37" expl="postcondition">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="288780"/></proof>
+  <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="2427325"/></proof>
+  <transf name="split_vc" >
+   <goal name="add&#39;vc.37.0" expl="postcondition">
+   <proof prover="1" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   <proof prover="2" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="230877"/></proof>
+   <proof prover="3" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="10907984"/></proof>
+   <transf name="inline_goal" >
+    <goal name="add&#39;vc.37.0.0" expl="postcondition">
+    <transf name="split_all_full" >
+     <goal name="add&#39;vc.37.0.0.0" expl="postcondition">
+     <proof prover="1" timelimit="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+     <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="106566"/></proof>
+     <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="2284901"/></proof>
+     <transf name="split_vc" >
+      <goal name="add&#39;vc.37.0.0.0.0" expl="postcondition">
+      <proof prover="1" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+      <proof prover="2" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="168085"/></proof>
+      <proof prover="3" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="9299524"/></proof>
+      <transf name="inline_goal" >
+       <goal name="add&#39;vc.37.0.0.0.0.0" expl="postcondition">
+       <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+       <proof prover="1"><result status="timeout" time="5.00"/></proof>
+       <proof prover="2"><result status="timeout" time="5.00" steps="352701"/></proof>
+       <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="10623795"/></proof>
+       </goal>
+      </transf>
+      </goal>
+     </transf>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   <transf name="instantiate" arg1="H5" arg2="e">
+    <goal name="add&#39;vc.37.0.0" expl="postcondition">
+    <transf name="destruct_rec" arg1="Hinst">
+     <goal name="add&#39;vc.37.0.0.0" expl="destruct premise" proved="true">
+     <proof prover="1"><result status="valid" time="0.02" steps="33"/></proof>
+     </goal>
+     <goal name="add&#39;vc.37.0.0.1" expl="destruct premise">
+     <proof prover="1"><result status="timeout" time="5.00"/></proof>
+     <proof prover="2"><result status="timeout" time="5.00" steps="368740"/></proof>
+     </goal>
+     <goal name="add&#39;vc.37.0.0.2" expl="postcondition">
+     <proof prover="1"><result status="timeout" time="5.00"/></proof>
+     <proof prover="2"><result status="timeout" time="5.00" steps="258014"/></proof>
+     <proof prover="3"><result status="timeout" time="5.00" steps="13149141"/></proof>
+     <transf name="assert" arg1="(not e = get1 d n)">
+      <goal name="add&#39;vc.37.0.0.2.0" expl="asserted formula" proved="true">
+      <proof prover="1"><result status="valid" time="0.02" steps="41"/></proof>
+      </goal>
+      <goal name="add&#39;vc.37.0.0.2.1" expl="postcondition">
+      <proof prover="1"><result status="timeout" time="5.00"/></proof>
+      <transf name="assert" arg1="(n = size h2 - 1)">
+       <goal name="add&#39;vc.37.0.0.2.1.0" expl="asserted formula" proved="true">
+       <proof prover="1"><result status="valid" time="0.03" steps="38"/></proof>
+       </goal>
+       <goal name="add&#39;vc.37.0.0.2.1.1" expl="postcondition">
+       <proof prover="1"><result status="timeout" time="5.00"/></proof>
+       <transf name="assert" arg1="(numocc&#39; (data h3) e (size h3) = numocc&#39; (data h3) e (n))">
+        <goal name="add&#39;vc.37.0.0.2.1.1.0" expl="asserted formula" proved="true">
+        <proof prover="1"><result status="valid" time="0.71" steps="4128"/></proof>
+        </goal>
+        <goal name="add&#39;vc.37.0.0.2.1.1.1" expl="postcondition">
+        <proof prover="1"><result status="timeout" time="5.00"/></proof>
+        <proof prover="2"><result status="timeout" time="5.00" steps="265510"/></proof>
+        <transf name="assert" arg1="(size h5 = n)">
+         <goal name="add&#39;vc.37.0.0.2.1.1.1.0" expl="asserted formula" proved="true">
+         <proof prover="1"><result status="valid" time="0.03" steps="41"/></proof>
+         </goal>
+         <goal name="add&#39;vc.37.0.0.2.1.1.1.1" expl="postcondition">
+         <proof prover="1"><result status="timeout" time="5.00"/></proof>
+         <transf name="replace" arg1="(numocc&#39; (data h4) e (size h4))" arg2="(numocc&#39; (data h5) e n)">
+          <goal name="add&#39;vc.37.0.0.2.1.1.1.1.0" expl="postcondition">
+          <proof prover="1"><result status="timeout" time="5.00"/></proof>
+          <transf name="subst" arg1="n">
+           <goal name="add&#39;vc.37.0.0.2.1.1.1.1.0.0" expl="postcondition">
+           <proof prover="1"><result status="timeout" time="5.00"/></proof>
+           <transf name="assert" arg1="(forall i. 0 &lt;= i &lt; size h6-1 -&gt; (data h6)[i]&#39;&#39; = (data h5)[i]&#39;&#39;)">
+            <goal name="add&#39;vc.37.0.0.2.1.1.1.1.0.0.0" expl="asserted formula">
+            <proof prover="0"><result status="timeout" time="5.00"/></proof>
+            <proof prover="1"><result status="timeout" time="5.00"/></proof>
+            <proof prover="2"><result status="timeout" time="5.00" steps="224369"/></proof>
+            <proof prover="3"><result status="timeout" time="5.00" steps="8633677"/></proof>
+            </goal>
+            <goal name="add&#39;vc.37.0.0.2.1.1.1.1.0.0.1" expl="postcondition">
+            <proof prover="0"><result status="timeout" time="5.00"/></proof>
+            <proof prover="1"><result status="timeout" time="5.00"/></proof>
+            <proof prover="2"><result status="timeout" time="5.00" steps="285273"/></proof>
+            <proof prover="3"><result status="timeout" time="5.00" steps="11311038"/></proof>
+            </goal>
+           </transf>
+           </goal>
+          </transf>
+          </goal>
+          <goal name="add&#39;vc.37.0.0.2.1.1.1.1.1" expl="equality hypothesis" proved="true">
+          <proof prover="1"><result status="valid" time="0.02" steps="41"/></proof>
+          </goal>
+         </transf>
+         </goal>
+        </transf>
+        </goal>
+       </transf>
+       </goal>
+      </transf>
+      </goal>
+     </transf>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="add&#39;vc.38" expl="postcondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.08"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="36"/></proof>
+  <proof prover="2"><result status="valid" time="0.11" steps="30781"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.06" steps="166096"/></proof>
+  </goal>
+  <goal name="add&#39;vc.39" expl="postcondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1"><result status="valid" time="0.03" steps="37"/></proof>
+  <proof prover="2"><result status="valid" time="0.09" steps="29329"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="10091910"/></proof>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="Imperative.maximum&#39;vc" expl="VC for maximum" proved="true">
+ <proof prover="1"><result status="valid" time="0.03" steps="60"/></proof>
+ </goal>
+ <goal name="Imperative.remove&#39;vc" expl="VC for remove">
+ <transf name="split_vc" >
+  <goal name="remove&#39;vc.0" expl="exceptional postcondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.19"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="16"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.18" steps="30359"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.06" steps="155451"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.1" expl="index in array bounds" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="16"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.16" steps="31323"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.06" steps="160344"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.2" expl="index in array bounds" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="32"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.15" steps="30084"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.05" steps="166354"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.3" expl="index in array bounds" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="32"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.13" steps="30091"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.09" steps="163770"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.4" expl="index in array bounds" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1"><result status="valid" time="0.03" steps="39"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.19" steps="30320"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="2.37" steps="4185198"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.5" expl="index in array bounds" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1"><result status="valid" time="0.03" steps="41"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.13" steps="30385"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="3.20" steps="6857265"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.6" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.25"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="32"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.11" steps="30041"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.08" steps="160243"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.7" expl="type invariant" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.04"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="37"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.10" steps="29430"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.06" steps="157014"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.8" expl="type invariant" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.07"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="38"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.12" steps="30161"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.07" steps="160871"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.9" expl="variant decrease" proved="true">
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <transf name="split_vc" proved="true" >
+   <goal name="remove&#39;vc.9.0" expl="variant decrease" proved="true">
+   <proof prover="0" obsolete="true"><result status="valid" time="0.23"/></proof>
+   <proof prover="1"><result status="valid" time="0.02" steps="37"/></proof>
+   <proof prover="2" obsolete="true"><result status="valid" time="0.09" steps="28298"/></proof>
+   <proof prover="3" obsolete="true"><result status="valid" time="0.07" steps="89513"/></proof>
+   </goal>
+   <goal name="remove&#39;vc.9.1" expl="variant decrease" proved="true">
+   <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   <transf name="assert" proved="true" arg1="(j &gt; i)">
+    <goal name="remove&#39;vc.9.1.0" expl="asserted formula" proved="true">
+    <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+    <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
+    <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="4146355"/></proof>
+    <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="10715935"/></proof>
+    <transf name="assert" proved="true" arg1="(j = j1 \/ j = j&#39;)">
+     <goal name="remove&#39;vc.9.1.0.0" expl="asserted formula" proved="true">
+     <proof prover="0" obsolete="true"><result status="valid" time="0.07"/></proof>
+     <proof prover="1"><result status="valid" time="0.02" steps="37"/></proof>
+     <proof prover="2" obsolete="true"><result status="valid" time="0.12" steps="29666"/></proof>
+     <proof prover="3" obsolete="true"><result status="valid" time="0.03" steps="16076"/></proof>
+     </goal>
+     <goal name="remove&#39;vc.9.1.0.1" expl="asserted formula" proved="true">
+     <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+     <proof prover="1"><result status="valid" time="0.02" steps="39"/></proof>
+     <proof prover="2" obsolete="true"><result status="valid" time="0.12" steps="29799"/></proof>
+     <proof prover="3" obsolete="true"><result status="valid" time="3.97" steps="8334491"/></proof>
+     </goal>
+    </transf>
+    </goal>
+    <goal name="remove&#39;vc.9.1.1" expl="variant decrease" proved="true">
+    <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+    <proof prover="1"><result status="valid" time="0.02" steps="39"/></proof>
+    <proof prover="2" obsolete="true"><result status="valid" time="0.08" steps="28333"/></proof>
+    <proof prover="3" obsolete="true"><result status="valid" time="0.04" steps="89610"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="remove&#39;vc.10" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.08"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="41"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.15" steps="30470"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.07" steps="162409"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.11" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1"><result status="valid" time="0.26" steps="1718"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="280211"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="7181745"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.12" expl="precondition" proved="true">
+  <proof prover="1" timelimit="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+  <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="296425"/></proof>
+  <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="2854345"/></proof>
+  <transf name="split_vc" proved="true" >
+   <goal name="remove&#39;vc.12.0" expl="precondition" proved="true">
+   <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   <proof prover="1"><result status="valid" time="9.64" steps="79090"/></proof>
+   <proof prover="2"><result status="timeout" time="5.00" steps="1104657"/></proof>
+   <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="8706776"/></proof>
+   </goal>
+   <goal name="remove&#39;vc.12.1" expl="precondition" proved="true">
+   <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   <proof prover="1"><result status="valid" time="4.16" steps="31976"/></proof>
+   <proof prover="2"><result status="timeout" time="5.00" steps="1164267"/></proof>
+   <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="8714185"/></proof>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="remove&#39;vc.13" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1"><result status="valid" time="0.01" steps="54"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.15" steps="30042"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="8640123"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.14" expl="postcondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.04"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="53"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.09" steps="28392"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.02" steps="11158"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.15" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.26"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="32"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.13" steps="30318"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.08" steps="161505"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.16" expl="type invariant" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.04"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="37"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.13" steps="29694"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.07" steps="158177"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.17" expl="type invariant" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.08"/></proof>
+  <proof prover="1"><result status="valid" time="0.03" steps="38"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.12" steps="30425"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.08" steps="162195"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.18" expl="postcondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.06"/></proof>
+  <proof prover="1"><result status="valid" time="3.71" steps="26670"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00" steps="1085268"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.03" steps="10782"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.19" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.26"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="30"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.15" steps="30312"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.08" steps="161554"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.20" expl="type invariant" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.05"/></proof>
+  <proof prover="1"><result status="valid" time="0.03" steps="35"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.13" steps="29688"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.06" steps="158200"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.21" expl="type invariant" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.10"/></proof>
+  <proof prover="1"><result status="valid" time="0.03" steps="36"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.13" steps="30419"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.08" steps="162218"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.22" expl="postcondition" proved="true">
+  <proof prover="1" timelimit="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+  <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="5.00" steps="1165081"/></proof>
+  <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="2428175"/></proof>
+  <transf name="unfold" proved="true" arg1="is_heap">
+   <goal name="remove&#39;vc.22.0" expl="VC for remove" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="remove&#39;vc.22.0.0" expl="VC for remove" proved="true">
+    <transf name="case" proved="true" arg1="(i = i1)">
+     <goal name="remove&#39;vc.22.0.0.0" expl="true case" proved="true">
+     <proof prover="0" obsolete="true"><result status="valid" time="0.08"/></proof>
+     <proof prover="1"><result status="valid" time="0.04" steps="44"/></proof>
+     <proof prover="2" obsolete="true"><result status="valid" time="0.12" steps="29825"/></proof>
+     <proof prover="3" obsolete="true"><result status="valid" time="0.06" steps="158954"/></proof>
+     </goal>
+     <goal name="remove&#39;vc.22.0.0.1" expl="false case" proved="true">
+     <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+     <proof prover="1" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+     <proof prover="2" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+     <proof prover="3" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="13999148"/></proof>
+     <transf name="inline_goal" proved="true" >
+      <goal name="remove&#39;vc.22.0.0.1.0" expl="false case" proved="true">
+      <transf name="split_all_full" proved="true" >
+       <goal name="remove&#39;vc.22.0.0.1.0.0" expl="false case" proved="true">
+       <proof prover="1" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+       <proof prover="2" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+       <proof prover="3" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="14493626"/></proof>
+       <transf name="inline_goal" proved="true" >
+        <goal name="remove&#39;vc.22.0.0.1.0.0.0" expl="false case" proved="true">
+        <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+        <proof prover="1"><result status="valid" time="0.38" steps="2480"/></proof>
+        <proof prover="2" obsolete="true"><result status="timeout" time="5.00"/></proof>
+        <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="7942020"/></proof>
+        </goal>
+       </transf>
+       </goal>
+      </transf>
+      </goal>
+     </transf>
+     </goal>
+    </transf>
+    </goal>
+    <goal name="remove&#39;vc.22.0.1" expl="VC for remove" proved="true">
+    <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+    <proof prover="1"><result status="valid" time="0.16" steps="1036"/></proof>
+    <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="931255"/></proof>
+    <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="9345868"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="remove&#39;vc.23" expl="type invariant" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.27"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="14"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.06" steps="27638"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.06" steps="153278"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.24" expl="type invariant" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1"><result status="valid" time="0.04" steps="17"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.13" steps="31327"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.08" steps="160339"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.25" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.31"/></proof>
+  <proof prover="1"><result status="valid" time="0.03" steps="22"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.15" steps="31534"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.07" steps="166538"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.26" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.11"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="20"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.07" steps="28020"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.04" steps="10826"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.27" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="1.75"/></proof>
+  <proof prover="1"><result status="valid" time="0.03" steps="99"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.13" steps="32502"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="1.51" steps="3366107"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.28" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.05"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="23"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.08" steps="27816"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.06" steps="159604"/></proof>
+  </goal>
+  <goal name="remove&#39;vc.29" expl="postcondition">
+  <proof prover="1" obsolete="true"><result status="valid" time="0.02" steps="26"/></proof>
+  <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="5.00" steps="1622815"/></proof>
+  <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="2131069"/></proof>
+  <transf name="split_vc" >
+   <goal name="remove&#39;vc.29.0" expl="postcondition">
+   <transf name="unfold" arg1="is_heap">
+    <goal name="remove&#39;vc.29.0.0" expl="VC for remove">
+    <transf name="split_vc" >
+     <goal name="remove&#39;vc.29.0.0.0" expl="VC for remove">
+     <transf name="case" arg1="(i1 = i)">
+      <goal name="remove&#39;vc.18.1.0.1.0" expl="true case">
+      <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+      <proof prover="1"><result status="failure" time="0.00"/></proof>
+      <proof prover="2"><result status="failure" time="0.00"/></proof>
+      <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="7623097"/></proof>
+      </goal>
+      <goal name="remove&#39;vc.18.1.0.1.1" expl="false case">
+      <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+      <proof prover="1"><result status="failure" time="0.00"/></proof>
+      <proof prover="2"><result status="failure" time="0.00"/></proof>
+      <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="8689109"/></proof>
+      </goal>
+     </transf>
+     </goal>
+     <goal name="remove&#39;vc.29.0.0.1" expl="VC for remove">
+     <transf name="case" arg1="(i1 = i)">
+      <goal name="remove&#39;vc.18.1.0.0.0" expl="true case">
+      <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+      <proof prover="1"><result status="failure" time="0.00"/></proof>
+      <proof prover="2"><result status="failure" time="0.00"/></proof>
+      <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="7675440"/></proof>
+      </goal>
+      <goal name="remove&#39;vc.18.1.0.0.1" expl="false case">
+      <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+      <proof prover="1"><result status="failure" time="0.00"/></proof>
+      <proof prover="2"><result status="failure" time="0.00"/></proof>
+      <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="7479790"/></proof>
+      </goal>
+     </transf>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="remove&#39;vc.18.0" expl="postcondition">
+   <transf name="unfold" arg1="is_heap">
+    <goal name="remove&#39;vc.18.0.0" expl="VC for remove">
+    <transf name="split_vc" >
+     <goal name="remove&#39;vc.18.0.0.0" expl="VC for remove">
+     <transf name="case" arg1="(i = i1)">
+      <goal name="remove&#39;vc.18.0.0.0.0" expl="true case">
+      <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+      <proof prover="1"><result status="failure" time="0.00"/></proof>
+      <proof prover="2"><result status="failure" time="0.00"/></proof>
+      <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="8404467"/></proof>
+      </goal>
+      <goal name="remove&#39;vc.18.0.0.0.1" expl="false case">
+      <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+      <proof prover="1"><result status="failure" time="0.00"/></proof>
+      <proof prover="2"><result status="failure" time="0.00"/></proof>
+      <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="7426085"/></proof>
+      </goal>
+     </transf>
+     </goal>
+     <goal name="remove&#39;vc.18.0.0.1" expl="VC for remove">
+     <transf name="case" arg1="(i = i1)">
+      <goal name="remove&#39;vc.18.0.0.1.0" expl="true case">
+      <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+      <proof prover="1"><result status="failure" time="0.00"/></proof>
+      <proof prover="2"><result status="failure" time="0.00"/></proof>
+      <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="7156934"/></proof>
+      </goal>
+      <goal name="remove&#39;vc.18.0.0.1.1" expl="false case">
+      <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+      <proof prover="1"><result status="failure" time="0.00"/></proof>
+      <proof prover="2"><result status="failure" time="0.00"/></proof>
+      <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="8282516"/></proof>
+      </goal>
+     </transf>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="remove&#39;vc.30" expl="postcondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.11"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="26"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.13" steps="29010"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="1.51" steps="3527440"/></proof>
+  </goal>
+ </transf>
+ </goal>
+ <goal name="Imperative.pop_maximum&#39;vc" expl="VC for pop_maximum" proved="true">
+ <proof prover="1" obsolete="true"><result status="valid" time="0.02" steps="29"/></proof>
+ <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="1345289"/></proof>
+ <transf name="split_vc" proved="true" >
+  <goal name="pop_maximum&#39;vc.0" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.05"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="12"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.08" steps="27599"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.02" steps="10664"/></proof>
+  </goal>
+  <goal name="pop_maximum&#39;vc.1" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.06"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="14"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.06" steps="27611"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.01" steps="10669"/></proof>
+  </goal>
+  <goal name="pop_maximum&#39;vc.2" expl="postcondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.06"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="24"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.08" steps="27712"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.02" steps="10754"/></proof>
+  </goal>
+  <goal name="pop_maximum&#39;vc.3" expl="postcondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00" steps="1423823"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="10655565"/></proof>
+  <transf name="unfold" proved="true" arg1="is_maximum">
+   <goal name="pop_maximum&#39;vc.3.0" expl="VC for pop_maximum" proved="true">
+   <transf name="split_vc" proved="true" >
+    <goal name="pop_maximum&#39;vc.3.0.0" expl="VC for pop_maximum" proved="true">
+    <proof prover="1"><result status="valid" time="0.03" steps="69"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="pop_maximum&#39;vc.4" expl="exceptional postcondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.26"/></proof>
+  <proof prover="1"><result status="valid" time="0.03" steps="32"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.15" steps="30817"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.07" steps="156561"/></proof>
+  </goal>
+  <goal name="pop_maximum&#39;vc.5" expl="exceptional postcondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="valid" time="0.05"/></proof>
+  <proof prover="1"><result status="valid" time="0.02" steps="14"/></proof>
+  <proof prover="2" obsolete="true"><result status="valid" time="0.07" steps="27610"/></proof>
+  <proof prover="3" obsolete="true"><result status="valid" time="0.04" steps="10669"/></proof>
+  </goal>
+ </transf>
+ </goal>
+</theory>
+</file>
+</why3session>
