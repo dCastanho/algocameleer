@@ -67,8 +67,12 @@ module Imperative(X : Ordered) = struct
 
   (*@ function heap_maximum (h: t) : X.t *)
 
+  (*@ predicate mem_range (x: X.t) (a: X.t array) (size : int) =
+      0 <= size <= Array.length a /\ 
+          exists j. 0 <= j < size /\ a.(j) = x *)
+
   (*@ predicate is_maximum (x: X.t) (h: t) =
-     forall e. Array.mem e h.data -> le x e *)
+     forall e. mem_range e h.data h.size -> le x e *)
 
   (*@ axiom max_def: forall h. h.size <> 0 -> heap_maximum h = h.data.(0)*)
 
@@ -103,7 +107,7 @@ module Imperative(X : Ordered) = struct
   let [@lemma] max_coherent (h: t) =
     let s = h.data in
     let n = h.size in
-    let rec ismin (i: int) = 
+    let [@lemma] rec ismin (i: int) = 
       if i > 0 then ismin ((i-1) / 2)
     (*@ ismin i
         requires 0 <= i < n
