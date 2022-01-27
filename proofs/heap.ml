@@ -51,7 +51,7 @@ module Imperative(X : Ordered) = struct
   (* predicate maximum (data : X.t array) (el : X.t ) = 
         Array.mem el data /\ forall i. 0 <= i < Array.length data -> le el data.(i) *)
 
-  type t = { mutable size : int ; data : X.t array }
+  type t = { mutable size : int ; mutable data : X.t array }
   (*@ invariant size >= 0 
       invariant size <= Array.length data *)
 
@@ -137,11 +137,28 @@ module Imperative(X : Ordered) = struct
   let create n =
     { size = 0 ; data = Array.make n X.default}
   (*@ h = create n 
-      requires n >= 0 *)
+      requires n > 0 *)
 
   let [@logic] is_empty h = h.size <= 0
   (*@ r = is_empty h
         ensures r <-> (h.size <= 0) *)
+
+  let resize h =
+    let n = h.size in
+    assert (n > 0);
+    let n' = 2 * n in
+    let d = h.data in
+    let d' = Array.make n' d.(0) in
+    Array.blit d 0 d' 0 n;
+    h.data <- d'
+    (*@ resize h
+      requires is_heap h.data h.size
+      requires not is_empty h
+      ensures is_heap h.data h.size
+      ensures forall e. numocc' (old h).data e (old h).size =  numocc' h.data e h.size 
+      ensures (old h).size = h.size
+      ensures Array.length h.data = (old h.size) * 2
+      *)
 
   (*@ predicate subst (a1 : X.t array) (a2 : X.t array) (i : int) (size1 size2 : int) =
         size1 = size2 /\ 
@@ -204,6 +221,7 @@ module Imperative(X : Ordered) = struct
 
   let add h x =
     let n = h.size in
+    if n == Array.length h.data then resize h;
     let d = h.data in
     (* moving [x] up in the heap *)
     h.size <- n + 1 ;
