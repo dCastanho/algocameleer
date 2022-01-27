@@ -53,7 +53,8 @@ module Imperative(X : Ordered) = struct
 
   type t = { mutable size : int ; mutable data : X.t array }
   (*@ invariant size >= 0 
-      invariant size <= Array.length data *)
+      invariant size <= Array.length data 
+      invariant is_heap data size *)
 
   (* Given an array, an element and two indices, counts the number of 
   occurences that number has between the two indices                *)
@@ -152,9 +153,7 @@ module Imperative(X : Ordered) = struct
     Array.blit d 0 d' 0 n;
     h.data <- d'
     (*@ resize h
-      requires is_heap h.data h.size
       requires not is_empty h
-      ensures is_heap h.data h.size
       ensures forall e. numocc' (old h).data e (old h).size =  numocc' h.data e h.size 
       ensures (old h).size = h.size
       ensures Array.length h.data = (old h.size) * 2
@@ -227,7 +226,6 @@ module Imperative(X : Ordered) = struct
     h.size <- n + 1 ;
     d.(n) <- d.((n - 1) / 2); (* Added, for simplicity sake *)
     let rec moveup i =
-      let [@ghost] a = Array.copy d in
       let fi = (i - 1) / 2 in (* father's position *)
       if i > 0 && X.compare d.(fi) x < 0 then begin
         d.(i) <- d.(fi);
@@ -236,14 +234,12 @@ module Imperative(X : Ordered) = struct
         d.(i) <- x 
             end
     (*@ moveup i
-          requires is_heap h.data h.size
           requires 0 <= i < h.size
           requires Array.length h.data > h.size
           requires 0 < 2*i + 1 < h.size -> le x (h.data.(2*i + 1)) 
           requires 0 < 2*i + 2 < h.size -> le x (h.data.(2*i + 2)) 
           variant i
           ensures Array.mem x h.data
-          ensures is_heap h.data (h.size)
           ensures forall e. e <> x -> e <> (old d).(i) -> numocc' (old h).data e (old h).size =  numocc' h.data e h.size
           ensures old h.size = h.size
           ensures let ol = (old h.data).(i) in
@@ -255,13 +251,11 @@ module Imperative(X : Ordered) = struct
     in
     moveup n
     (*@ add h x 
-          requires is_heap h.data h.size
           requires Array.length h.data > h.size + 1
           ensures Array.mem x (h.data)
           ensures numocc' (old h).data x ((old h).size) + 1 =  numocc' h.data x h.size 
           ensures forall e. e <> x -> numocc' (old h).data e (old h).size =  numocc' h.data e h.size 
-          ensures (old h).size + 1 = h.size 
-          ensures is_heap h.data h.size *)
+          ensures (old h).size + 1 = h.size  *)
   ;;
 
   let maximum h =
@@ -269,7 +263,6 @@ module Imperative(X : Ordered) = struct
     h.data.(0)
   (*@ m = maximum h
         raises EmptyHeap -> h.size = 0
-        requires is_heap h.data h.size 
         ensures m = h.data.(0)
         ensures is_maximum m h *)
     
@@ -298,10 +291,8 @@ module Imperative(X : Ordered) = struct
       (*@ movedown i
           requires Array.length h.data > h.size
           requires 0 < i < h.size -> le (h.data.(div (i - 1) 2 )) x 
-          requires is_heap h.data h.size
           requires n > i >= 0
           variant n - i 
-          ensures is_heap h.data h.size 
           ensures forall e. e <> x -> e <> (old d).(i) -> numocc' (old h).data e (old h).size =  numocc' h.data e h.size
           ensures let ol = (old h.data).(i) in
                 if ol = x then 
@@ -314,8 +305,6 @@ module Imperative(X : Ordered) = struct
       if n > 0 then movedown 0
   (*@ remove h 
       raises EmptyHeap -> is_empty h 
-      requires is_heap h.data h.size 
-      ensures is_heap h.data h.size
       ensures forall e. e <> (old h.data).(0) -> numocc' (old h).data e (old h).size =  numocc' h.data e h.size 
       ensures let m = (old h.data).(0) in numocc' (old h).data m (old h).size - 1 =  numocc' h.data m h.size 
       ensures h.size = (old h).size - 1 *)
@@ -323,8 +312,6 @@ module Imperative(X : Ordered) = struct
   let pop_maximum h = let m = maximum h in remove h; m
   (*@ m = pop_maximum h 
       raises EmptyHeap -> h.size = 0
-      requires is_heap h.data h.size 
-      ensures is_heap h.data h.size
       ensures is_maximum m (old h)
       ensures forall e. e <> m -> numocc' (old h).data e (old h).size =  numocc' h.data e h.size 
       ensures numocc' (old h).data m (old h).size - 1 =  numocc' h.data m h.size 
