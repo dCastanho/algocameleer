@@ -1,0 +1,270 @@
+module FoldLeft
+
+  use seq.Seq, list.List, int.Int
+  use seq.OfList
+
+  predicate permitted (v: seq 'a) (l: list 'a) =
+    length v <= length l /\
+    forall i. 0 <= i < length v -> v[i] = l[i]
+
+  predicate complete (v: seq 'a) (l: list 'a) =
+    length v = length l
+
+  val constant l0 : list 'a
+
+  predicate inv 'b (seq 'a)
+
+  val f (acc: 'b) (x: 'a) (ghost v: seq 'a) : 'b
+    requires { inv acc v }
+    requires { permitted (snoc v x) l0 }
+    requires { not complete v l0 }
+    ensures  { inv result (snoc v x) }
+
+  let rec fold_left (ghost v: seq 'a)
+    (acc: 'b) (l: list 'a) : (accf: 'b, ghost vf: seq 'a)
+    requires { inv acc v }
+    requires { permitted v l0 }
+    requires { l0 == v ++ l }
+    ensures  { permitted vf l0 }
+    ensures  { inv accf vf }
+    ensures  { vf == v ++ l }
+    variant  { l }
+  = match l with
+    | Nil -> acc, v
+    | Cons x r -> fold_left (snoc v x) (f acc x v) r
+    end
+
+end
+
+(* module Hashtbl *)
+
+(*   use map.Map, set.Fset *)
+(*   use seq.Seq, int.Int *)
+
+(*   scope HashedType *)
+(*     type t *)
+
+(*     val equal (x y: t) : bool *)
+(*     (\*@ b = equal x y *)
+(*           ensures b <-> x = y *\) *)
+
+(*     val hash (x: t) : int *)
+(*   end *)
+
+(*   type key = HashedType.t *)
+
+(*   type t 'a = abstract { *)
+(*     mutable         dom : fset key; *)
+(*     mutable         view: key -> seq 'a; *)
+(*             initial_size: int; *)
+(*   } invariant { initial_size >= cardinal dom } *)
+(*     invariant { forall x. mem x dom <-> view x <> empty } *)
+(*     by { dom = Fset.empty; view = (fun _ -> empty); initial_size = 0 } *)
+
+(*   type model 'a = key -> seq 'a *)
+
+(*   function remove (m: model 'a) (k: key) : model 'a = *)
+(*     fun k' -> if k = k' then (m k')[1 ..] else m k' *)
+
+(*   inductive removal (model 'a) (seq (key, 'a)) (model 'a) = *)
+(*   | RemovalNil: forall m: model 'a. removal m empty m *)
+(*   | RemovalCons: forall m'' m: model 'a, k kxs. *)
+(*       let x = (m k)[0] in *)
+(*       let m' = remove m k in *)
+(*       removal m' kxs m'' -> *)
+(*       removal m (cons (k, x) kxs) m'' *)
+
+(*   predicate permitted (kxs: seq (key, 'a)) (m: model 'a) = *)
+(*     exists m'. removal m kxs m' *)
+
+(*   predicate complete (kxs: seq (key, 'a)) (m: model 'a) = *)
+(*     removal m kxs (fun _ -> empty) *)
+
+(*   val constant model0 : model 'a *)
+
+(*   type acc *)
+
+(*   predicate inv acc (seq (key, 'a)) *)
+
+(*   val f (k: key) (v: 'a) (acc: acc) (ghost visited: seq (key, 'a)) : acc *)
+(*     requires { permitted (snoc visited (k, v)) model0 } *)
+(*     requires { not complete visited model0 } *)
+(*     requires { inv acc visited } *)
+(*     ensures  { inv result (snoc visited (k, v)) } *)
+
+(*   val fold (ghost visited: seq (key, 'a)) (acc: acc) : *)
+(*     (accf: acc, ghost vf: seq (key, 'a)) *)
+(*     requires { inv acc visited } *)
+(*     requires { permitted visited model0 } *)
+(*     ensures  { permitted vf model0 } *)
+(*     ensures  { complete vf model0 } *)
+(*     ensures  { inv accf vf } *)
+
+(* end *)
+
+module Hashtbl
+
+  use map.Map
+  use seq.Seq, int.Int, set.Fset, seq.Mem
+
+  scope HashedType
+    type t
+
+    val equal (x y: t) : bool
+    (*@ b = equal x y
+          ensures b <-> x = y *)
+
+    val hash (x: t) : int
+  end
+
+  type key = HashedType.t
+
+  type t 'a = abstract {
+    mutable         dom : fset key;
+    mutable         view: key -> seq 'a;
+            initial_size: int;
+  } invariant { initial_size >= cardinal dom }
+    invariant { forall x. Fset.mem x dom <-> view x <> Seq.empty }
+    by { dom = Fset.empty; view = (fun _ -> empty); initial_size = 0 }
+
+  type model 'a = key -> seq 'a
+
+  let rec ghost function model_of_kxs (vv: seq (key, 'a))
+    : model 'a
+    variant { length vv }
+  = if vv == empty then (fun _ -> empty)
+    else
+      let (k, v) = vv[0] in
+      let aux = model_of_kxs vv[1 ..] in
+      fun k' -> if pure {k' = k} then cons v (aux k') else aux k'
+
+  predicate permitted (kxs: seq (key, 'a)) (m: model 'a) (d: fset key) =
+    let v = model_of_kxs kxs in 
+      (forall i. 0 <= i < length kxs -> let (k, _) = kxs[i] in Fset.mem k d ) /\
+      (forall k. v k <> Seq.empty /\ Fset.mem k d -> v k = m k)
+
+  predicate complete (kxs: seq (key, 'a)) (_m: model 'a) (d: fset key) =
+    let v = model_of_kxs kxs in 
+       (forall i. 0 <= i < length kxs -> let (k, _) = kxs[i] in Fset.mem k d ) /\
+      forall k. Fset.mem k d -> v k = _m k 
+
+  val constant model0 : model 'a
+  val constant dom0 : fset key
+
+  type acc
+
+  predicate inv acc (seq (key, 'a))
+
+  val f (k: key) (v: 'a) (acc: acc) (ghost visited: seq (key, 'a)) : acc
+    requires { permitted (snoc visited (k, v)) model0 dom0 }
+    requires { not complete visited model0 dom0 }
+    requires { inv acc visited }
+    ensures  { inv result (snoc visited (k, v)) }
+
+  val fold (ghost visited: seq (key, 'a)) (acc: acc) :
+    (accf: acc, ghost vf: seq (key, 'a))
+    requires { inv acc visited }
+    requires { permitted visited model0 dom0 }
+    ensures  { permitted vf model0 dom0 }
+    ensures  { complete vf model0 dom0 }
+    ensures  { inv accf vf }
+
+end
+
+module Client
+
+  use list.List, seq.Seq, seq.OfList, int.Int
+  use set.Fset
+
+  type t
+
+  val equal t t : bool
+
+  val hash t : int
+
+  predicate inv (acc: seq t) (visited: seq (t, 'a)) =
+    length acc = length visited /\
+    forall i. 0 <= i < length acc ->
+      let (k, _) = visited[i] in acc[i] = k
+
+  clone Hashtbl with
+    type HashedType.t = t,
+    type acc = seq t,
+    val HashedType.equal = equal,
+    val HashedType.hash = hash,
+    predicate inv
+
+  let client (h: t 'a) :
+    (accf: seq Hashtbl.key, ghost v: seq (Hashtbl.key, 'a))
+    requires { h.view = Hashtbl.model0 }
+    requires { h.dom = Hashtbl.dom0 }
+    ensures  { forall i. 0 <= i < length accf -> Fset.mem accf[i] h.dom }
+  = fold empty empty
+
+end
+
+
+module ClientLength
+
+  use list.List, seq.Seq, seq.OfList, int.Int
+  use set.Fset
+
+  type t
+
+  val equal t t : bool
+
+  val hash t : int
+
+  predicate inv (acc: int) (visited: seq (t, 'a)) =
+    acc = length visited
+
+  clone Hashtbl with
+    type HashedType.t = t,
+    type acc = int,
+    val HashedType.equal = equal,
+    val HashedType.hash = hash,
+    predicate inv
+
+  let client (h: t 'a) :
+    (accf: int, ghost v: seq (Hashtbl.key, 'a))
+    requires { h.view = Hashtbl.model0 }
+    requires { h.dom = Hashtbl.dom0 }
+    ensures  { accf = length v }
+  = fold empty 0
+
+end
+
+
+module ClientPairValues
+
+  use list.List, seq.Seq, seq.OfList, int.Int
+  use set.Fset
+
+  type t
+  type e
+  type w
+
+  val equal t t : bool
+
+  val hash t : int
+
+  predicate inv (acc: seq e) (visited: seq (t, (w, e))) =
+    length acc = length visited /\
+      forall i. 0 <= i < length acc ->
+        let (_, (_, ed)) = visited[i] in acc[i] = ed
+
+  clone Hashtbl with
+    type HashedType.t = t,
+    type acc = seq e,
+    val HashedType.equal = equal,
+    val HashedType.hash = hash,
+    predicate inv
+
+  let client (h: t (w, e)) :
+    (accf: seq e, ghost v: seq (Hashtbl.key, (w, e)))
+    requires { h.view = Hashtbl.model0 }
+    requires { h.dom = Hashtbl.dom0 }
+    ensures  { length accf = length v }
+  = fold empty empty
+
+end
