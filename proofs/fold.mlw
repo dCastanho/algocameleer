@@ -133,6 +133,8 @@ module Hashtbl
 
   let rec ghost function model_of_kxs (vv: seq (key, value)) : model
     variant { length vv }
+    ensures {  forall i. 0 <= i < length vv -> let (k, v) = vv[i] in 
+          Mem.mem v (result k)  }
   = if vv == empty then (fun _ -> empty)
     else
       let (k, v) = vv[0] in
@@ -266,7 +268,49 @@ module ClientPairValues
     (accf: seq e, ghost v: seq (Hashtbl.key, (w, e)))
     requires { h.view = Hashtbl.model0 }
     requires { h.dom = Hashtbl.dom0 }
-    ensures  { length accf = length v }
+    ensures  { forall i. 0 <= i < length accf -> 
+      exists k j. Fset.mem k h.dom /\ j < length (h.view k) /\ let (_, e) = (h.view k)[j] in e = accf[i]  }
+  = fold empty empty
+
+end
+
+
+module ClientValues
+
+  use list.List, seq.Seq, seq.OfList, int.Int, seq.Mem
+  use set.Fset
+
+  type t
+  type vl
+
+  val equal t t : bool
+
+  val hash t : int
+
+  predicate inv (acc: seq vl) (visited: seq (t, vl)) =
+    length acc = length visited /\
+      forall i. 0 <= i < length acc ->
+        let (_, v) = visited[i] in acc[i] = v
+
+  clone Hashtbl with
+    type HashedType.t = t,
+    type value = vl,
+    type acc = seq vl,
+    val HashedType.equal = equal,
+    val HashedType.hash = hash,
+    predicate inv
+
+  predicate mem_v (x: 'a) (s: seq 'a) =
+    exists i: int. 0 <= i < length s && s[i] = x
+
+  let client (h: t vl) :
+    (accf: seq vl, ghost v: seq (Hashtbl.key, vl))
+    requires { h.view = Hashtbl.model0 }
+    requires { h.dom = Hashtbl.dom0 }
+    ensures  { forall i. 0 <= i < length accf ->
+      exists p. Mem.mem p v /\ let (_, valt) = p in accf[i] = valt }
+    ensures  { forall i. 0 <= i < length accf ->
+      exists k. Fset.mem k h.dom /\ Mem.mem accf[i] (h.view k) }
   = fold empty empty
 
 end
