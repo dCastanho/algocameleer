@@ -134,22 +134,25 @@ module Hashtbl
   let rec ghost function model_of_kxs (vv: seq (key, value)) : model
     variant { length vv }
     ensures {  forall i. 0 <= i < length vv -> let (k, v) = vv[i] in 
-          Mem.mem v (result k)  }
+                  Mem.mem v (result k)  }
   = if vv == empty then (fun _ -> empty)
     else
       let (k, v) = vv[0] in
       let aux = model_of_kxs vv[1 ..] in
       fun k' -> if pure {k' = k} then cons v (aux k') else aux k'
 
+  predicate all_keys_belong (kxs: seq (key, value)) (d: fset key) = 
+    forall i. 0 <= i < length kxs -> let (k, _) = kxs[i] in Fset.mem k d 
+
   predicate permitted (kxs: seq (key, value)) (m: model) (d: fset key) =
     let v = model_of_kxs kxs in
-      (forall i. 0 <= i < length kxs -> let (k, _) = kxs[i] in Fset.mem k d ) /\
-      (forall k. v k <> Seq.empty /\ Fset.mem k d -> v k = m k)
+     all_keys_belong kxs d /\
+      forall k. v k <> Seq.empty -> v k = m k
 
   predicate complete (kxs: seq (key, value)) (_m: model) (d: fset key) =
     let v = model_of_kxs kxs in
-       (forall i. 0 <= i < length kxs -> let (k, _) = kxs[i] in Fset.mem k d ) /\
-      forall k. Fset.mem k d -> v k = _m k
+       all_keys_belong kxs d /\
+      forall k. v k = _m k
 
   val constant model0 : model
   val constant dom0 : fset key
@@ -244,7 +247,7 @@ module ClientPairValues
   use set.Fset
 
   type t
-   type e
+  type e
   type w
 
   val equal t t : bool
@@ -268,8 +271,10 @@ module ClientPairValues
     (accf: seq e, ghost v: seq (Hashtbl.key, (w, e)))
     requires { h.view = Hashtbl.model0 }
     requires { h.dom = Hashtbl.dom0 }
-    ensures  { forall i. 0 <= i < length accf -> 
-      exists k j. Fset.mem k h.dom /\ j < length (h.view k) /\ let (_, e) = (h.view k)[j] in e = accf[i]  }
+    ensures  { forall i. 0 <= i < length accf ->
+      exists p. Mem.mem p v /\ let (_, (_ , valt)) = p in accf[i] = valt }
+    ensures  { forall i. 0 <= i < length accf ->
+        exists k, j. Fset.mem k h.dom /\ 0 <= j < length (h.view k) /\ let (_ , valt) = (h.view k)[j] in accf[i] = valt  }
   = fold empty empty
 
 end
