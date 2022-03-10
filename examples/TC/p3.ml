@@ -8,7 +8,7 @@
  (*@ function occ (x: 'a) (l: 'a list) : integer = match l with
         | [] -> 0
         | y :: r -> if x = y then 1 + occ x r else occ x r *)
-
+        
   (*@ lemma occ_nonneg: forall x: 'a, l: 'a list.
         0 <= occ x l *)
   
@@ -203,8 +203,6 @@ let [@logic] add_song_list (p : playlist) s =
       requires valid_playlist pl
       ensures snd pl' = union (snd pl) (singleton s)
       ensures List.mem s (snd pl')
-      ensures forall ss. List.mem ss (snd pl) -> List.mem ss (snd pl')
-      ensures forall ss. List.mem ss (snd pl') /\ ss <> s -> List.mem ss (snd pl)
       ensures fst pl' = fst pl
       ensures valid_playlist pl'*)
 
@@ -215,9 +213,6 @@ let add_song p s sp =
     requires valid_playlist p
     requires valid_splay sp
     ensures sp' = union (dif sp (singleton p)) (singleton (add_song_list p s))
-    ensures forall pl. pl <> p /\ List.mem pl sp -> List.mem pl sp'
-    ensures exists p'. List.mem p' sp' /\ (forall ss. List.mem ss (snd p) -> List.mem ss (snd p')) /\ fst p = fst p'
-            /\ List.mem s (snd p') /\ (forall ss. List.mem ss (snd p') /\ ss <> s -> List.mem ss (snd p))
     ensures valid_splay sp'*)
 
 
@@ -231,8 +226,6 @@ let [@logic] remove_song_list (p : playlist) s  =
       requires valid_playlist pl
       ensures snd pl' = dif (snd pl) (singleton s)
       ensures not List.mem s (snd pl')
-      ensures forall ss. List.mem ss (snd pl') -> List.mem ss (snd pl)
-      ensures forall ss. List.mem ss (snd pl) /\ ss <> s -> List.mem ss (snd pl')
       ensures fst pl' = fst pl
       ensures valid_playlist pl'*)
 
@@ -244,10 +237,6 @@ let [@logic] remove_song p s sp =
     requires valid_playlist p
     requires valid_splay sp
     ensures sp' = union (dif sp (singleton p)) (singleton (remove_song_list p s))
-    ensures forall pl. pl <> p /\ List.mem pl sp -> List.mem pl sp'
-    ensures exists p'. List.mem p' sp' /\ 
-          (forall ss. List.mem ss (snd p') -> List.mem ss (snd p)) /\ fst p = fst p'
-          /\ not List.mem s (snd p') /\ (forall ss. List.mem ss (snd p) /\ ss <> s -> List.mem ss (snd p'))
     ensures valid_splay sp'*)
 
 
@@ -263,9 +252,7 @@ let rec remove_song_all s sp =
     variant sp
     ensures valid_splay sp
     ensures forall p. List.mem p sp' -> exists p'. List.mem p' sp /\ p = remove_song_list p' s
-    ensures forall p. List.mem p sp -> exists p'. List.mem p' sp /\ fst p = fst p' /\ 
-      forall s'. s <> s' /\ List.mem s' (snd p) -> List.mem s' (snd p')
-    ensures forall p.  List.mem p sp' -> not List.mem s (snd p)*)
+*)
 
 (** {2 Paragraph e: returns all the playlists containing a given song} *)
 
@@ -336,8 +323,8 @@ type scircle = circle set
 
 (*@ predicate valid_circle (c : 'b * 'a list) = list_set (snd c) *)
 
-(*@ predicate valid_scircle (cs : ('b * 'a list) list) = list_set cs /\
-      forall c. List.mem c cs -> valid_circle c *)
+(*@ predicate valid_scircle (cs : ('b * 'a list) list) = 
+      list_set cs /\ (forall c. List.mem c cs -> valid_circle c) /\ (forall c1, c2. List.mem c1 cs /\ List.mem c2 cs -> fst c1 <> fst c2) *)
 
 let [@logic] add_to_circle (c :circle) u = 
   let (name, users) = c in 
@@ -488,7 +475,7 @@ let extended_circle (sc: scircle) u =
     match l with 
     | [] -> [] 
     | u'::us -> 
-        let circles = List.filter (fun (_, users) -> not (in_set u users) ) (all_users_circle sc u') in 
+        let circles = List.filter (fun (_, users) -> not (List.mem u users) ) (all_users_circle sc u') in 
         let no_u = join_all circles in 
         union no_u (extended us)
     (*@ ex = extended l

@@ -259,18 +259,18 @@
  </transf>
  </goal>
  <goal name="add_song_list&#39;vc" expl="VC for add_song_list" proved="true">
- <proof prover="2"><result status="valid" time="0.29" steps="2581"/></proof>
- <proof prover="3"><result status="valid" time="0.25" steps="42134"/></proof>
+ <proof prover="2"><result status="valid" time="0.04" steps="334"/></proof>
+ <proof prover="3"><result status="valid" time="0.12" steps="32160"/></proof>
  </goal>
  <goal name="add_song&#39;vc" expl="VC for add_song" proved="true">
- <proof prover="2"><result status="valid" time="2.36" steps="14664"/></proof>
+ <proof prover="2"><result status="valid" time="0.90" steps="7881"/></proof>
  </goal>
  <goal name="remove_song_list&#39;vc" expl="VC for remove_song_list" proved="true">
- <proof prover="2"><result status="valid" time="0.26" steps="1595"/></proof>
- <proof prover="3"><result status="valid" time="0.21" steps="44108"/></proof>
+ <proof prover="2"><result status="valid" time="0.04" steps="291"/></proof>
+ <proof prover="3"><result status="valid" time="0.21" steps="32517"/></proof>
  </goal>
  <goal name="remove_song&#39;vc" expl="VC for remove_song" proved="true">
- <proof prover="2"><result status="valid" time="2.04" steps="13490"/></proof>
+ <proof prover="2"><result status="valid" time="0.83" steps="7096"/></proof>
  </goal>
  <goal name="remove_song_all&#39;vc" expl="VC for remove_song_all" proved="true">
  <proof prover="2" obsolete="true"><result status="timeout" time="5.00"/></proof>
@@ -279,10 +279,10 @@
   <proof prover="2"><result status="valid" time="0.02" steps="48"/></proof>
   </goal>
   <goal name="remove_song_all&#39;vc.1" expl="precondition" proved="true">
-  <proof prover="2"><result status="valid" time="0.02" steps="89"/></proof>
+  <proof prover="2"><result status="valid" time="0.02" steps="88"/></proof>
   </goal>
   <goal name="remove_song_all&#39;vc.2" expl="precondition" proved="true">
-  <proof prover="2"><result status="valid" time="0.02" steps="57"/></proof>
+  <proof prover="2"><result status="valid" time="0.02" steps="56"/></proof>
   </goal>
   <goal name="remove_song_all&#39;vc.3" expl="postcondition" proved="true">
   <proof prover="2"><result status="valid" time="0.01" steps="4"/></proof>
@@ -293,26 +293,26 @@
   <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="428480"/></proof>
   <transf name="split_vc" proved="true" >
    <goal name="remove_song_all&#39;vc.4.0" expl="postcondition" proved="true">
-   <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
    <proof prover="2"><result status="valid" time="0.02" steps="13"/></proof>
    </goal>
    <goal name="remove_song_all&#39;vc.4.1" expl="postcondition" proved="true">
-   <proof prover="2"><result status="valid" time="0.34" steps="2325"/></proof>
+   <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   <proof prover="2"><result status="valid" time="0.20" steps="1892"/></proof>
    </goal>
   </transf>
   </goal>
-  <goal name="remove_song_all&#39;vc.5" expl="postcondition" proved="true">
+  <goal name="remove_song_all&#39;vc.5" expl="postcondition">
   <proof prover="2"><result status="valid" time="0.02" steps="29"/></proof>
   </goal>
-  <goal name="remove_song_all&#39;vc.6" expl="postcondition" proved="true">
+  <goal name="remove_song_all&#39;vc.6" expl="postcondition">
   <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
   <proof prover="2" obsolete="true"><result status="timeout" time="5.00"/></proof>
   <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="777566"/></proof>
-  <transf name="split_vc" proved="true" >
-   <goal name="remove_song_all&#39;vc.6.0" expl="postcondition" proved="true">
+  <transf name="split_vc" >
+   <goal name="remove_song_all&#39;vc.6.0" expl="postcondition">
    <proof prover="2"><result status="valid" time="0.02" steps="18"/></proof>
    </goal>
-   <goal name="remove_song_all&#39;vc.6.1" expl="postcondition" proved="true">
+   <goal name="remove_song_all&#39;vc.6.1" expl="postcondition">
    <proof prover="2"><result status="valid" time="0.02" steps="41"/></proof>
    </goal>
   </transf>
@@ -329,24 +329,24 @@
    <goal name="title_in_songs&#39;vc.1.0" expl="postcondition" proved="true">
    <transf name="split_vc" proved="true" >
     <goal name="title_in_songs&#39;vc.1.0.0" expl="postcondition" proved="true">
-    <proof prover="0"><result status="valid" time="0.04"/></proof>
+    <proof prover="0"><result status="valid" time="0.03"/></proof>
+    <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="6860146"/></proof>
     <proof prover="2" obsolete="true"><result status="timeout" time="5.00"/></proof>
+    <proof prover="3" obsolete="true"><result status="unknown" time="0.17" steps="32891"/></proof>
     </goal>
     <goal name="title_in_songs&#39;vc.1.0.1" expl="postcondition" proved="true">
-    <proof prover="0"><result status="valid" time="0.23"/></proof>
-    <proof prover="1"><result status="timeout" time="5.00" steps="6860146"/></proof>
-    <proof prover="2"><result status="timeout" time="5.00"/></proof>
-    <proof prover="3"><result status="unknown" time="0.17" steps="32891"/></proof>
+    <proof prover="0"><result status="valid" time="0.58"/></proof>
+    <proof prover="2" obsolete="true"><result status="timeout" time="5.00"/></proof>
     </goal>
    </transf>
    </goal>
    <goal name="title_in_songs&#39;vc.1.1" expl="postcondition" proved="true">
    <transf name="split_vc" proved="true" >
     <goal name="title_in_songs&#39;vc.1.1.0" expl="postcondition" proved="true">
-    <proof prover="2"><result status="valid" time="0.06" steps="9"/></proof>
+    <proof prover="2"><result status="valid" time="0.02" steps="9"/></proof>
     </goal>
     <goal name="title_in_songs&#39;vc.1.1.1" expl="postcondition" proved="true">
-    <proof prover="2"><result status="valid" time="0.02" steps="477"/></proof>
+    <proof prover="2"><result status="valid" time="0.06" steps="476"/></proof>
     </goal>
    </transf>
    </goal>
@@ -355,12 +355,12 @@
  </transf>
  </goal>
  <goal name="song_in_list&#39;vc" expl="VC for song_in_list" proved="true">
- <proof prover="0"><result status="timeout" time="5.00"/></proof>
+ <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
  <proof prover="2"><result status="valid" time="0.04" steps="65"/></proof>
- <proof prover="3"><result status="valid" time="0.14" steps="29692"/></proof>
+ <proof prover="3"><result status="valid" time="0.14" steps="28951"/></proof>
  </goal>
  <goal name="all_with_song&#39;vc" expl="VC for all_with_song" proved="true">
- <proof prover="2"><result status="valid" time="2.22" steps="12527"/></proof>
+ <proof prover="2"><result status="valid" time="2.22" steps="12504"/></proof>
  </goal>
  <goal name="all_playlists_song&#39;vc" expl="VC for all_playlists_song" proved="true">
  <transf name="split_vc" proved="true" >
@@ -370,21 +370,22 @@
   <goal name="all_playlists_song&#39;vc.1" expl="postcondition" proved="true">
   <transf name="split_vc" proved="true" >
    <goal name="all_playlists_song&#39;vc.1.0" expl="postcondition" proved="true">
+   <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
    <proof prover="2"><result status="valid" time="0.02" steps="12"/></proof>
    </goal>
    <goal name="all_playlists_song&#39;vc.1.1" expl="postcondition" proved="true">
-   <proof prover="0"><result status="valid" time="0.80"/></proof>
+   <proof prover="0"><result status="valid" time="0.62"/></proof>
    </goal>
   </transf>
   </goal>
   <goal name="all_playlists_song&#39;vc.2" expl="postcondition" proved="true">
   <transf name="split_vc" proved="true" >
    <goal name="all_playlists_song&#39;vc.2.0" expl="postcondition" proved="true">
-   <proof prover="0"><result status="valid" time="0.17"/></proof>
+   <proof prover="2"><result status="valid" time="0.02" steps="16"/></proof>
    </goal>
    <goal name="all_playlists_song&#39;vc.2.1" expl="postcondition" proved="true">
-   <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
-   <proof prover="2"><result status="valid" time="0.02" steps="100"/></proof>
+   <proof prover="0"><result status="timeout" time="5.00"/></proof>
+   <proof prover="2"><result status="valid" time="0.03" steps="99"/></proof>
    </goal>
   </transf>
   </goal>
@@ -397,7 +398,7 @@
   <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="218385"/></proof>
   <transf name="split_vc" proved="true" >
    <goal name="all_playlists_song&#39;vc.4.0" expl="postcondition" proved="true">
-   <proof prover="3" timelimit="1"><result status="valid" time="0.10" steps="31977"/></proof>
+   <proof prover="3" timelimit="1"><result status="valid" time="0.10" steps="31175"/></proof>
    </goal>
    <goal name="all_playlists_song&#39;vc.2.0" expl="postcondition">
    <proof prover="3" timelimit="1"><result status="valid" time="0.09" steps="28798"/></proof>
@@ -405,7 +406,7 @@
   </transf>
   </goal>
   <goal name="all_playlists_song&#39;vc.5" expl="postcondition" proved="true">
-  <proof prover="2"><result status="valid" time="0.13" steps="1072"/></proof>
+  <proof prover="2"><result status="valid" time="0.13" steps="1074"/></proof>
   </goal>
  </transf>
  </goal>
@@ -413,16 +414,17 @@
  <proof prover="2"><result status="valid" time="0.06" steps="484"/></proof>
  </goal>
  <goal name="delete_from_circle&#39;vc" expl="VC for delete_from_circle" proved="true">
- <proof prover="2"><result status="valid" time="0.05" steps="397"/></proof>
+ <proof prover="2"><result status="valid" time="0.05" steps="395"/></proof>
  </goal>
- <goal name="add_to_all_circles&#39;vc" expl="VC for add_to_all_circles">
+ <goal name="add_to_all_circles&#39;vc" expl="VC for add_to_all_circles" proved="true">
  <proof prover="2" obsolete="true"><result status="timeout" time="5.00"/></proof>
- <transf name="split_vc" >
+ <transf name="split_vc" proved="true" >
   <goal name="add_to_all_circles&#39;vc.0" expl="precondition" proved="true">
-  <proof prover="2"><result status="valid" time="0.03" steps="90"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00"/></proof>
+  <proof prover="3"><result status="valid" time="0.12" steps="30056"/></proof>
   </goal>
   <goal name="add_to_all_circles&#39;vc.1" expl="precondition" proved="true">
-  <proof prover="2"><result status="valid" time="0.02" steps="62"/></proof>
+  <proof prover="2"><result status="valid" time="0.02" steps="64"/></proof>
   </goal>
   <goal name="add_to_all_circles&#39;vc.2" expl="postcondition" proved="true">
   <proof prover="1" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="2273797"/></proof>
@@ -430,10 +432,10 @@
   <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="167186"/></proof>
   <transf name="split_vc" proved="true" >
    <goal name="add_to_all_circles&#39;vc.2.0" expl="postcondition" proved="true">
-   <proof prover="3" timelimit="1"><result status="valid" time="0.12" steps="30359"/></proof>
+   <proof prover="3" timelimit="1"><result status="valid" time="0.18" steps="29860"/></proof>
    </goal>
    <goal name="add_to_all_circles&#39;vc.2.1" expl="postcondition" proved="true">
-   <proof prover="3" timelimit="1"><result status="valid" time="0.18" steps="33710"/></proof>
+   <proof prover="3" timelimit="1"><result status="valid" time="0.12" steps="33273"/></proof>
    </goal>
   </transf>
   </goal>
@@ -443,60 +445,59 @@
   <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="192046"/></proof>
   <transf name="split_vc" proved="true" >
    <goal name="add_to_all_circles&#39;vc.3.0" expl="postcondition" proved="true">
-   <proof prover="3" timelimit="1"><result status="valid" time="0.11" steps="30092"/></proof>
+   <proof prover="3" timelimit="1"><result status="valid" time="0.11" steps="29267"/></proof>
    </goal>
    <goal name="add_to_all_circles&#39;vc.3.1" expl="postcondition" proved="true">
-   <proof prover="3" timelimit="1"><result status="valid" time="0.11" steps="31847"/></proof>
+   <proof prover="3" timelimit="1"><result status="valid" time="0.11" steps="31260"/></proof>
    </goal>
   </transf>
   </goal>
-  <goal name="add_to_all_circles&#39;vc.4" expl="postcondition">
+  <goal name="add_to_all_circles&#39;vc.4" expl="postcondition" proved="true">
   <proof prover="1" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="2102646"/></proof>
   <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
-  <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="251820"/></proof>
-  <transf name="split_vc" >
-   <goal name="add_to_all_circles&#39;vc.4.0" expl="postcondition">
-   <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
-   <proof prover="1" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="8616599"/></proof>
-   <proof prover="2" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
-   <proof prover="3" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="985201"/></proof>
-   <transf name="inline_goal" >
-    <goal name="add_to_all_circles&#39;vc.4.0.0" expl="postcondition">
-    <transf name="split_all_full" >
-     <goal name="add_to_all_circles&#39;vc.4.0.0.0" expl="VC for add_to_all_circles">
-     <proof prover="1" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="2389188"/></proof>
-     <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
-     <proof prover="3" memlimit="2000" obsolete="true"><result status="failure" time="0.00"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="1454103"/></proof>
+  <transf name="split_vc" proved="true" >
+   <goal name="add_to_all_circles&#39;vc.4.0" expl="postcondition" proved="true">
+   <transf name="unfold" proved="true" arg1="valid_scircle">
+    <goal name="add_to_all_circles&#39;vc.4.0.0" expl="VC for add_to_all_circles" proved="true">
+    <transf name="split_vc" proved="true" >
+     <goal name="add_to_all_circles&#39;vc.4.0.0.0" expl="VC for add_to_all_circles" proved="true">
+     <transf name="inline_goal" proved="true" >
+      <goal name="add_to_all_circles&#39;vc.4.0.0.0.0" expl="VC for add_to_all_circles" proved="true">
+      <transf name="split_all_full" proved="true" >
+       <goal name="add_to_all_circles&#39;vc.4.0.0.0.0.0" expl="VC for add_to_all_circles" proved="true">
+       <transf name="split_vc" proved="true" >
+        <goal name="add_to_all_circles&#39;vc.4.0.0.0.0.0.0" expl="VC for add_to_all_circles" proved="true">
+        <proof prover="2"><result status="valid" time="0.02" steps="16"/></proof>
+        </goal>
+       </transf>
+       </goal>
+      </transf>
+      </goal>
+     </transf>
      </goal>
      <goal name="add_to_all_circles&#39;vc.4.0.0.1" expl="VC for add_to_all_circles" proved="true">
-     <proof prover="3" timelimit="1"><result status="valid" time="0.18" steps="37941"/></proof>
+     <proof prover="2"><result status="valid" time="0.04" steps="12"/></proof>
+     </goal>
+     <goal name="add_to_all_circles&#39;vc.4.0.0.2" expl="VC for add_to_all_circles" proved="true">
+     <proof prover="2"><result status="valid" time="0.02" steps="15"/></proof>
      </goal>
     </transf>
     </goal>
    </transf>
    </goal>
-   <goal name="add_to_all_circles&#39;vc.4.1" expl="postcondition">
-   <proof prover="1" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="9606823"/></proof>
-   <proof prover="2" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
-   <proof prover="3" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="956889"/></proof>
-   <transf name="inline_goal" >
-    <goal name="add_to_all_circles&#39;vc.4.1.0" expl="postcondition">
-    <transf name="split_all_full" >
-     <goal name="add_to_all_circles&#39;vc.4.1.0.0" expl="VC for add_to_all_circles">
-     <proof prover="0"><result status="timeout" time="5.00"/></proof>
-     <proof prover="1" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="8277330"/></proof>
-     <proof prover="2" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
-     <proof prover="3" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="1348743"/></proof>
-     <transf name="inline_goal" >
-      <goal name="add_to_all_circles&#39;vc.4.1.0.0.0" expl="VC for add_to_all_circles">
-      <proof prover="1" timelimit="30" memlimit="4000" obsolete="true"><result status="timeout" time="30.00" steps="33611323"/></proof>
-      <proof prover="2" timelimit="30" memlimit="4000" obsolete="true"><result status="timeout" time="30.00"/></proof>
-      <proof prover="3" timelimit="30" memlimit="4000" obsolete="true"><result status="timeout" time="30.00" steps="3642327"/></proof>
-      </goal>
-     </transf>
+   <goal name="add_to_all_circles&#39;vc.4.1" expl="postcondition" proved="true">
+   <transf name="inline_goal" proved="true" >
+    <goal name="add_to_all_circles&#39;vc.4.1.0" expl="postcondition" proved="true">
+    <transf name="split_all_full" proved="true" >
+     <goal name="add_to_all_circles&#39;vc.4.1.0.0" expl="VC for add_to_all_circles" proved="true">
+     <proof prover="2"><result status="valid" time="0.02" steps="138"/></proof>
      </goal>
      <goal name="add_to_all_circles&#39;vc.4.1.0.1" expl="VC for add_to_all_circles" proved="true">
-     <proof prover="3" timelimit="1"><result status="valid" time="0.21" steps="41505"/></proof>
+     <proof prover="3" timelimit="1"><result status="valid" time="0.18" steps="40624"/></proof>
+     </goal>
+     <goal name="add_to_all_circles&#39;vc.4.1.0.2" expl="VC for add_to_all_circles" proved="true">
+     <proof prover="2"><result status="valid" time="0.04" steps="191"/></proof>
      </goal>
     </transf>
     </goal>
@@ -507,7 +508,7 @@
  </transf>
  </goal>
  <goal name="add_to_scircle&#39;vc" expl="VC for add_to_scircle" proved="true">
- <proof prover="2"><result status="valid" time="0.04" steps="269"/></proof>
+ <proof prover="2"><result status="valid" time="0.20" steps="1174"/></proof>
  <transf name="split_vc" proved="true" >
   <goal name="add_to_scircle&#39;vc.0" expl="precondition" proved="true">
   <proof prover="2"><result status="valid" time="0.01" steps="6"/></proof>
@@ -526,7 +527,7 @@
   <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="624424"/></proof>
   </goal>
   <goal name="add_to_scircle&#39;vc.5" expl="postcondition" proved="true">
-  <proof prover="2"><result status="valid" time="0.03" steps="108"/></proof>
+  <proof prover="2"><result status="valid" time="0.14" steps="860"/></proof>
   <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="1468924"/></proof>
   </goal>
   <goal name="add_to_scircle&#39;vc.6" expl="postcondition" proved="true">
@@ -535,13 +536,48 @@
  </transf>
  </goal>
  <goal name="circle_with_name&#39;vc" expl="VC for circle_with_name" proved="true">
- <proof prover="2"><result status="valid" time="0.02" steps="157"/></proof>
+ <proof prover="2"><result status="valid" time="0.02" steps="156"/></proof>
  </goal>
  <goal name="users_in_circle&#39;vc" expl="VC for users_in_circle" proved="true">
  <proof prover="2"><result status="valid" time="0.01" steps="9"/></proof>
  </goal>
- <goal name="block_user&#39;vc" expl="VC for block_user">
- <proof prover="2" obsolete="true"><result status="timeout" time="5.00"/></proof>
+ <goal name="block_user&#39;vc" expl="VC for block_user" proved="true">
+ <proof prover="2"><result status="timeout" time="5.00"/></proof>
+ <transf name="split_vc" proved="true" >
+  <goal name="block_user&#39;vc.0" expl="precondition" proved="true">
+  <proof prover="2"><result status="timeout" time="5.00"/></proof>
+  <proof prover="3"><result status="valid" time="0.12" steps="30643"/></proof>
+  </goal>
+  <goal name="block_user&#39;vc.1" expl="precondition" proved="true">
+  <proof prover="2"><result status="valid" time="0.03" steps="64"/></proof>
+  </goal>
+  <goal name="block_user&#39;vc.2" expl="postcondition" proved="true">
+  <proof prover="2"><result status="valid" time="0.02" steps="47"/></proof>
+  </goal>
+  <goal name="block_user&#39;vc.3" expl="postcondition" proved="true">
+  <proof prover="2"><result status="timeout" time="5.00"/></proof>
+  <proof prover="3"><result status="timeout" time="5.00" steps="1311413"/></proof>
+  <transf name="split_vc" proved="true" >
+   <goal name="block_user&#39;vc.3.0" expl="postcondition" proved="true">
+   <proof prover="2"><result status="valid" time="0.02" steps="13"/></proof>
+   </goal>
+   <goal name="block_user&#39;vc.3.1" expl="postcondition" proved="true">
+   <proof prover="2"><result status="valid" time="0.02" steps="36"/></proof>
+   </goal>
+  </transf>
+  </goal>
+  <goal name="block_user&#39;vc.4" expl="postcondition" proved="true">
+  <proof prover="2"><result status="timeout" time="5.00"/></proof>
+  <transf name="split_vc" proved="true" >
+   <goal name="block_user&#39;vc.4.0" expl="postcondition" proved="true">
+   <proof prover="3"><result status="valid" time="0.07" steps="27115"/></proof>
+   </goal>
+   <goal name="block_user&#39;vc.4.1" expl="postcondition" proved="true">
+   <proof prover="3"><result status="valid" time="0.11" steps="32436"/></proof>
+   </goal>
+  </transf>
+  </goal>
+ </transf>
  </goal>
  <goal name="all_users_circle&#39;vc" expl="VC for all_users_circle" proved="true">
  <proof prover="2" obsolete="true"><result status="timeout" time="5.00"/></proof>
@@ -549,19 +585,21 @@
  <transf name="split_vc" proved="true" >
   <goal name="all_users_circle&#39;vc.0" expl="precondition" proved="true">
   <proof prover="2" obsolete="true"><result status="timeout" time="5.00"/></proof>
-  <proof prover="3"><result status="valid" time="0.98" steps="131727"/></proof>
+  <proof prover="3"><result status="valid" time="0.98" steps="133159"/></proof>
   </goal>
   <goal name="all_users_circle&#39;vc.1" expl="variant decrease" proved="true">
-  <proof prover="2"><result status="valid" time="0.03" steps="83"/></proof>
+  <proof prover="2"><result status="valid" time="0.04" steps="84"/></proof>
   </goal>
   <goal name="all_users_circle&#39;vc.2" expl="precondition" proved="true">
-  <proof prover="2"><result status="valid" time="0.02" steps="281"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00"/></proof>
+  <proof prover="3"><result status="valid" time="0.24" steps="51034"/></proof>
   </goal>
   <goal name="all_users_circle&#39;vc.3" expl="variant decrease" proved="true">
-  <proof prover="2"><result status="valid" time="0.04" steps="69"/></proof>
+  <proof prover="2"><result status="valid" time="0.03" steps="70"/></proof>
   </goal>
   <goal name="all_users_circle&#39;vc.4" expl="precondition" proved="true">
-  <proof prover="2"><result status="valid" time="0.03" steps="142"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00"/></proof>
+  <proof prover="3"><result status="valid" time="0.23" steps="47974"/></proof>
   </goal>
   <goal name="all_users_circle&#39;vc.5" expl="postcondition" proved="true">
   <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
@@ -576,10 +614,10 @@
     <proof prover="2"><result status="valid" time="0.02" steps="10"/></proof>
     </goal>
     <goal name="all_users_circle&#39;vc.5.0.1" expl="postcondition" proved="true">
-    <proof prover="2"><result status="valid" time="0.03" steps="120"/></proof>
+    <proof prover="2"><result status="valid" time="0.02" steps="123"/></proof>
     </goal>
     <goal name="all_users_circle&#39;vc.5.0.2" expl="postcondition" proved="true">
-    <proof prover="2"><result status="valid" time="0.02" steps="20"/></proof>
+    <proof prover="2"><result status="valid" time="0.03" steps="20"/></proof>
     </goal>
    </transf>
    </goal>
@@ -587,13 +625,13 @@
    <proof prover="2" obsolete="true"><result status="timeout" time="5.00"/></proof>
    <transf name="split_vc" proved="true" >
     <goal name="all_users_circle&#39;vc.5.1.0" expl="postcondition" proved="true">
-    <proof prover="2"><result status="valid" time="0.01" steps="13"/></proof>
+    <proof prover="2"><result status="valid" time="0.02" steps="13"/></proof>
     </goal>
     <goal name="all_users_circle&#39;vc.5.1.1" expl="postcondition" proved="true">
     <proof prover="2"><result status="valid" time="0.02" steps="26"/></proof>
     </goal>
     <goal name="all_users_circle&#39;vc.5.1.2" expl="postcondition" proved="true">
-    <proof prover="2"><result status="valid" time="0.02" steps="18"/></proof>
+    <proof prover="2"><result status="valid" time="0.01" steps="18"/></proof>
     </goal>
    </transf>
    </goal>
@@ -621,15 +659,15 @@
   <transf name="split_vc" proved="true" >
    <goal name="all_users_circle&#39;vc.7.0" expl="postcondition" proved="true">
    <proof prover="2"><result status="valid" time="0.03" steps="8"/></proof>
-   <proof prover="3" timelimit="1"><result status="valid" time="0.08" steps="28202"/></proof>
+   <proof prover="3" timelimit="1"><result status="valid" time="0.08" steps="27709"/></proof>
    </goal>
    <goal name="all_users_circle&#39;vc.7.1" expl="postcondition" proved="true">
-   <proof prover="2"><result status="valid" time="0.35" steps="2356"/></proof>
-   <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="177667"/></proof>
+   <proof prover="2"><result status="valid" time="0.04" steps="80"/></proof>
+   <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="178658"/></proof>
    </goal>
    <goal name="all_users_circle&#39;vc.7.2" expl="postcondition" proved="true">
-   <proof prover="2"><result status="valid" time="0.04" steps="10"/></proof>
-   <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="178658"/></proof>
+   <proof prover="2"><result status="valid" time="0.03" steps="10"/></proof>
+   <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="177667"/></proof>
    </goal>
   </transf>
   </goal>
@@ -638,39 +676,16 @@
  <goal name="largest&#39;vc" expl="VC for largest" proved="true">
  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
  <proof prover="1" obsolete="true"><result status="timeout" time="5.00" steps="4601633"/></proof>
- <proof prover="2"><result status="valid" time="0.75" steps="6115"/></proof>
+ <proof prover="2"><result status="valid" time="0.75" steps="6108"/></proof>
  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="878927"/></proof>
- <transf name="split_vc" proved="true" >
+ <transf name="split_vc" >
   <goal name="largest&#39;vc.0" expl="postcondition" proved="true">
-  <proof prover="2" obsolete="true"><result status="timeout" time="5.00"/></proof>
-  <transf name="split_vc" proved="true" >
-   <goal name="largest&#39;vc.0.0" expl="postcondition" proved="true">
-   <proof prover="1" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="2658398"/></proof>
-   <proof prover="2"><result status="valid" time="0.02" steps="4"/></proof>
-   <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="254090"/></proof>
-   </goal>
-   <goal name="largest&#39;vc.9.0" expl="postcondition">
-   <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
-   <proof prover="1" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="7679445"/></proof>
-   <proof prover="2" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
-   <proof prover="3" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="1203181"/></proof>
-   <transf name="inline_goal" >
-    <goal name="largest&#39;vc.9.0.0" expl="postcondition">
-    <transf name="split_all_full" >
-     <goal name="largest&#39;vc.9.0.0.0" expl="postcondition">
-     <proof prover="1" timelimit="30" memlimit="4000" obsolete="true"><result status="timeout" time="30.00" steps="24781519"/></proof>
-     <proof prover="2" obsolete="true"><result status="failure" time="0.00"/></proof>
-     <proof prover="3" timelimit="30" memlimit="4000" obsolete="true"><result status="timeout" time="30.00" steps="2946688"/></proof>
-     </goal>
-    </transf>
-    </goal>
-   </transf>
-   </goal>
-  </transf>
+  <proof prover="2"><result status="valid" time="0.02" steps="4"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="1204308"/></proof>
   </goal>
   <goal name="largest&#39;vc.1" expl="postcondition" proved="true">
   <proof prover="2"><result status="valid" time="0.02" steps="4"/></proof>
-  <proof prover="3"><result status="valid" time="0.12" steps="32217"/></proof>
+  <proof prover="3"><result status="valid" time="0.12" steps="31716"/></proof>
   </goal>
   <goal name="largest&#39;vc.2" expl="exceptional postcondition" proved="true">
   <proof prover="2"><result status="valid" time="0.01" steps="4"/></proof>
@@ -706,11 +721,34 @@
   </goal>
   <goal name="largest&#39;vc.8" expl="precondition" proved="true">
   <proof prover="2"><result status="valid" time="0.03" steps="71"/></proof>
-  <proof prover="3"><result status="timeout" time="5.00" steps="790653"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="790653"/></proof>
   </goal>
-  <goal name="largest&#39;vc.9" expl="postcondition" proved="true">
-  <proof prover="2"><result status="valid" time="0.02" steps="91"/></proof>
-  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="1204308"/></proof>
+  <goal name="largest&#39;vc.9" expl="postcondition">
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <transf name="split_vc" >
+   <goal name="largest&#39;vc.9.0" expl="postcondition">
+   <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   <proof prover="1" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="7679445"/></proof>
+   <proof prover="2" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   <proof prover="3" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="1203181"/></proof>
+   <transf name="inline_goal" >
+    <goal name="largest&#39;vc.9.0.0" expl="postcondition">
+    <transf name="split_all_full" >
+     <goal name="largest&#39;vc.9.0.0.0" expl="postcondition">
+     <proof prover="1" timelimit="30" memlimit="4000" obsolete="true"><result status="timeout" time="30.00" steps="24781519"/></proof>
+     <proof prover="2" obsolete="true"><result status="failure" time="0.00"/></proof>
+     <proof prover="3" timelimit="30" memlimit="4000" obsolete="true"><result status="timeout" time="30.00" steps="2946688"/></proof>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+   <goal name="largest&#39;vc.9.1" expl="postcondition" proved="true">
+   <proof prover="1" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="2658398"/></proof>
+   <proof prover="2"><result status="valid" time="0.02" steps="45"/></proof>
+   <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="254090"/></proof>
+   </goal>
+  </transf>
   </goal>
   <goal name="largest&#39;vc.10" expl="postcondition" proved="true">
   <proof prover="2"><result status="valid" time="0.03" steps="35"/></proof>
@@ -728,58 +766,59 @@
  </transf>
  </goal>
  <goal name="larger_circle&#39;vc" expl="VC for larger_circle" proved="true">
- <proof prover="2"><result status="valid" time="0.04" steps="170"/></proof>
+ <proof prover="2"><result status="valid" time="0.04" steps="92"/></proof>
  </goal>
  <goal name="in_both&#39;vc" expl="VC for in_both" proved="true">
  <transf name="split_vc" proved="true" >
   <goal name="in_both&#39;vc.0" expl="precondition" proved="true">
-  <proof prover="2"><result status="valid" time="0.12" steps="787"/></proof>
+  <proof prover="2"><result status="valid" time="0.12" steps="59"/></proof>
   </goal>
   <goal name="in_both&#39;vc.1" expl="precondition" proved="true">
-  <proof prover="2"><result status="valid" time="0.12" steps="787"/></proof>
+  <proof prover="2"><result status="valid" time="0.12" steps="62"/></proof>
   </goal>
   <goal name="in_both&#39;vc.2" expl="postcondition" proved="true">
-  <proof prover="2"><result status="valid" time="0.03" steps="33"/></proof>
+  <proof prover="2"><result status="valid" time="0.03" steps="35"/></proof>
   </goal>
   <goal name="in_both&#39;vc.3" expl="exceptional postcondition" proved="true">
-  <proof prover="2"><result status="valid" time="0.02" steps="14"/></proof>
+  <proof prover="2"><result status="valid" time="0.03" steps="14"/></proof>
   </goal>
   <goal name="in_both&#39;vc.4" expl="exceptional postcondition" proved="true">
-  <proof prover="2"><result status="valid" time="0.03" steps="10"/></proof>
+  <proof prover="2"><result status="valid" time="0.02" steps="10"/></proof>
   </goal>
  </transf>
  </goal>
  <goal name="join_all&#39;vc" expl="VC for join_all" proved="true">
- <proof prover="2"><result status="timeout" time="5.00"/></proof>
- <proof prover="3"><result status="timeout" time="5.00" steps="497524"/></proof>
+ <proof prover="2" obsolete="true"><result status="timeout" time="5.00"/></proof>
+ <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="497524"/></proof>
  <transf name="split_vc" proved="true" >
   <goal name="join_all&#39;vc.0" expl="variant decrease" proved="true">
-  <proof prover="2"><result status="valid" time="0.03" steps="50"/></proof>
+  <proof prover="2"><result status="valid" time="0.03" steps="52"/></proof>
   </goal>
   <goal name="join_all&#39;vc.1" expl="precondition" proved="true">
-  <proof prover="2"><result status="valid" time="0.03" steps="91"/></proof>
+  <proof prover="2"><result status="timeout" time="5.00"/></proof>
+  <proof prover="3"><result status="valid" time="0.18" steps="48954"/></proof>
   </goal>
   <goal name="join_all&#39;vc.2" expl="precondition" proved="true">
-  <proof prover="2"><result status="timeout" time="5.00"/></proof>
-  <proof prover="3"><result status="valid" time="0.72" steps="115299"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="3"><result status="valid" time="0.72" steps="116694"/></proof>
   </goal>
   <goal name="join_all&#39;vc.3" expl="precondition" proved="true">
   <proof prover="2"><result status="valid" time="0.02" steps="10"/></proof>
   </goal>
   <goal name="join_all&#39;vc.4" expl="postcondition" proved="true">
-  <proof prover="2"><result status="timeout" time="5.00"/></proof>
-  <proof prover="3"><result status="timeout" time="5.00" steps="1178105"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="1178105"/></proof>
   <transf name="split_vc" proved="true" >
    <goal name="join_all&#39;vc.4.0" expl="postcondition" proved="true">
-   <proof prover="2"><result status="valid" time="0.02" steps="12"/></proof>
+   <proof prover="2"><result status="valid" time="0.03" steps="12"/></proof>
    </goal>
    <goal name="join_all&#39;vc.4.1" expl="postcondition" proved="true">
-   <proof prover="2"><result status="valid" time="2.62" steps="22237"/></proof>
+   <proof prover="2"><result status="valid" time="1.32" steps="7931"/></proof>
    </goal>
   </transf>
   </goal>
   <goal name="join_all&#39;vc.5" expl="postcondition" proved="true">
-  <proof prover="2"><result status="timeout" time="5.00"/></proof>
+  <proof prover="2" obsolete="true"><result status="timeout" time="5.00"/></proof>
   <transf name="split_vc" proved="true" >
    <goal name="join_all&#39;vc.5.0" expl="postcondition" proved="true">
    <proof prover="2"><result status="valid" time="0.02" steps="46"/></proof>
@@ -792,6 +831,8 @@
  </transf>
  </goal>
  <goal name="extended_circle&#39;vc" expl="VC for extended_circle">
+ <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+ <proof prover="2" obsolete="true"><result status="timeout" time="5.00"/></proof>
  <transf name="split_vc" >
   <goal name="extended_circle&#39;vc.0" expl="precondition" proved="true">
   <proof prover="2"><result status="valid" time="0.01" steps="4"/></proof>
@@ -800,37 +841,21 @@
   <proof prover="2"><result status="valid" time="0.03" steps="10"/></proof>
   </goal>
   <goal name="extended_circle&#39;vc.2" expl="precondition">
-  <proof prover="2"><result status="timeout" time="5.00"/></proof>
-  <proof prover="3"><result status="timeout" time="5.00" steps="812378"/></proof>
-  <transf name="unfold" arg1="valid_scircle" arg2="in" arg3="H">
+  <proof prover="1" memlimit="2000"><result status="timeout" time="5.00" steps="6751776"/></proof>
+  <proof prover="2" memlimit="2000"><result status="timeout" time="5.00"/></proof>
+  <proof prover="3" memlimit="2000"><result status="timeout" time="5.00" steps="1251248"/></proof>
+  <transf name="inline_goal" >
    <goal name="extended_circle&#39;vc.2.0" expl="precondition">
-   <transf name="split_vc" >
+   <transf name="split_all_full" >
     <goal name="extended_circle&#39;vc.2.0.0" expl="precondition">
-    <proof prover="2"><result status="timeout" time="5.00"/></proof>
-    <proof prover="3"><result status="timeout" time="5.00" steps="948590"/></proof>
-    <transf name="unfold" arg1="valid_circle" arg2="in" arg3="H">
+    <proof prover="1" timelimit="1"><result status="timeout" time="1.00" steps="2727771"/></proof>
+    <proof prover="2" timelimit="1"><result status="timeout" time="1.00"/></proof>
+    <proof prover="3" timelimit="1"><result status="timeout" time="1.00" steps="182540"/></proof>
+    <transf name="split_vc" >
      <goal name="extended_circle&#39;vc.2.0.0.0" expl="precondition">
-     <proof prover="1" memlimit="2000"><result status="timeout" time="5.00" steps="6821102"/></proof>
-     <proof prover="2" memlimit="2000"><result status="timeout" time="5.00"/></proof>
-     <proof prover="3" memlimit="2000"><result status="timeout" time="5.00" steps="948460"/></proof>
-     <transf name="inline_goal" >
-      <goal name="extended_circle&#39;vc.2.0.0.0.0" expl="precondition">
-      <transf name="split_all_full" >
-       <goal name="extended_circle&#39;vc.2.0.0.0.0.0" expl="precondition">
-       <proof prover="1" timelimit="1"><result status="timeout" time="1.00" steps="2528390"/></proof>
-       <proof prover="2" timelimit="1"><result status="timeout" time="1.00"/></proof>
-       <proof prover="3" timelimit="1"><result status="timeout" time="1.00" steps="186019"/></proof>
-       <transf name="split_vc" >
-        <goal name="extended_circle&#39;vc.2.0.0.0.0.0.0" expl="precondition">
-        <proof prover="1" timelimit="1"><result status="timeout" time="1.00" steps="2487313"/></proof>
-        <proof prover="2" timelimit="1"><result status="timeout" time="1.00"/></proof>
-        <proof prover="3" memlimit="2000"><undone/></proof>
-        </goal>
-       </transf>
-       </goal>
-      </transf>
-      </goal>
-     </transf>
+     <proof prover="1" timelimit="30" memlimit="4000"><result status="timeout" time="30.00" steps="23911415"/></proof>
+     <proof prover="2" timelimit="30" memlimit="4000"><result status="timeout" time="30.00"/></proof>
+     <proof prover="3" timelimit="30" memlimit="4000"><result status="timeout" time="30.00" steps="5038219"/></proof>
      </goal>
     </transf>
     </goal>
@@ -838,35 +863,89 @@
    </goal>
   </transf>
   </goal>
-  <goal name="extended_circle&#39;vc.3" expl="precondition">
-  <proof prover="2"><result status="timeout" time="5.00"/></proof>
-  <proof prover="3"><result status="timeout" time="5.00" steps="792607"/></proof>
+  <goal name="extended_circle&#39;vc.3" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="8414832"/></proof>
+  <proof prover="2" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="3" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="1411010"/></proof>
+  <transf name="inline_goal" proved="true" >
+   <goal name="extended_circle&#39;vc.3.0" expl="precondition" proved="true">
+   <transf name="split_all_full" proved="true" >
+    <goal name="extended_circle&#39;vc.3.0.0" expl="VC for extended_circle" proved="true">
+    <proof prover="1" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="2361154"/></proof>
+    <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+    <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="196391"/></proof>
+    <transf name="split_vc" proved="true" >
+     <goal name="extended_circle&#39;vc.3.0.0.0" expl="VC for extended_circle" proved="true">
+     <proof prover="1" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="6107168"/></proof>
+     <proof prover="2" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+     <proof prover="3" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="628035"/></proof>
+     <transf name="inline_goal" proved="true" >
+      <goal name="extended_circle&#39;vc.3.0.0.0.0" expl="VC for extended_circle" proved="true">
+      <proof prover="1" timelimit="30" memlimit="4000" obsolete="true"><result status="timeout" time="30.00" steps="20845108"/></proof>
+      <proof prover="2" timelimit="30" memlimit="4000" obsolete="true"><result status="timeout" time="30.00"/></proof>
+      <proof prover="3"><result status="valid" time="0.16" steps="47520"/></proof>
+      </goal>
+     </transf>
+     </goal>
+    </transf>
+    </goal>
+    <goal name="extended_circle&#39;vc.3.0.1" expl="VC for extended_circle" proved="true">
+    <proof prover="3" timelimit="1"><result status="valid" time="0.15" steps="45482"/></proof>
+    </goal>
+    <goal name="extended_circle&#39;vc.3.0.2" expl="VC for extended_circle" proved="true">
+    <proof prover="3"><result status="valid" time="0.18" steps="45709"/></proof>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
   </goal>
-  <goal name="extended_circle&#39;vc.4" expl="variant decrease">
-  <proof prover="2"><result status="timeout" time="5.00"/></proof>
-  <proof prover="3"><result status="timeout" time="5.00" steps="710716"/></proof>
+  <goal name="extended_circle&#39;vc.4" expl="variant decrease" proved="true">
+  <proof prover="2"><result status="valid" time="0.04" steps="90"/></proof>
+  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="710716"/></proof>
   </goal>
   <goal name="extended_circle&#39;vc.5" expl="precondition" proved="true">
-  <proof prover="0" obsolete="true"><result status="valid" time="0.39"/></proof>
-  <proof prover="2"><result status="valid" time="0.02" steps="14"/></proof>
+  <proof prover="0"><result status="valid" time="0.03"/></proof>
+  <proof prover="2"><result status="valid" time="0.02" steps="16"/></proof>
   </goal>
   <goal name="extended_circle&#39;vc.6" expl="precondition" proved="true">
   <proof prover="2"><result status="valid" time="0.03" steps="14"/></proof>
   </goal>
-  <goal name="extended_circle&#39;vc.7" expl="precondition">
-  <proof prover="2"><result status="timeout" time="5.00"/></proof>
-  <proof prover="3"><result status="timeout" time="5.00" steps="785439"/></proof>
+  <goal name="extended_circle&#39;vc.7" expl="precondition" proved="true">
+  <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="1" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="9023664"/></proof>
+  <proof prover="2" memlimit="2000" obsolete="true"><result status="timeout" time="5.00"/></proof>
+  <proof prover="3" memlimit="2000" obsolete="true"><result status="timeout" time="5.00" steps="889851"/></proof>
+  <transf name="inline_goal" proved="true" >
+   <goal name="extended_circle&#39;vc.7.0" expl="precondition" proved="true">
+   <transf name="split_all_full" proved="true" >
+    <goal name="extended_circle&#39;vc.7.0.0" expl="precondition" proved="true">
+    <proof prover="1" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="2138277"/></proof>
+    <proof prover="2" timelimit="1" obsolete="true"><result status="timeout" time="1.00"/></proof>
+    <proof prover="3" timelimit="1" obsolete="true"><result status="timeout" time="1.00" steps="157771"/></proof>
+    <transf name="split_vc" proved="true" >
+     <goal name="extended_circle&#39;vc.7.0.0.0" expl="precondition" proved="true">
+     <proof prover="1" timelimit="30" memlimit="4000" obsolete="true"><result status="failure" time="0.00"/></proof>
+     <proof prover="2" obsolete="true"><result status="timeout" time="5.00"/></proof>
+     <proof prover="3"><result status="valid" time="0.16" steps="42840"/></proof>
+     </goal>
+    </transf>
+    </goal>
+   </transf>
+   </goal>
+  </transf>
   </goal>
-  <goal name="extended_circle&#39;vc.8" expl="postcondition">
+  <goal name="extended_circle&#39;vc.8" expl="postcondition" proved="true">
   <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
   <proof prover="2" obsolete="true"><result status="timeout" time="5.00"/></proof>
-  <transf name="split_vc" >
+  <transf name="split_vc" proved="true" >
    <goal name="extended_circle&#39;vc.8.0" expl="postcondition" proved="true">
    <proof prover="2"><result status="valid" time="0.02" steps="14"/></proof>
    </goal>
-   <goal name="extended_circle&#39;vc.8.1" expl="postcondition">
-   <proof prover="2"><result status="timeout" time="6.00"/></proof>
-   <proof prover="3"><result status="timeout" time="5.00" steps="1301705"/></proof>
+   <goal name="extended_circle&#39;vc.8.1" expl="postcondition" proved="true">
+   <proof prover="0"><result status="valid" time="0.15"/></proof>
+   <proof prover="2" obsolete="true"><result status="timeout" time="5.00"/></proof>
+   <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="1301705"/></proof>
    </goal>
   </transf>
   </goal>
@@ -877,7 +956,10 @@
   <proof prover="2"><result status="valid" time="0.03" steps="8"/></proof>
   </goal>
   <goal name="extended_circle&#39;vc.11" expl="postcondition" proved="true">
-  <proof prover="2"><result status="valid" time="0.02" steps="10"/></proof>
+  <proof prover="0" timelimit="50" obsolete="true"><result status="outofmemory" time="41.43"/></proof>
+  <proof prover="1" timelimit="30" memlimit="4000" obsolete="true"><result status="timeout" time="30.00" steps="27209956"/></proof>
+  <proof prover="2" timelimit="30" memlimit="4000" obsolete="true"><result status="timeout" time="30.00"/></proof>
+  <proof prover="3"><result status="valid" time="0.13" steps="37512"/></proof>
   </goal>
  </transf>
  </goal>
