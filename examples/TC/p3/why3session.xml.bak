@@ -822,10 +822,9 @@
        <proof prover="3" timelimit="1"><result status="timeout" time="1.00" steps="186019"/></proof>
        <transf name="split_vc" >
         <goal name="extended_circle&#39;vc.2.0.0.0.0.0.0" expl="precondition">
-        <proof prover="0"><result status="timeout" time="5.00"/></proof>
         <proof prover="1" timelimit="1"><result status="timeout" time="1.00" steps="2487313"/></proof>
-        <proof prover="2"><result status="timeout" time="5.00"/></proof>
-        <proof prover="3" memlimit="2000"><result status="failure" time="0.00"/></proof>
+        <proof prover="2" timelimit="1"><result status="timeout" time="1.00"/></proof>
+        <proof prover="3" memlimit="2000"><undone/></proof>
         </goal>
        </transf>
        </goal>
@@ -840,55 +839,33 @@
   </transf>
   </goal>
   <goal name="extended_circle&#39;vc.3" expl="precondition">
-  <proof prover="0"><result status="timeout" time="5.00"/></proof>
   <proof prover="2"><result status="timeout" time="5.00"/></proof>
   <proof prover="3"><result status="timeout" time="5.00" steps="792607"/></proof>
   </goal>
-  <goal name="extended_circle&#39;vc.4" expl="variant decrease" proved="true">
-  <proof prover="2"><result status="valid" time="0.04" steps="84"/></proof>
-  <proof prover="3" obsolete="true"><result status="timeout" time="5.00" steps="710716"/></proof>
+  <goal name="extended_circle&#39;vc.4" expl="variant decrease">
+  <proof prover="2"><result status="timeout" time="5.00"/></proof>
+  <proof prover="3"><result status="timeout" time="5.00" steps="710716"/></proof>
   </goal>
   <goal name="extended_circle&#39;vc.5" expl="precondition" proved="true">
   <proof prover="0" obsolete="true"><result status="valid" time="0.39"/></proof>
-  <proof prover="2"><result status="valid" time="0.02" steps="16"/></proof>
+  <proof prover="2"><result status="valid" time="0.02" steps="14"/></proof>
   </goal>
   <goal name="extended_circle&#39;vc.6" expl="precondition" proved="true">
   <proof prover="2"><result status="valid" time="0.03" steps="14"/></proof>
   </goal>
   <goal name="extended_circle&#39;vc.7" expl="precondition">
-  <proof prover="0"><result status="timeout" time="5.00"/></proof>
-  <proof prover="1" memlimit="2000"><result status="timeout" time="5.00" steps="9023664"/></proof>
-  <proof prover="2" memlimit="2000"><result status="timeout" time="5.00"/></proof>
-  <proof prover="3" memlimit="2000"><result status="timeout" time="5.00" steps="889851"/></proof>
-  <transf name="inline_goal" >
-   <goal name="extended_circle&#39;vc.7.0" expl="precondition">
-   <transf name="split_all_full" >
-    <goal name="extended_circle&#39;vc.7.0.0" expl="precondition">
-    <proof prover="1" timelimit="1"><result status="timeout" time="1.00" steps="2138277"/></proof>
-    <proof prover="2" timelimit="1"><result status="timeout" time="1.00"/></proof>
-    <proof prover="3" timelimit="1"><result status="timeout" time="1.00" steps="157771"/></proof>
-    <transf name="split_vc" >
-     <goal name="extended_circle&#39;vc.7.0.0.0" expl="precondition">
-     <proof prover="1" timelimit="30" memlimit="4000"><undone/></proof>
-     <proof prover="2" timelimit="30" memlimit="4000"><result status="timeout" time="30.00"/></proof>
-     <proof prover="3" timelimit="30" memlimit="4000"><result status="timeout" time="30.00" steps="3464599"/></proof>
-     </goal>
-    </transf>
-    </goal>
-   </transf>
-   </goal>
-  </transf>
+  <proof prover="2"><result status="timeout" time="5.00"/></proof>
+  <proof prover="3"><result status="timeout" time="5.00" steps="785439"/></proof>
   </goal>
-  <goal name="extended_circle&#39;vc.8" expl="postcondition" proved="true">
+  <goal name="extended_circle&#39;vc.8" expl="postcondition">
   <proof prover="0" obsolete="true"><result status="timeout" time="5.00"/></proof>
   <proof prover="2" obsolete="true"><result status="timeout" time="5.00"/></proof>
-  <transf name="split_vc" proved="true" >
+  <transf name="split_vc" >
    <goal name="extended_circle&#39;vc.8.0" expl="postcondition" proved="true">
    <proof prover="2"><result status="valid" time="0.02" steps="14"/></proof>
    </goal>
-   <goal name="extended_circle&#39;vc.8.1" expl="postcondition" proved="true">
-   <proof prover="0"><result status="valid" time="0.15"/></proof>
-   <proof prover="2"><result status="timeout" time="5.00"/></proof>
+   <goal name="extended_circle&#39;vc.8.1" expl="postcondition">
+   <proof prover="2"><result status="timeout" time="6.00"/></proof>
    <proof prover="3"><result status="timeout" time="5.00" steps="1301705"/></proof>
    </goal>
   </transf>
