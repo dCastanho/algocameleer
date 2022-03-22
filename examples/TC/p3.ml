@@ -25,9 +25,7 @@
          list_set (x::l) -> list_set l *)
   
   (* lemma list_remove: forall l1, l2: 'a list. 
-        ((forall e. List.mem e l1 -> List.mem e l2) /\ list_set l2 ) -> list_set l1 *)
-
-    
+        ((forall e. List.mem e l1 -> List.mem e l2) /\ list_set l2 ) -> list_set l1 *)    
 
 type 'a set = 'a list
 
@@ -82,9 +80,6 @@ let [@logic] intersection s1 s2 =
       ensures forall e. List.mem e s' <-> List.mem e s1 /\ List.mem e s2
       ensures list_set s' *)
 
-(*let iter_union f s =
-  List.fold_left (fun acc x -> union acc (singleton (f x))) [] s*)
-
 (** {1 Exercice 1: System of users' access to printers} *)
 
 (** {2 Paragraph a: model the system's set of states with a set APRINTER} *)
@@ -100,7 +95,7 @@ type aprinter = access set
 (*@ predicate valid_system (ap : ('b * 'a list) list ) = 
         list_set ap /\ forall p. List.mem p ap -> list_set (snd p)  *)
 
-(* check_access : user -> printer -> aprinter -> bool *)
+(** check_access : user -> printer -> aprinter -> bool *)
 let rec check_access (u: user) (p: printer) (ap: aprinter) =
   (* List.exists (fun (a, pp) -> a = u && in_set p pp) ap List.exists not supported currently due to name clashes with exists*)
   match ap with
@@ -113,7 +108,7 @@ let rec check_access (u: user) (p: printer) (ap: aprinter) =
 
 (** {2 Paragraph c: give a user access to a printer} *)
 
-(* give_access : user -> printer -> aprinter -> aprinter *)
+(** give_access : user -> printer -> aprinter -> aprinter *)
 let give_access (u: user) (p: printer) (ap: aprinter) =
   let user = List.find_all (fun (a, _) -> String.equal a u) ap in
   match user with
@@ -141,7 +136,7 @@ due to list_set invariant. Could also remove this invariant.*)
 (*@ predicate larger (i : int) ( l : ('a * 'b list) list ) =
         forall p. List.mem p l -> i >= List.length (snd p)*)
 
-
+(** int -> aprinter -> bool *)
 let rec larger_all i (l : aprinter) =
   match l with 
   | [] -> true
@@ -151,7 +146,7 @@ let rec larger_all i (l : aprinter) =
     variant l
     ensures b <-> larger i l *)
 
-(* max_access : aprinter -> user set *)
+(** max_access : aprinter -> user set *)
 let max_access (ap : aprinter) =
   let rec larger l =  
   match l with 
@@ -195,7 +190,7 @@ type splaylist = playlist set
 (*@ predicate valid_splay (sp : ('a * 'b list) list ) = list_set sp /\
     forall x. List.mem x sp -> valid_playlist x *)
 
-(* add_song_list : playlist -> song -> playlist *)
+(** add_song_list : playlist -> song -> playlist *)
 let [@logic] add_song_list (p : playlist) s =
   let (name, song_set) = p in
     (name, union song_set (singleton s))
@@ -206,7 +201,7 @@ let [@logic] add_song_list (p : playlist) s =
       ensures fst pl' = fst pl
       ensures valid_playlist pl'*)
 
-(* add_song : playlist -> song -> splaylist -> splaylist *)
+(** add_song : playlist -> song -> splaylist -> splaylist *)
 let add_song p s sp =
   union (dif sp (singleton p)) (singleton (add_song_list p s))
 (*@ sp' = add_song p s sp
@@ -218,7 +213,7 @@ let add_song p s sp =
 
 (** {2 Paragraph c: remove a song from playlist} *)
 
-(* remove_song_list : song -> playlist -> playlist *)
+(** remove_song_list : song -> playlist -> playlist *)
 let [@logic] remove_song_list (p : playlist) s  =
   let (name, song_set) = p in
   (name, dif song_set (singleton s))
@@ -230,7 +225,7 @@ let [@logic] remove_song_list (p : playlist) s  =
       ensures valid_playlist pl'*)
 
 
-(* remove_song : playlist -> song -> splaylist -> splaylist *)
+(** remove_song : playlist -> song -> splaylist -> splaylist *)
 let [@logic] remove_song p s sp =
   union (dif sp (singleton p)) (singleton (remove_song_list p s))
 (*@ sp' = remove_song p s sp 
@@ -242,7 +237,7 @@ let [@logic] remove_song p s sp =
 
 (** {2 Paragraph d: remove a song from all playlists} *)
 
-(* remove_song_all: song -> splaylist -> splaylist *)
+(** remove_song_all: song -> splaylist -> splaylist *)
 let rec remove_song_all s sp =
   match sp with 
   | [] -> [] 
@@ -256,6 +251,7 @@ let rec remove_song_all s sp =
 
 (** {2 Paragraph e: returns all the playlists containing a given song} *)
 
+(** title -> song set -> bool *)
 let rec title_in_songs (t : title) ( sxs : song set) =
   match sxs with 
   | [] -> false 
@@ -265,7 +261,7 @@ let rec title_in_songs (t : title) ( sxs : song set) =
     ensures b <-> exists s. List.mem s sxs /\ let (t', _, _, _) = s in t' = t
 *)
 
-(* song_in_list : title -> playlist -> bool *)
+(** song_in_list : title -> playlist -> bool *)
 let song_in_list (t : title) ( p : playlist)=
   let (_, song_set) = p in
   title_in_songs t song_set
@@ -274,6 +270,7 @@ let song_in_list (t : title) ( p : playlist)=
     ensures b <-> exists s. List.mem s (snd p) /\ let (t', _, _, _) = s in t' = t
 *)
 
+(** title -> splaylist -> splaylist *)
 let rec all_with_song (t : title) ( sp : splaylist) =
   match sp with 
   | [] -> []
@@ -326,6 +323,7 @@ type scircle = circle set
 (*@ predicate valid_scircle (cs : ('b * 'a list) list) = 
       list_set cs /\ (forall c. List.mem c cs -> valid_circle c) /\ (forall c1, c2. List.mem c1 cs /\ List.mem c2 cs -> fst c1 <> fst c2) *)
 
+(** circle -> cuser -> circle *)
 let [@logic] add_to_circle (c :circle) u = 
   let (name, users) = c in 
     (name, union users (singleton u))
@@ -336,6 +334,7 @@ let [@logic] add_to_circle (c :circle) u =
     ensures List.mem u (snd c')
     ensures valid_circle c' *)
 
+(** circle -> cuser -> circle *)
 let [@logic] delete_from_circle (c :circle) u = 
   let (name, users) = c in 
       (name, dif users (singleton u))
@@ -346,7 +345,7 @@ let [@logic] delete_from_circle (c :circle) u =
       ensures not List.mem u (snd c')
       ensures valid_circle c' *)
 
-(* scircle -> user -> scircle *)
+(** scircle -> user -> scircle *)
 let [@logic] rec add_to_all_circles sc u =
     match sc with 
     | [] -> []
@@ -357,6 +356,7 @@ let [@logic] rec add_to_all_circles sc u =
       ensures forall c. List.mem c sc' -> List.mem u (snd c)
       ensures valid_scircle sc' *)
       
+(** scircle -> scircle -> cuser -> scircle *)
 let add_to_scircle sc1 sc2 u =
   union (dif sc1 sc2) (add_to_all_circles sc2 u)
 (*@ sc' = add_to_scircle sc1 sc2 u
@@ -369,7 +369,7 @@ let add_to_scircle sc1 sc2 u =
 
 (** {2 Paragraph c: Define (with a function or relation) the operation on SCIRCLE that retrieves all people in a circle.} *)
 
-
+(** scircle -> string -> circle *)
 let rec circle_with_name (sc:scircle) n = 
   match sc with 
   | [] -> invalid_arg "no circle with that name"
@@ -384,6 +384,7 @@ let rec circle_with_name (sc:scircle) n =
     (*requires valid_scircle sc  
       ensures valid_circle c*)
 
+(** scircle -> string -> scuser *)
 let users_in_circle sc n =
   let (_, u) = circle_with_name sc n in u 
 (*@ us = users_in_circle sc n 
@@ -392,6 +393,7 @@ let users_in_circle sc n =
 
 (** {2 Paragraph d: Define (with a function or relation) the operation on SCIRCLE that blocks a user, i.e., deletes a user from all circles.} *)
 
+(** scircle -> cuser -> scircle *)
 let [@logic] rec block_user sc u =
     match sc with 
     | [] -> []
@@ -404,6 +406,7 @@ let [@logic] rec block_user sc u =
 
 (** {2 Paragraph e: Define (with a function or relation) the operation on SCIRCLE that retrieves all the circles associated with a given user.} *)
 
+(** scircle -> cuser -> scircle *)
 let [@logic] rec all_users_circle (sc:scircle) u = 
   match sc with 
   | [] -> []
@@ -418,6 +421,7 @@ let [@logic] rec all_users_circle (sc:scircle) u =
 
 (** {2 Paragraph f: Define (with a function or relation) the operation on SCIRCLE that given a user, retrieves its larger circle.} *)
 
+(** scricle -> circle *)
 let rec largest l = 
   match l with
   | [] -> invalid_arg "Empty list"
@@ -434,6 +438,7 @@ let rec largest l =
         ensures forall e. List.mem e l -> List.length (snd c) >= List.length (snd e)
         ensures List.mem c l *)
 
+(** scircle -> cuser -> circle*)
 let larger_circle (sc : scircle) u = 
   largest (all_users_circle sc u)
 (*@ c = larger_circle sc u 
@@ -444,6 +449,7 @@ let larger_circle (sc : scircle) u =
 
 (** {2 Paragraph g: Define (with a function or relation) the operation on SCIRCLE that given two circles names, retrieves the users that belong to the intersection.} *)
 
+(** scircle -> string -> string -> scuser *)
 let in_both (sc: scircle) n1 n2 = 
   let (_, c1) = circle_with_name sc n1 in 
   let (_, c2) = circle_with_name sc n2 in 
@@ -457,6 +463,7 @@ let in_both (sc: scircle) n1 n2 =
 (** {2 Paragraph g: An extended circle of an user are its circle’s circles, i.e. people who are at one degreeof distance.
 Define (with a function or relation) the operation on SCIRCLE that given a user, retrieves its extended circle.} *)
 
+(** scircle -> scuser *)
 let rec join_all l =
   match l with 
   | [] -> [] 
@@ -468,7 +475,7 @@ let rec join_all l =
       ensures list_set us *)
 
 
-
+(** scircle -> cuser -> scuser  *)
 let extended_circle (sc: scircle) u =
   let uc = all_users_circle sc u in 
   let rec extended l =
